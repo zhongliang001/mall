@@ -1,0 +1,13 @@
+server:
+  port: 8093
+
+spring:
+  application:
+    name: uaa
+app:
+  id: uaa #apollo配置中心应用名
+apollo:
+  meta: http://192.168.111.129:8080 #apollo地址
+  bootstrap:
+    enabled: true #是否启用apollo, 不使用apollo 请剔除该包
+    namespaces: application.yml
