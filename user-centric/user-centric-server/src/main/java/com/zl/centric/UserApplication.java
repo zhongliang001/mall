@@ -14,16 +14,16 @@ import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 @EnableEurekaClient
 @Configuration
 @ComponentScan
-@EnableApolloConfig
+@EnableApolloConfig(value = "application.yml")
 @EnableFeignClients
-@MapperScan("com.zl.user.*.mapper")
+@MapperScan("com.zl.centric.*.dao")
 public class UserApplication {
-	 public static void main(String[] args) {
-		 try {
-			 SpringApplication.run(UserApplication.class, args); 
-		 }catch (Exception e) {
-			 e.printStackTrace();
+	public static void main(String[] args) {
+		try {
+			SpringApplication.run(UserApplication.class, args);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	        
-	    }
+
+	}
 }

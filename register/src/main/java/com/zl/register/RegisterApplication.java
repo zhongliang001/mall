@@ -8,7 +8,7 @@ import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 
 @SpringBootApplication
 @EnableEurekaServer
-@EnableApolloConfig
+@EnableApolloConfig(value="application.yml")
 public class RegisterApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RegisterApplication.class, args);

@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 
 @SpringBootApplication
-@EnableApolloConfig
+@EnableApolloConfig(value="application.yml")
 public class GetwayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GetwayApplication.class, args);
