@@ -2,7 +2,7 @@ package com.zl.centric.user.entity;
 
 
 import java.io.Serializable;
-/*
+/**
  * 
  * @author coolz
  *

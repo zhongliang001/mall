@@ -10,6 +10,11 @@ import org.springframework.context.annotation.Configuration;
 
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 @EnableAutoConfiguration
 @EnableEurekaClient
 @Configuration

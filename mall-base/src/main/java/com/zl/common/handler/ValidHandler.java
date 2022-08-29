@@ -17,6 +17,11 @@ import org.springframework.web.server.handler.ResponseStatusExceptionHandler;
 import com.zl.common.dto.ResultDto;
 import com.zl.common.utils.ResultUtil;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 @ControllerAdvice(basePackages = "com.zl")
 public class ValidHandler extends ResponseStatusExceptionHandler {
 

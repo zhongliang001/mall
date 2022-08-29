@@ -2,7 +2,7 @@ package com.zl.centric.user.dto;
 
 
 import java.io.Serializable;
-/*
+/**
  * 
  * @author coolz
  *

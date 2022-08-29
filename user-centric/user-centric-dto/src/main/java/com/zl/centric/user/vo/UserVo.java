@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author coolz
+ */
 public class UserVo implements Serializable{
 
 	/**

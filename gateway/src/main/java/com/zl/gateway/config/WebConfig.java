@@ -19,15 +19,6 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 @EnableWebFlux
 public class WebConfig implements WebFluxConfigurer {
 
-//    @Autowired
-//    private ApplicationProperties applicationProperties;
-//
-//    @Bean
-//    public RestTemplate restTemplate() {
-//        RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
-//        return restTemplateBuilder.basicAuthentication(applicationProperties.getSecurity().getUsername(), applicationProperties.getSecurity().getPassword()).build();
-//    }
-
     @Bean
     public CorsWebFilter corsWebFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
