@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.github.pagehelper.PageHelper;
-import com.zl.common.dto.QueryCondition;
+
 import com.zl.centric.user.entity.UserEntity;
-import com.zl.centric.user.dao.UserDao;
+import com.zl.centric.user.mapper.UserMapper;
 import com.zl.centric.user.service.UserService;
+import com.zl.common.dto.QueryCondition;
 /*
  * 
  * @author coolz
@@ -17,9 +17,8 @@ import com.zl.centric.user.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
-	private UserDao userDao;
-	public List<UserEntity> queryList(QueryCondition queryCondition){
-		PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
+	private UserMapper userDao;
+	public List<UserEntity> queryList(QueryCondition queryCondition){		
 		List<UserEntity> list = userDao.queryList(queryCondition.getCondition());
 		return list;
 	}
@@ -32,5 +31,11 @@ public class UserServiceImpl implements UserService {
 	}
 	public int delete(String userId){
 		return userDao.delete(userId);
+	}
+
+	@Override
+	public int login() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

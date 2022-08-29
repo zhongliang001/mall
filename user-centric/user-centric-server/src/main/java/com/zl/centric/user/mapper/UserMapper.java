@@ -1,4 +1,4 @@
-package com.zl.centric.user.dao;
+package com.zl.centric.user.mapper;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +11,7 @@ import com.zl.centric.user.entity.UserEntity;
  * @author coolz
  *
 */
-public interface UserDao{
+public interface UserMapper{
 	public List<UserEntity> queryList(Map<String, Object> condtion);
 	
 	public int add(UserEntity userEntity);

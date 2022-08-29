@@ -9,7 +9,12 @@ import java.util.Map;
  */
 public class QueryCondition implements Serializable {
 
-    private Integer pageSize;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8045057631128101620L;
+
+	private Integer pageSize;
 
     private Integer pageNum;
 

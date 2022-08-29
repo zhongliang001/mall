@@ -8,7 +8,12 @@ import java.io.Serializable;
  */
 public class ResultDto<Data> implements Serializable {
 
-    private Data data;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7558677580271636719L;
+
+	private Data data;
 
     private String code;
 

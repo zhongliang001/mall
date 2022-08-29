@@ -1,7 +1,11 @@
 package com.zl.centric.user.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.pagehelper.PageHelper;
+import com.zl.centric.user.dto.UserDto;
 import com.zl.centric.user.entity.UserEntity;
 import com.zl.centric.user.service.UserService;
+import com.zl.centric.user.vo.UserVo;
 import com.zl.common.dto.QueryCondition;
 import com.zl.common.dto.ResultDto;
 import com.zl.common.utils.ResultUtil;
@@ -25,13 +32,21 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	@PostMapping("/")
-	public ResultDto<List<UserEntity>> queryList(@RequestBody QueryCondition queryCondition){
+	public ResultDto<List<UserDto>> queryList(@RequestBody QueryCondition queryCondition){
+		PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
 		List<UserEntity> list = userService.queryList(queryCondition);
-		return  ResultUtil.genenrate(list, "查询成功");
+		List<UserDto> result = list.stream().map(t -> {
+			UserDto userDto = new UserDto();
+            BeanUtils.copyProperties(t, userDto);
+            return userDto;
+        }).collect(Collectors.toList());		
+		return  ResultUtil.genenrate(result, "查询成功");
 	}
 	
 	@PostMapping("/add")
-	public ResultDto<Integer> add(@RequestBody UserEntity userEntity){
+	public ResultDto<Integer> add(@Valid @RequestBody UserVo userVo){
+		UserEntity userEntity = new UserEntity();
+		BeanUtils.copyProperties(userVo, userEntity);
 		int num = userService.add(userEntity);
 		return ResultUtil.genenrate(num, "新增成功");
 	}
@@ -44,5 +59,11 @@ public class UserController {
 	public ResultDto<Integer> delete(@RequestParam(value = "userId") String userId){
 		int num = userService.delete(userId);
 		return ResultUtil.genenrate(num, "删除成功");
+	}
+	
+	@PostMapping("/login")
+	public ResultDto<Integer> login(@RequestBody UserEntity userEntity){
+		int num = userService.login();
+		return ResultUtil.genenrate(num, "新增成功");
 	}
 }

@@ -1,4 +1,4 @@
-package com.zl.centric;
+package com.zl;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +16,7 @@ import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 @ComponentScan
 @EnableApolloConfig(value = "application.yml")
 @EnableFeignClients
-@MapperScan("com.zl.centric.*.dao")
+@MapperScan("com.zl.centric.*.mapper")
 public class UserApplication {
 	public static void main(String[] args) {
 		try {
