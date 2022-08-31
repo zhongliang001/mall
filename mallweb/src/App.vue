@@ -7,7 +7,7 @@
       <el-main>
         <el-form type="post" url="hi" labelWidth="100px">
           <el-form-item label="用户名" props="user">
-            <el-input name="el-input" type="text" v-model="user.username" placeholder="用户名" />
+            <el-input name="el-input" type="text" v-model="user.userName" placeholder="用户名" />
           </el-form-item>
           <el-form-item label="密码" props="user">
             <el-input name="el-input" type="password" v-model="user.password" placeholder="密码" />
@@ -28,7 +28,7 @@ export default {
   data: function () {
     return {
       user: {
-        username: '',
+        userName: '',
         password: ''
       }
     }
@@ -46,7 +46,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

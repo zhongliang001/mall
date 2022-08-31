@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.zl.centric.user.entity.UserEntity;
+import com.zl.centric.user.vo.LoginVo;
 import com.zl.common.dto.QueryCondition;
+import com.zl.common.exception.ZlException;
 /**
  * 
  * @author coolz
@@ -43,7 +45,8 @@ public interface UserService{
 	
 	/**
 	 * 登录
-	 * @return 数据量
+	 * @throws ZlException 登录失败异常
+	 * @return 返回用户信息
 	 */
-	public int login();
+	public UserEntity login(LoginVo loginVo) throws ZlException;
 }

@@ -17,9 +17,11 @@ import com.github.pagehelper.PageHelper;
 import com.zl.centric.user.dto.UserDto;
 import com.zl.centric.user.entity.UserEntity;
 import com.zl.centric.user.service.UserService;
+import com.zl.centric.user.vo.LoginVo;
 import com.zl.centric.user.vo.UserVo;
 import com.zl.common.dto.QueryCondition;
 import com.zl.common.dto.ResultDto;
+import com.zl.common.exception.ZlException;
 import com.zl.common.utils.ResultUtil;
 /**
  * 
@@ -62,8 +64,10 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public ResultDto<Integer> login(@RequestBody UserEntity userEntity){
-		int num = userService.login();
-		return ResultUtil.genenrate(num, "新增成功");
+	public ResultDto<UserDto> login(@RequestBody LoginVo loginVo) throws ZlException{
+		UserEntity login = userService.login(loginVo);
+		UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(login, userDto);
+		return ResultUtil.genenrate(userDto, "登录成功");
 	}
 }

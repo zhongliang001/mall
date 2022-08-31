@@ -4,22 +4,16 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-/**
- * @author coolz
- */
-public class UserVo implements Serializable{
+public class LoginVo implements Serializable{
 
 	/**
 	 * serialVersionUID
 	 */
-	private static final long serialVersionUID = -8425992185392272019L;
-	
+	private static final long serialVersionUID = 6712944942455664728L;
 	@NotNull(message = "用户名不能为空")
 	private String userName;
 	@NotNull(message = "密码不能为空")
 	private String password;
-	@NotNull(message = "新密码不能为空")
-	private String newPassword;
 	
 	public  void setUserName(String userName){
 		this.userName = userName;
@@ -32,12 +26,6 @@ public class UserVo implements Serializable{
 	}
 	public String getPassword(){
 		return this.password;
-	}
-	public String getNewPassword() {
-		return newPassword;
-	}
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
 	}
 
 }
