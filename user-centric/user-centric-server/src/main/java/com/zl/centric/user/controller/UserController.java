@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageHelper;
+import com.zl.centric.user.dto.LoginDto;
 import com.zl.centric.user.dto.UserDto;
 import com.zl.centric.user.entity.UserEntity;
 import com.zl.centric.user.service.UserService;
@@ -46,8 +47,14 @@ public class UserController {
 	}
 	
 	@PostMapping("/add")
-	public ResultDto<Integer> add(@Valid @RequestBody UserVo userVo){
+	public ResultDto<Integer> add(@Valid @RequestBody UserVo userVo) throws ZlException{
+		String password = userVo.getPassword();
+		String newPassword = userVo.getNewPassword();
+		if(!password.equals(newPassword)) {
+			throw new ZlException("两次输入的密码不一致");
+		}
 		UserEntity userEntity = new UserEntity();
+		
 		BeanUtils.copyProperties(userVo, userEntity);
 		int num = userService.add(userEntity);
 		return ResultUtil.genenrate(num, "新增成功");
@@ -64,10 +71,10 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public ResultDto<UserDto> login(@RequestBody LoginVo loginVo) throws ZlException{
+	public ResultDto<LoginDto> login(@RequestBody LoginVo loginVo) throws ZlException{
 		UserEntity login = userService.login(loginVo);
-		UserDto userDto = new UserDto();
-        BeanUtils.copyProperties(login, userDto);
-		return ResultUtil.genenrate(userDto, "登录成功");
+		LoginDto loginDto = new LoginDto();
+        BeanUtils.copyProperties(login, loginDto);
+		return ResultUtil.genenrate(loginDto, "查询到用户");
 	}
 }

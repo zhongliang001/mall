@@ -40,7 +40,7 @@
 				and login_error_time=#{loginErrorTime, jdbcType=VARCHAR}
 			</if>
 			<if test="loginErrorTimes != null and loginErrorTimes != ''">
-				and login_error_times=#{loginErrorTimes, jdbcType=INT}
+				and login_error_times=#{loginErrorTimes, jdbcType=INTEGER}
 			</if>
 			<if test="modifyTime != null and modifyTime != ''">
 				and modify_time=#{modifyTime, jdbcType=VARCHAR}
@@ -80,57 +80,55 @@
 		</trim>
 		) values (
 		<trim suffixOverrides=",">
-			<if test="userId != null and userId != ''">
-				user_id=#{userId, jdbcType=VARCHAR}
-			</if>
+			(select ifnull(num, 1) from (select max(user_id) +1 num from user t) n),
 			<if test="userName != null and userName != ''">
-				user_name=#{userName, jdbcType=VARCHAR}
+				#{userName, jdbcType=VARCHAR},
 			</if>
 			<if test="password != null and password != ''">
-				password=#{password, jdbcType=VARCHAR}
+				#{password, jdbcType=VARCHAR},
 			</if>
 			<if test="lastLoginTime != null and lastLoginTime != ''">
-				last_login_time=#{lastLoginTime, jdbcType=VARCHAR}
+				#{lastLoginTime, jdbcType=VARCHAR},
 			</if>
 			<if test="loginErrorTime != null and loginErrorTime != ''">
-				login_error_time=#{loginErrorTime, jdbcType=VARCHAR}
+				#{loginErrorTime, jdbcType=VARCHAR},
 			</if>
 			<if test="loginErrorTimes != null and loginErrorTimes != ''">
-				login_error_times=#{loginErrorTimes, jdbcType=INT}
+				#{loginErrorTimes, jdbcType=INTEGER},
 			</if>
 			<if test="modifyTime != null and modifyTime != ''">
-				modify_time=#{modifyTime, jdbcType=VARCHAR}
+				#{modifyTime, jdbcType=VARCHAR},
 			</if>
 			<if test="userStatus != null and userStatus != ''">
-				user_status=#{userStatus, jdbcType=CHAR}
+				#{userStatus, jdbcType=CHAR},
 			</if>
 		</trim>
 		)
 	</insert>
 	<update id="update"
 		parameterType="com.zl.centric.user.entity.UserEntity">
-		update into user set
+		update user set
 		<trim suffixOverrides=",">
 			<if test="userName != null and userName != ''">
-				user_name=#{userName, jdbcType=VARCHAR}
+				user_name=#{userName, jdbcType=VARCHAR},
 			</if>
 			<if test="password != null and password != ''">
-				password=#{password, jdbcType=VARCHAR}
+				password=#{password, jdbcType=VARCHAR},
 			</if>
 			<if test="lastLoginTime != null and lastLoginTime != ''">
-				last_login_time=#{lastLoginTime, jdbcType=VARCHAR}
+				last_login_time=#{lastLoginTime, jdbcType=VARCHAR},
 			</if>
 			<if test="loginErrorTime != null and loginErrorTime != ''">
-				login_error_time=#{loginErrorTime, jdbcType=VARCHAR}
+				login_error_time=#{loginErrorTime, jdbcType=VARCHAR},
 			</if>
 			<if test="loginErrorTimes != null and loginErrorTimes != ''">
-				login_error_times=#{loginErrorTimes, jdbcType=INT}
+				login_error_times=#{loginErrorTimes, jdbcType=INTEGER},
 			</if>
 			<if test="modifyTime != null and modifyTime != ''">
-				modify_time=#{modifyTime, jdbcType=VARCHAR}
+				modify_time=#{modifyTime, jdbcType=VARCHAR},
 			</if>
 			<if test="userStatus != null and userStatus != ''">
-				user_status=#{userStatus, jdbcType=CHAR}
+				user_status=#{userStatus, jdbcType=CHAR},
 			</if>
 		</trim>
 		<where> and user_id=#{userId, jdbcType=VARCHAR}
