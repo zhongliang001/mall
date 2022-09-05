@@ -29,7 +29,8 @@ zlaxios.interceptors.response.use(function (response) {
 })
 
 const service = {
-  baseUrl: baseURL + '/user-centric-server',
+  userURL: baseURL + '/user-centric-server',
+  uaaURL: baseURL + '/uaa',
   request: function (requestInfo) {
     const url = requestInfo.url
     const method = requestInfo.method

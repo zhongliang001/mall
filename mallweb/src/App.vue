@@ -7,10 +7,13 @@
       <el-main>
         <el-form type="post" url="hi" labelWidth="100px">
           <el-form-item label="用户名" props="user">
-            <el-input name="el-input" type="text" v-model="user.userName" placeholder="用户名" />
+            <el-input name="el-input" type="text" v-model="user.username" placeholder="用户名" />
           </el-form-item>
           <el-form-item label="密码" props="user">
             <el-input name="el-input" type="password" v-model="user.password" placeholder="密码" />
+          </el-form-item>
+          <el-form-item label="grant_type" props="user" hidden="true">
+            <el-input name="el-input" type="grant_type" v-model="user.grant_type" placeholder="grant_type" />
           </el-form-item>
           <el-button type="primary" @click="login">登录</el-button>
         </el-form>
@@ -28,18 +31,26 @@ export default {
   data: function () {
     return {
       user: {
-        userName: '',
-        password: ''
+        username: '',
+        password: '',
+        grant_type: 'password'
       }
     }
   },
   methods: {
     login: function () {
-      const url = this.service.baseUrl + '/user/login'
+      const url = this.service.uaaURL + '/oauth/token'
+      const user = this.user
       this.service.request({
         method: 'post',
         url: url,
-        data: this.user
+        config: {
+          auth: {
+            username: 'app',
+            password: '123456'
+          },
+          params: user
+        }
       })
     }
   }
