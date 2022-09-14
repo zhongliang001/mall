@@ -103,8 +103,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 //获取的token里有refresh_token
                 .authorizedGrantTypes("password", "refresh_token", "authorization_code", "client_credentials")
                 .scopes("all")
-                .accessTokenValiditySeconds(36000)
-        ;
+                .accessTokenValiditySeconds(72000);
     }
 
     private PreAuthenticatedAuthenticationProvider preAuthenticatedAuthenticationProvider() {

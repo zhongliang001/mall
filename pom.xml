@@ -155,5 +155,6 @@
 		<module>uaa</module>
 		<module>mall-base</module>
 		<module>mall-common</module>
+		<module>goods-centric</module>
 	</modules>
 </project>

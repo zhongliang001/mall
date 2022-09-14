@@ -17,7 +17,11 @@ import com.zl.common.user.constant.UserConstant;
  */
 public class UserDts implements UserDetails {
 
-    private LoginDto loginDto;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7374157530250076071L;
+	private LoginDto loginDto;
     
     
     public LoginDto getLoginDto() {

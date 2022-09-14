@@ -16,12 +16,11 @@ public class ZlPreAuthenticationChecks implements UserDetailsChecker {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ZlPreAuthenticationChecks.class);
 	protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
-
+	
 	@Override
 	public void check(UserDetails user) {
 		if (!user.isAccountNonLocked()) {
 			logger.debug("User account is locked");
-
 			throw new LockedException(messages.getMessage(
 					"AbstractUserDetailsAuthenticationProvider.locked",
 					"User account is locked"));

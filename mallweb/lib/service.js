@@ -11,7 +11,6 @@ const zlaxios = axios.create({
 })
 
 zlaxios.interceptors.request.use(config => {
-  config.headers.common.token = window.localStorage.getItem('token')
   return new Promise(resolve => {
     // 模拟等待refresh_token
     setTimeout(function (configParam) {
@@ -58,6 +57,7 @@ const service = {
         } else {
           if (url && url.indexOf('/oauth/token') !== -1) {
             window.localStorage.setItem('token', reseponse.data.access_token)
+            window.localStorage.setItem('userName', reseponse.data.loginDto.userName)
             requestInfo.success(reseponse.data)
             return
           }
