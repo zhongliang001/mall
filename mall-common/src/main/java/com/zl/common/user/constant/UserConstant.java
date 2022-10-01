@@ -1,5 +1,10 @@
 package com.zl.common.user.constant;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 public class UserConstant {
 	
 	/**

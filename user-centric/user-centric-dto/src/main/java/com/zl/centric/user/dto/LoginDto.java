@@ -2,6 +2,11 @@ package com.zl.centric.user.dto;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 public class LoginDto implements Serializable{
 
 	private static final long serialVersionUID = -9156853897290387103L;

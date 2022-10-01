@@ -2,7 +2,7 @@ package com.zl.centric.menu.entity;
 
 
 import java.io.Serializable;
-/*
+/**
  * 
  * @author coolz
  *

@@ -11,6 +11,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsChecker;
 import org.springframework.stereotype.Component;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 @Component
 public class ZlPreAuthenticationChecks implements UserDetailsChecker {
 	

@@ -9,7 +9,7 @@ import com.zl.common.dto.QueryCondition;
 import com.zl.centric.menu.entity.MenuEntity;
 import com.zl.centric.menu.mapper.MenuMapper;
 import com.zl.centric.menu.service.MenuService;
-/*
+/**
  * 
  * @author coolz
  *

@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 		String userName = loginVo.getUserName();
 		logger.info("用户{}尝试登录系统：", userName);
 		String password = loginVo.getPassword();
-		Map<String, Object> condition = new HashMap<>();
+		Map<String, Object> condition = new HashMap<>(16);
 		condition.put("userName", userName);
 		List<UserEntity> queryList = userDao.queryList(condition);
 		if (queryList.size() > 0) {

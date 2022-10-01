@@ -2,6 +2,11 @@ package com.zl.centric.menu.dto;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 public class MenuDto implements Serializable{
 	
 	/**
