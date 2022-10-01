@@ -16,7 +16,7 @@
       </el-aside>
       <el-aside width="200px">
         <el-menu router :default-active="$route.path">
-          <el-submenu>
+          <el-submenu index="0">
             <template slot="title">
               商品管理
             </template>
@@ -42,6 +42,9 @@ export default {
         {
           name: '我的宝贝',
           path: '/sellManage'
+        }, {
+          name: '菜单配置',
+          path: '/menuConfig'
         }]
     }
   },

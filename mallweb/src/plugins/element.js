@@ -2,7 +2,8 @@ import Vue from 'vue'
 import {
   Button, Input, Form, FormItem, Main, Container, Header,
   ButtonGroup, Aside, Menu, MenuItem, Submenu, Tabs, TabPane, Card,
-  Notification, Descriptions, DescriptionsItem
+  Notification, Descriptions, DescriptionsItem, Table, TableColumn,
+  Col, Row, Pagination
 } from 'element-ui'
 
 Vue.use(Button)
@@ -23,3 +24,8 @@ Vue.use(Card)
 Vue.use(Descriptions)
 Vue.use(DescriptionsItem)
 Vue.use(Notification)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Col)
+Vue.use(Row)
+Vue.use(Pagination)

@@ -156,5 +156,6 @@
 		<module>mall-base</module>
 		<module>mall-common</module>
 		<module>goods-centric</module>
+		<module>store-centric</module>
 	</modules>
 </project>
