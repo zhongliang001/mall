@@ -13,10 +13,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.zl.centric.user.dto.LoginDto;
 import com.zl.centric.user.entity.UserEntity;
 import com.zl.centric.user.mapper.UserMapper;
 import com.zl.centric.user.service.UserService;
-import com.zl.centric.user.vo.LoginVo;
 import com.zl.common.dto.QueryCondition;
 import com.zl.common.exception.ZlException;
 
@@ -65,10 +65,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserEntity login(LoginVo loginVo) throws ZlException {
-		String userName = loginVo.getUserName();
+	public UserEntity login(LoginDto loginto) throws ZlException {
+		String userName = loginto.getUserName();
 		logger.info("用户{}尝试登录系统：", userName);
-		String password = loginVo.getPassword();
+		String password = loginto.getPassword();
 		Map<String, Object> condition = new HashMap<>(16);
 		condition.put("userName", userName);
 		List<UserEntity> queryList = userDao.queryList(condition);

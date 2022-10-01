@@ -2,7 +2,7 @@ package com.zl.centric.user.client.impl;
 
 import com.zl.centric.user.client.UserClient;
 import com.zl.centric.user.dto.LoginDto;
-import com.zl.centric.user.vo.LoginVo;
+import com.zl.centric.user.dto.UserDto;
 import com.zl.common.dto.ResultDto;
 
 /**
@@ -12,7 +12,7 @@ import com.zl.common.dto.ResultDto;
  */
 public class UserClientImpl implements UserClient{
 
-	public ResultDto<LoginDto> login(LoginVo loginVo) {
+	public ResultDto<UserDto> login(LoginDto loginDto) {
 		// TODO Auto-generated method stub
 		return null;
 	}

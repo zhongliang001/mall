@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.zl.centric.user.client.UserClient;
 import com.zl.centric.user.dto.LoginDto;
-import com.zl.centric.user.vo.LoginVo;
+import com.zl.centric.user.dto.UserDto;
 import com.zl.common.dto.ResultDto;
 import com.zl.uua.details.UserDts;
 
@@ -24,15 +24,15 @@ public class UserSecurityServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    	LoginVo loginVo = new LoginVo();
-    	loginVo.setUserName(username);
-        ResultDto<LoginDto> query = userClient.login(loginVo);
-        LoginDto data = query.getData();
+    	LoginDto loginDto = new LoginDto();
+    	loginDto.setUserName(username);
+        ResultDto<UserDto> query = userClient.login(loginDto);
+        UserDto data = query.getData();
         UserDts userDomain = new UserDts();
         if(data == null){
             throw new UnauthorizedUserException("用户名或密码错误");
         }
-        userDomain.setLoginDto(data);
+        userDomain.setUserDto(data);
         return userDomain;
     }
 

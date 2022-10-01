@@ -23,7 +23,7 @@
         <el-table-column label="菜单id" align="center" prop="menuId"></el-table-column>
         <el-table-column label="菜单名" align="center" prop="menuName"></el-table-column>
       </el-table>
-      <el-pagination :total="total" :page-size="queryData.pageSize" :pager-count="5" :current-page="queryData.pageNum" @current-change="change"></el-pagination>
+      <el-pagination :total="total" :page-size="queryData.pageSize" :pager-count="5" :current-page.sync="queryData.pageNum" @current-change="change"></el-pagination>
     </el-main>
   </el-container>
 </template>
@@ -39,10 +39,6 @@ export default {
         pageNum: 1
       },
       menus: [
-        {
-          menuId: '1',
-          menuName: 'hi'
-        }
       ],
       total: 0
     }

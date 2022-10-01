@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 
 import com.zl.centric.user.dto.LoginDto;
+import com.zl.centric.user.dto.UserDto;
 import com.zl.common.user.constant.UserConstant;
 
 /**
@@ -21,25 +22,25 @@ public class UserDts implements UserDetails {
 	 * 
 	 */
 	private static final long serialVersionUID = -7374157530250076071L;
-	private LoginDto loginDto;
+	private UserDto userDto;
     
     
-    public LoginDto getLoginDto() {
-		return loginDto;
+    public UserDto getUserDto() {
+		return userDto;
 	}
 
-	public void setLoginDto(LoginDto loginDto) {
-		this.loginDto = loginDto;
+	public void setUserDto(UserDto userDto) {
+		this.userDto = userDto;
 	}
 
 	@Override
     public String getPassword() {
-        return loginDto.getPassword();
+        return userDto.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return loginDto.getPassword();
+        return userDto.getPassword();
     }
 
     @Override
@@ -50,7 +51,7 @@ public class UserDts implements UserDetails {
     @Override
     public boolean isAccountNonLocked() {
     	try {
-    		 Integer errLoginTimes = loginDto.getLoginErrorTimes();
+    		 Integer errLoginTimes = userDto.getLoginErrorTimes();
     	        if (errLoginTimes == null) {
     	            return false;
     	        }
@@ -64,7 +65,7 @@ public class UserDts implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        if (StringUtils.isEmpty(loginDto.getUserStatus())||!UserConstant.CUS_STATE_NOMAL.equals(loginDto.getUserStatus())) {
+        if (StringUtils.isEmpty(userDto.getUserStatus())||!UserConstant.CUS_STATE_NOMAL.equals(userDto.getUserStatus())) {
            return false;
         }
         return true;

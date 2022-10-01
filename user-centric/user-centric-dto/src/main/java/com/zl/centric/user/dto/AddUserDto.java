@@ -1,5 +1,4 @@
-package com.zl.centric.user.vo;
-
+package com.zl.centric.user.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
@@ -7,7 +6,7 @@ import javax.validation.constraints.NotNull;
 /**
  * @author coolz
  */
-public class UserVo implements Serializable{
+public class AddUserDto implements Serializable{
 
 	/**
 	 * serialVersionUID

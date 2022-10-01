@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.zl.centric.user.dto.LoginDto;
 import com.zl.centric.user.entity.UserEntity;
-import com.zl.centric.user.vo.LoginVo;
 import com.zl.common.dto.QueryCondition;
 import com.zl.common.exception.ZlException;
 /**
@@ -49,5 +49,5 @@ public interface UserService{
 	 * @throws ZlException 登录失败异常
 	 * @return 返回用户信息
 	 */
-	public UserEntity login(LoginVo loginVo) throws ZlException;
+	public UserEntity login(LoginDto loginDto) throws ZlException;
 }

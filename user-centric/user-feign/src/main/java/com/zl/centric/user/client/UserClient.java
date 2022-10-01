@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.zl.centric.user.dto.LoginDto;
-import com.zl.centric.user.vo.LoginVo;
+import com.zl.centric.user.dto.UserDto;
 import com.zl.common.dto.ResultDto;
 /**
  * 
@@ -24,6 +24,6 @@ public interface UserClient {
 	 * @return 返回用户信息
 	 */
 	@PostMapping("/login")
-	public ResultDto<LoginDto> login(@RequestBody LoginVo loginVo); 
+	public ResultDto<UserDto> login(@RequestBody LoginDto loginDto); 
 
 }

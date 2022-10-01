@@ -14,6 +14,8 @@ public class UserDto implements Serializable{
 	private String userId;
 
 	private String userName;
+	
+	private String password;
 
 	private String lastLoginTime;
 
@@ -67,5 +69,11 @@ public class UserDto implements Serializable{
 	}
 	public String getUserStatus(){
 		return this.userStatus;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }
