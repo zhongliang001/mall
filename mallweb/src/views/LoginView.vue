@@ -6,13 +6,13 @@
       </el-header>
       <el-main>
         <el-form type="post" url="hi" labelWidth="100px">
-          <el-form-item label="用户名" props="user">
+          <el-form-item label="用户名" prop="user">
             <el-input name="el-input" type="text" v-model="user.username" placeholder="用户名" />
           </el-form-item>
-          <el-form-item label="密码" props="user">
+          <el-form-item label="密码" prop="user">
             <el-input name="el-input" type="password" v-model="user.password" placeholder="密码" />
           </el-form-item>
-          <el-form-item label="grant_type" props="user" hidden="true">
+          <el-form-item label="grant_type" prop="user" hidden="true">
             <el-input name="el-input" type="grant_type" v-model="user.grant_type" placeholder="grant_type" />
           </el-form-item>
           <el-button-group>

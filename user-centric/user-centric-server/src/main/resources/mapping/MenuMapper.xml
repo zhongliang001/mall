@@ -49,38 +49,36 @@
 		</trim>
 		) values (
 		<trim suffixOverrides=",">
-			<if test="menuId != null and menuId != ''">
-				menu_id=#{menuId, jdbcType=VARCHAR}
-			</if>
+			(select ifnull(num, 1) from (select max(menu_id) +1 num from menu t) n),
 			<if test="menuName != null and menuName != ''">
-				menu_name=#{menuName, jdbcType=VARCHAR}
+				#{menuName, jdbcType=VARCHAR},
 			</if>
 			<if test="path != null and path != ''">
-				path=#{path, jdbcType=VARCHAR}
+				#{path, jdbcType=VARCHAR},
 			</if>
 			<if test="parentId != null and parentId != ''">
-				parent_id=#{parentId, jdbcType=VARCHAR}
+				#{parentId, jdbcType=VARCHAR},
 			</if>
 			<if test="filePath != null and filePath != ''">
-				file_path=#{filePath, jdbcType=VARCHAR}
+				#{filePath, jdbcType=VARCHAR}
 			</if>
 		</trim>
 )
 	</insert>
 	<update id="update" parameterType="com.zl.centric.menu.entity.MenuEntity">
-		update into menu set 
+		update menu set 
 		<trim suffixOverrides=",">
 			<if test="menuName != null and menuName != ''">
-				menu_name=#{menuName, jdbcType=VARCHAR}
+				menu_name=#{menuName, jdbcType=VARCHAR},
 			</if>
 			<if test="path != null and path != ''">
-				path=#{path, jdbcType=VARCHAR}
+				path=#{path, jdbcType=VARCHAR},
 			</if>
 			<if test="parentId != null and parentId != ''">
-				parent_id=#{parentId, jdbcType=VARCHAR}
+				parent_id=#{parentId, jdbcType=VARCHAR},
 			</if>
 			<if test="filePath != null and filePath != ''">
-				file_path=#{filePath, jdbcType=VARCHAR}
+				file_path=#{filePath, jdbcType=VARCHAR},
 			</if>
 		</trim>
 		<where>
@@ -89,7 +87,7 @@
 	</update>
 
 	<delete id="delete" parameterType="java.lang.String">
-		delete menu from  
+		delete from  menu
 			<where>
 			 and menu_id=#{menuId, jdbcType=VARCHAR}
 		</where>

@@ -41,4 +41,11 @@ public interface MenuService{
 	 * @return 返回菜单记录数
 	 */
 	public int delete(String menuId);
+	
+	/**
+	 * 检查菜单id是否存在
+	 * @param menuId 菜单id
+	 * @return 是否存在
+	 */
+	public boolean checkParentId(String menuId);
 }

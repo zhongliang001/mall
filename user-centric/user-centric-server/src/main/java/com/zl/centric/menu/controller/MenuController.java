@@ -48,4 +48,10 @@ public class MenuController {
 		int num = menuService.delete(menuId);
 		return ResultUtil.genenrate(num, "删除成功");
 	}
+	
+	@PostMapping("/checkParentId")
+	public ResultDto<Boolean> checkParentId(@RequestParam(value = "menuId") String menuId){
+		boolean flag = menuService.checkParentId(menuId);
+		return ResultUtil.genenrate(flag, "查询成功");
+	}
 }

@@ -48,7 +48,6 @@ export default {
   name: 'workbenchHome',
   data: function () {
     const date = (new Date()).format('yyyy-MM-dd HH:mm:ss')
-    console.log(date)
     return {
       time: date
     }
