@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.centric.menu.mapper.MenuMapper">
+	<resultMap id="menu" type="com.zl.centric.menu.entity.MenuEntity">
+		<id column="menu_id" jdbcType="VARCHAR" property="menuId" />
+		<result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+		<result column="path" jdbcType="VARCHAR" property="path" />
+		<result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+		<result column="file_path" jdbcType="VARCHAR" property="filePath" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="menu">
+		select * from menu
+		<where>
+			<if test="menuId != null and menuId != ''">
+				 and menu_id=#{menuId, jdbcType=VARCHAR}
+			</if>
+			<if test="menuName != null and menuName != ''">
+				 and menu_name=#{menuName, jdbcType=VARCHAR}
+			</if>
+			<if test="path != null and path != ''">
+				 and path=#{path, jdbcType=VARCHAR}
+			</if>
+			<if test="parentId != null and parentId != ''">
+				 and parent_id=#{parentId, jdbcType=VARCHAR}
+			</if>
+			<if test="filePath != null and filePath != ''">
+				 and file_path=#{filePath, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.centric.menu.entity.MenuEntity">
+		insert into menu (
+		<trim suffixOverrides=",">
+			menu_id,
+			<if test="menuName != null and menuName != ''">
+				menu_name,
+			</if>
+			<if test="path != null and path != ''">
+				path,
+			</if>
+			<if test="parentId != null and parentId != ''">
+				parent_id,
+			</if>
+			<if test="filePath != null and filePath != ''">
+				file_path,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			(select ifnull(num, 1) from (select max(menu_id) +1 num from menu t) n),
+			<if test="menuName != null and menuName != ''">
+				#{menuName, jdbcType=VARCHAR},
+			</if>
+			<if test="path != null and path != ''">
+				#{path, jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null and parentId != ''">
+				#{parentId, jdbcType=VARCHAR},
+			</if>
+			<if test="filePath != null and filePath != ''">
+				#{filePath, jdbcType=VARCHAR}
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.centric.menu.entity.MenuEntity">
+		update menu set 
+		<trim suffixOverrides=",">
+			<if test="menuName != null and menuName != ''">
+				menu_name=#{menuName, jdbcType=VARCHAR},
+			</if>
+			<if test="path != null and path != ''">
+				path=#{path, jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null and parentId != ''">
+				parent_id=#{parentId, jdbcType=VARCHAR},
+			</if>
+			<if test="filePath != null and filePath != ''">
+				file_path=#{filePath, jdbcType=VARCHAR},
+			</if>
+		</trim>
+		<where>
+			 and menu_id=#{menuId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from  menu
+			<where>
+			 and menu_id=#{menuId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+</mapper>

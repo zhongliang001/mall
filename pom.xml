@@ -6,26 +6,22 @@
 	<packaging>pom</packaging>
 	<properties>
 		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 		<spring-cloud.version>Hoxton.SR9</spring-cloud.version>
-		<eureka.version>2.2.6.RELEASE</eureka.version>
-		<swagger.version>1.7.1.RELEASE</swagger.version>
-		<sys-common.version>0.0.1-SNAPSHOT</sys-common.version>
-		<sys-admin-dto.version>0.0.1-SNAPSHOT</sys-admin-dto.version>
-		<sys-admin-feign.version>0.0.1-SNAPSHOT</sys-admin-feign.version>
-		<sys-sequence-feign.version>0.0.1-SNAPSHOT</sys-sequence-feign.version>
-		<springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
+		<eureka.version>2.2.6.RELEASE</eureka.version>		
 		<mybatis-spring-boot-starter.version>2.1.3</mybatis-spring-boot-starter.version>
 		<apollo.version>1.3.0</apollo.version>
-		<sys-sequence-dto.version>0.0.1-SNAPSHOT</sys-sequence-dto.version>
 		<java-jwt.version>3.10.0</java-jwt.version>
 		<spring-security.version>5.3.3.RELEASE</spring-security.version>
 		<pagehelper.starter.version>1.2.5</pagehelper.starter.version>
 		<skipTests>true</skipTests>
-		<spring-boot-maven-plugin.version>2.0.1.RELEASE</spring-boot-maven-plugin.version>
+		<spring-boot-maven-plugin.version>2.7.0</spring-boot-maven-plugin.version>
 		<docker.version>1.0.0</docker.version>
 		<jackson.version>2.11.1</jackson.version>
 		<spring-boot-starter-web.version>2.3.2.RELEASE</spring-boot-starter-web.version>
 		<mysql.version>8.0.30</mysql.version>
+		<user-feign.version>0.0.1-SNAPSHOT</user-feign.version>
 	</properties>
 
 	<dependencyManagement>
@@ -109,9 +105,35 @@
 				<artifactId>mysql-connector-java</artifactId>
 				<version>${mysql.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.zl</groupId>
+				<artifactId>user-feign</artifactId>
+				<version>${user-feign.version}</version>
+			</dependency>
+			 <dependency>
+	            <groupId>org.springframework.security</groupId>
+	            <artifactId>spring-security-config</artifactId>
+	            <version>${spring-security.version}</version>
+	        </dependency>
+	        <dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				 <version>${spring-security.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
+	<distributionManagement>
+		<repository>
+			<id>maven-releases</id>
+			<name>user-centric</name>
+			<url>http://192.168.111.129:8081/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>maven-snapshots</id>
+			<name>user-centric</name>
+			<url>http://192.168.111.129:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>	
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -119,6 +141,10 @@
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
 					<version>${spring-boot-maven-plugin.version}</version>
+					 <configuration>
+	                    <source>1.8</source>
+	                    <target>1.8</target>
+	                </configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -128,5 +154,8 @@
 		<module>gateway</module>
 		<module>uaa</module>
 		<module>mall-base</module>
+		<module>mall-common</module>
+		<module>goods-centric</module>
+		<module>store-centric</module>
 	</modules>
 </project>

@@ -1,4 +1,4 @@
-package com.zl.centric;
+package com.zl;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -10,20 +10,27 @@ import org.springframework.context.annotation.Configuration;
 
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 @EnableAutoConfiguration
 @EnableEurekaClient
 @Configuration
 @ComponentScan
-@EnableApolloConfig
+@EnableApolloConfig(value = "application.yml")
 @EnableFeignClients
-@MapperScan("com.zl.user.*.mapper")
-public class UserApplication {
-	 public static void main(String[] args) {
-		 try {
-			 SpringApplication.run(UserApplication.class, args); 
-		 }catch (Exception e) {
-			 e.printStackTrace();
+@MapperScan("com.zl.centric.*.mapper")
+public class StoreApplication {
+	
+	public static void main(String[] args) {
+		try {
+			SpringApplication.run(StoreApplication.class, args);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	        
-	    }
+
+	}
+
 }

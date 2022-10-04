@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.centric.user.mapper.UserMapper">
+	<resultMap id="user"
+		type="com.zl.centric.user.entity.UserEntity">
+		<id column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="user_name" jdbcType="VARCHAR"
+			property="userName" />
+		<result column="password" jdbcType="VARCHAR"
+			property="password" />
+		<result column="last_login_time" jdbcType="VARCHAR"
+			property="lastLoginTime" />
+		<result column="login_error_time" jdbcType="VARCHAR"
+			property="loginErrorTime" />
+		<result column="login_error_times" jdbcType="INTEGER"
+			property="loginErrorTimes" />
+		<result column="modify_time" jdbcType="VARCHAR"
+			property="modifyTime" />
+		<result column="user_status" jdbcType="CHAR"
+			property="userStatus" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map"
+		resultMap="user">
+		select * from user
+		<where>
+			<if test="userId != null and userId != ''">
+				and user_id=#{userId, jdbcType=VARCHAR}
+			</if>
+			<if test="userName != null and userName != ''">
+				and user_name=#{userName, jdbcType=VARCHAR}
+			</if>
+			<if test="password != null and password != ''">
+				and password=#{password, jdbcType=VARCHAR}
+			</if>
+			<if test="lastLoginTime != null and lastLoginTime != ''">
+				and last_login_time=#{lastLoginTime, jdbcType=VARCHAR}
+			</if>
+			<if test="loginErrorTime != null and loginErrorTime != ''">
+				and login_error_time=#{loginErrorTime, jdbcType=VARCHAR}
+			</if>
+			<if test="loginErrorTimes != null and loginErrorTimes != ''">
+				and login_error_times=#{loginErrorTimes, jdbcType=INTEGER}
+			</if>
+			<if test="modifyTime != null and modifyTime != ''">
+				and modify_time=#{modifyTime, jdbcType=VARCHAR}
+			</if>
+			<if test="userStatus != null and userStatus != ''">
+				and user_status=#{userStatus, jdbcType=CHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add"
+		parameterType="com.zl.centric.user.entity.UserEntity">
+		insert into user (
+		<trim suffixOverrides=",">
+			user_id,
+			<if test="userName != null and userName != ''">
+				user_name,
+			</if>
+			<if test="password != null and password != ''">
+				password,
+			</if>
+			<if test="lastLoginTime != null and lastLoginTime != ''">
+				last_login_time,
+			</if>
+			<if test="loginErrorTime != null and loginErrorTime != ''">
+				login_error_time,
+			</if>
+			<if test="loginErrorTimes != null and loginErrorTimes != ''">
+				login_error_times,
+			</if>
+			<if test="modifyTime != null and modifyTime != ''">
+				modify_time,
+			</if>
+			<if test="userStatus != null and userStatus != ''">
+				user_status,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			(select ifnull(num, 1) from (select max(user_id) +1 num from user t) n),
+			<if test="userName != null and userName != ''">
+				#{userName, jdbcType=VARCHAR},
+			</if>
+			<if test="password != null and password != ''">
+				#{password, jdbcType=VARCHAR},
+			</if>
+			<if test="lastLoginTime != null and lastLoginTime != ''">
+				#{lastLoginTime, jdbcType=VARCHAR},
+			</if>
+			<if test="loginErrorTime != null and loginErrorTime != ''">
+				#{loginErrorTime, jdbcType=VARCHAR},
+			</if>
+			<if test="loginErrorTimes != null and loginErrorTimes != ''">
+				#{loginErrorTimes, jdbcType=INTEGER},
+			</if>
+			<if test="modifyTime != null and modifyTime != ''">
+				#{modifyTime, jdbcType=VARCHAR},
+			</if>
+			<if test="userStatus != null and userStatus != ''">
+				#{userStatus, jdbcType=CHAR},
+			</if>
+		</trim>
+		)
+	</insert>
+	<update id="update"
+		parameterType="com.zl.centric.user.entity.UserEntity">
+		update user set
+		<trim suffixOverrides=",">
+			<if test="userName != null and userName != ''">
+				user_name=#{userName, jdbcType=VARCHAR},
+			</if>
+			<if test="password != null and password != ''">
+				password=#{password, jdbcType=VARCHAR},
+			</if>
+			<if test="lastLoginTime != null and lastLoginTime != ''">
+				last_login_time=#{lastLoginTime, jdbcType=VARCHAR},
+			</if>
+			<if test="loginErrorTime != null and loginErrorTime != ''">
+				login_error_time=#{loginErrorTime, jdbcType=VARCHAR},
+			</if>
+			<if test="loginErrorTimes != null and loginErrorTimes != ''">
+				login_error_times=#{loginErrorTimes, jdbcType=INTEGER},
+			</if>
+			<if test="modifyTime != null and modifyTime != ''">
+				modify_time=#{modifyTime, jdbcType=VARCHAR},
+			</if>
+			<if test="userStatus != null and userStatus != ''">
+				user_status=#{userStatus, jdbcType=CHAR},
+			</if>
+		</trim>
+		<where> and user_id=#{userId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete user from
+		<where>
+			and user_id=#{userId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+</mapper>

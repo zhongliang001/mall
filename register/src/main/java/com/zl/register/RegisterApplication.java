@@ -6,9 +6,14 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 @SpringBootApplication
 @EnableEurekaServer
-@EnableApolloConfig
+@EnableApolloConfig(value="application.yml")
 public class RegisterApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RegisterApplication.class, args);
