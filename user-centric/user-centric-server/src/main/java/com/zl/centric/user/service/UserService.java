@@ -45,7 +45,7 @@ public interface UserService{
 	
 	/**
 	 * 登录
-	 * @param loginVo 登录对象
+	 * @param loginDto 登录对象
 	 * @throws ZlException 登录失败异常
 	 * @return 返回用户信息
 	 */
