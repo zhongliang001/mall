@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.centric.action.mapper.ActionMapper">
+	<resultMap id="action" type="com.zl.centric.action.entity.ActionEntity">
+		<id column="action_id" jdbcType="VARCHAR" property="actionId" />
+		<result column="action_name" jdbcType="VARCHAR" property="actionName" />
+		<result column="oper" jdbcType="VARCHAR" property="oper" />
+		<result column="menu_id" jdbcType="VARCHAR" property="menuId" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="action">
+		select * from action
+		<where>
+			<if test="actionId != null and actionId != ''">
+				 and action_id=#{actionId, jdbcType=VARCHAR}
+			</if>
+			<if test="name != null and name != ''">
+				 and action_name=#{actionName, jdbcType=VARCHAR}
+			</if>
+			<if test="oper != null and oper != ''">
+				 and oper=#{oper, jdbcType=VARCHAR}
+			</if>
+			<if test="menuId != null and menuId != ''">
+				 and menu_id=#{menuId, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.centric.action.entity.ActionEntity">
+		insert into action (
+		<trim suffixOverrides=",">
+			action_id,
+			<if test="actionName != null and actionName != ''">
+				action_name,
+			</if>
+			<if test="oper != null and oper != ''">
+				oper,
+			</if>
+			<if test="menuId != null and menuId != ''">
+				menu_id,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			(select ifnull(num, 1) from (select max(action_id) +1 num from action t) n),
+			<if test="actionName != null and actionName != ''">
+				#{actionName, jdbcType=VARCHAR},
+			</if>
+			<if test="oper != null and oper != ''">
+				#{oper, jdbcType=VARCHAR},
+			</if>
+			<if test="menuId != null and menuId != ''">
+				#{menuId, jdbcType=VARCHAR},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.centric.action.entity.ActionEntity">
+		update action set 
+		<trim suffixOverrides=",">
+			<if test="actionName != null and actionName != ''">
+				action_name=#{actionName, jdbcType=VARCHAR},
+			</if>
+			<if test="oper != null and oper != ''">
+				oper=#{oper, jdbcType=VARCHAR},
+			</if>
+			<if test="menuId != null and menuId != ''">
+				menu_id=#{menuId, jdbcType=VARCHAR},
+			</if>
+		</trim>
+		<where>
+			 and action_id=#{actionId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from action 
+			<where>
+			 and action_id=#{actionId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+	
+	<resultMap  id="actionDto" type="com.zl.centric.action.dto.ActionDto">
+		<id column="action_id" jdbcType="VARCHAR" property="actionId" />
+		<result column="action_name" jdbcType="VARCHAR" property="actionName" />
+		<result column="oper" jdbcType="VARCHAR" property="oper" />
+		<result column="menu_id" jdbcType="VARCHAR" property="menuId"/>
+		<result column="menu_name" jdbcType="VARCHAR" property="menuName"/>
+	</resultMap>
+	
+	<select id="queryMenuAction"  parameterType="java.util.Map" resultMap="actionDto">
+		select a.*, b.menu_name from action a left join menu b on a.menu_id = b.menu_id
+		<where>
+			<if test="actionId != null and actionId != ''">
+				 and a.action_id=#{actionId, jdbcType=VARCHAR}
+			</if>
+			<if test="actionName != null and actionName != ''">
+				 and a.action_name=#{actionName, jdbcType=VARCHAR}
+			</if>
+			<if test="oper != null and oper != ''">
+				 and a.oper=#{oper, jdbcType=VARCHAR}
+			</if>
+			<if test="menuId != null and menuId != ''">
+				 and a.menu_id=#{menuId, jdbcType=VARCHAR}
+			</if>
+			<if test="menuName != null and menuName != ''">
+				 and b.menu_name=#{menuName, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+</mapper>

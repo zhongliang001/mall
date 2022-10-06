@@ -26,10 +26,8 @@
         <zl-button @click="update">修改</zl-button>
         <zl-button @click="del">删除</zl-button>
         <zl-button @click="viewDetail">查看</zl-button>
-        <!-- <el-table :data="menus" v-loading="loading" element-loading-text="拼命加载中"
-          element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" :border="true"
-          highlight-current-row stripe @current-change="handleCurrentChange" header-row-class-name="header"> -->
-        <zl-table :data="menus" :loading="loading"  @current-change="handleCurrentChange" >
+        <zl-button @click="configAction">配置操作</zl-button>
+        <zl-table :data="menus" :loading="loading" @current-change="selected">
           <el-table-column label="菜单id" align="center" prop="menuId"></el-table-column>
           <el-table-column label="菜单名" align="center" prop="menuName"></el-table-column>
           <el-table-column label="父菜单id" align="center" prop="parentId"></el-table-column>
@@ -196,7 +194,7 @@ export default {
         }
       })
     },
-    handleCurrentChange: function (val) {
+    selected: function (val) {
       this.currentRow = val
     },
     change: function () {
@@ -326,6 +324,22 @@ export default {
     },
     closeView: function () {
       this.isViewShow = false
+    },
+    configAction: function () {
+      if (JSON.stringify(this.currentRow) !== '{}') {
+        this.$router.push({
+          name: 'action',
+          params: {
+            menuId: this.currentRow.menuId,
+            menuName: this.currentRow.menuName
+          }
+        })
+      } else {
+        this.$message({
+          message: '请选择一条数据',
+          type: 'warning'
+        })
+      }
     }
   }
 }
