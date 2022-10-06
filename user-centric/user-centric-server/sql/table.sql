@@ -62,13 +62,12 @@ create table right_action_conf(
     parent_id varchar(32) comment '父菜单id',
     file_path varchar(32) comment '组件文件'
 ) ENGINE = InnoDB comment '菜单表'  DEFAULT CHARSET=utf8mb4;
-  
-  create table action(
-    acton_id      varchar(10) not null primary key comment '操作id',
-    name    varchar(20) comment '操作名称',
+
+create table action(
+    action_id      varchar(10) not null primary key comment '操作id',
+    action_name    varchar(20) comment '操作名称',
     oper    varchar(20) comment '操作',
     menu_id varchar(32) comment '菜单id',
-    menu_name varchar(64) comment '菜单名',
-    path    varchar(30) comment '操作路径'
+    menu_name varchar(64) comment '菜单名'
 ) ENGINE = InnoDB  DEFAULT CHARSET = utf8mb4 comment '操作表';
 

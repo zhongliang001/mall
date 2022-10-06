@@ -5,7 +5,8 @@ import LoginView from '../views/LoginView.vue'
 import WorkbenchHome from '../views/WorkbenchHome.vue'
 import SellManage from '../views/sell/SellManage.vue'
 import ReleaseGoods from '../views/sell/ReleaseGoods.vue'
-import MenuConfig from '../views/config/MenuConfig.vue'
+import Menu from '../views/config/Menu.vue'
+import Action from '../views/config/Action.vue'
 
 Vue.use(VueRouter)
 
@@ -37,9 +38,14 @@ const routes = [
           }]
       },
       {
-        path: '/menuConfig',
-        name: 'menuConfig',
-        component: MenuConfig
+        path: '/menu',
+        name: 'menu',
+        component: Menu
+      },
+      {
+        path: '/action',
+        name: 'action',
+        component: Action
       }
     ]
   }

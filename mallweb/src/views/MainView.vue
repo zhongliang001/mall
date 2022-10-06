@@ -44,7 +44,7 @@ export default {
           path: '/sellManage'
         }, {
           name: '菜单配置',
-          path: '/menuConfig'
+          path: '/menu'
         }]
     }
   },
