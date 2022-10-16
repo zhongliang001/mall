@@ -2,22 +2,21 @@
   <router-view></router-view>
 </template>
 
-<script>
+<script setup lang="ts">
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
 
-export default {
-  name: 'app',
-  mounted () {
-    const token = localStorage.getItem('token')
-    if (token) {
-      this.$router.push({
-        name: 'mainView'
-      }, () => { })
-    } else {
-      this.$router.push({ name: 'login' }, () => { })
-    }
+const router = useRouter();
+onMounted(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    router.push({
+      name: "mainView",
+    });
+  } else {
+    router.push({ name: "login" });
   }
-}
+});
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

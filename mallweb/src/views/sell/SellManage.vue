@@ -12,11 +12,11 @@
 </template>
 <script>
 export default {
-  name: 'SellManage',
+  name: "SellManage",
   methods: {
     toNew: function () {
-      this.$router.push({ name: 'releaseGoods' }, () => { })
-    }
-  }
-}
+      this.$router.push({ name: "releaseGoods" }, () => {});
+    },
+  },
+};
 </script>

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>店铺数据</h1><p>数据更新时间：{{time}}</p>
+    <h1>店铺数据</h1>
+    <p>数据更新时间：{{ time }}</p>
     <div class="infoDiv">
       <p>支付金额</p>
       <p>-</p>
@@ -45,21 +46,20 @@
 </template>
 <script>
 export default {
-  name: 'workbenchHome',
+  name: "workbenchHome",
   data: function () {
-    const date = (new Date()).format('yyyy-MM-dd HH:mm:ss')
+    const date = new Date().format("yyyy-MM-dd HH:mm:ss");
     return {
-      time: date
-    }
-  }
-}
+      time: date,
+    };
+  },
+};
 </script>
 <style>
-.infoDiv{
+.infoDiv {
   background-color: #f7f8fa;
   width: 24%;
   display: inline-block;
   margin: 5px;
 }
-
 </style>

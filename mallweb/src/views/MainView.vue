@@ -3,7 +3,7 @@
     <el-header>
       <img class="image" src="../images/timg.jpg" />
       <div class="head-right">
-        <el-input prefixIcon="iconfont icon-seach" placeholder="可以搜索你想要的功能" @blur="sayHi"></el-input>
+        <el-input placeholder="可以搜索你想要的功能"></el-input>
         <p class="username">{{ userName }}</p>
       </div>
     </el-header>
@@ -16,13 +16,15 @@
       </el-aside>
       <el-aside width="200px">
         <el-menu router :default-active="$route.path">
-          <el-submenu index="0">
-            <template slot="title">
-              商品管理
-            </template>
-            <el-menu-item v-for="(me, index) in menuChild" v-bind:key="index" :index="me.path">{{ me.name }}
+          <el-sub-menu index="0">
+            <template v-slot:title> 商品管理 </template>
+            <el-menu-item
+              v-for="(me, index) in menuChild"
+              v-bind:key="index"
+              :index="me.path"
+              >{{ me.name }}
             </el-menu-item>
-          </el-submenu>
+          </el-sub-menu>
         </el-menu>
       </el-aside>
       <el-main>
@@ -34,30 +36,41 @@
 
 <script>
 export default {
-  name: 'MainView',
+  name: "MainView",
   data: function () {
     return {
-      userName: '',
+      userName: "",
       menuChild: [
         {
-          name: '我的宝贝',
-          path: '/sellManage'
-        }, {
-          name: '菜单配置',
-          path: '/menu'
-        }]
-    }
+          name: "我的宝贝",
+          path: "/sellManage",
+        },
+        {
+          name: "菜单配置",
+          path: "/menu",
+        },
+        {
+          name: "角色配置",
+          path: "/role",
+        },
+        {
+          name: "用户管理",
+          path: "/user",
+        },
+        {
+          name: "数据字典配置",
+          path: "/dict",
+        },
+      ],
+    };
   },
   mounted: function () {
-    const userName = localStorage.getItem('userName')
-    this.userName = userName
+    const userName = localStorage.getItem("userName");
+    this.userName = userName;
   },
   methods: {
-    sayHi: function () {
-      alert('hi')
-    }
-  }
-}
+  },
+};
 </script>
 <style scoped>
 .clear {

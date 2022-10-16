@@ -7,13 +7,28 @@
       <el-main>
         <el-form type="post" url="hi" labelWidth="100px">
           <el-form-item label="用户名" prop="user">
-            <el-input name="el-input" type="text" v-model="user.username" placeholder="用户名" />
+            <el-input
+              name="el-input"
+              type="text"
+              v-model="user.username"
+              placeholder="用户名"
+            />
           </el-form-item>
           <el-form-item label="密码" prop="user">
-            <el-input name="el-input" type="password" v-model="user.password" placeholder="密码" />
+            <el-input
+              name="el-input"
+              type="password"
+              v-model="user.password"
+              placeholder="密码"
+            />
           </el-form-item>
           <el-form-item label="grant_type" prop="user" hidden="true">
-            <el-input name="el-input" type="grant_type" v-model="user.grant_type" placeholder="grant_type" />
+            <el-input
+              name="el-input"
+              type="grant_type"
+              v-model="user.grant_type"
+              placeholder="grant_type"
+            />
           </el-form-item>
           <el-button-group>
             <el-button type="primary" @click="login">登录</el-button>
@@ -26,61 +41,59 @@
 </template>
 
 <script>
-
 export default {
-  name: 'loginView',
-  components: {
-  },
+  name: "loginView",
+  components: {},
   data: function () {
     return {
       user: {
-        username: '',
-        password: '',
-        grant_type: 'password'
-      }
-    }
+        username: "",
+        password: "",
+        grant_type: "password",
+      },
+    };
   },
   methods: {
     login: function () {
-      const _this = this
-      const url = this.service.uaaURL + '/oauth/token'
-      const user = this.user
+      const _this = this;
+      const url = this.service.uaaURL + "/oauth/token";
+      const user = this.user;
       this.service.request({
-        method: 'post',
+        method: "post",
         url: url,
         config: {
           auth: {
-            username: 'app',
-            password: '123456'
+            username: "app",
+            password: "123456",
           },
-          params: user
+          params: user,
         },
         success: function () {
-          _this.$router.push({ name: 'mainView' }, () => {})
-        }
-      })
+          _this.$router.push({ name: "mainView" }, () => {});
+        },
+      });
     },
     register: function () {
-      const url = this.service.uaaURL + '/oauth/token1'
+      const url = this.service.uaaURL + "/oauth/token1";
       this.service.request({
-        method: 'post',
+        method: "post",
         url: url,
         config: {
           auth: {
-            username: 'app',
-            password: '123456'
+            username: "app",
+            password: "123456",
           },
-          params: {}
-        }
-      })
-    }
-  }
-}
+          params: {},
+        },
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -122,10 +135,10 @@ export default {
   color: black !important;
 }
 
-.el-button-group{
-   width: 100%;
+.el-button-group {
+  width: 100%;
 }
-.el-button--primary{
+.el-button--primary {
   width: 50%;
 }
 </style>

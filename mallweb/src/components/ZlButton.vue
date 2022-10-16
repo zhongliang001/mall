@@ -1,23 +1,23 @@
 <template>
-  <el-button :type="type" @click="click">
+  <el-button :type="type" @click="handler">
     <slot></slot>
   </el-button>
 </template>
 <script>
 export default {
-  name: 'ZlButton',
+  name: "ZlButton",
   props: {
     type: {
       type: String,
-      default: 'primary'
-    }
+      default: "primary",
+    },
   },
   methods: {
-    click: function (e) {
-      this.$emit('click', e)
-    }
-  }
-}
+    handler: function (e) {      
+      this.$emit("zl-click", e);
+    },
+  },
+};
 </script>
 
 <style scoped>
