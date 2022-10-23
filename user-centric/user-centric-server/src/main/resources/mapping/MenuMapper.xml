@@ -49,7 +49,7 @@
 		</trim>
 		) values (
 		<trim suffixOverrides=",">
-			(select ifnull(num, 1) from (select max(menu_id) +1 num from menu t) n),
+			(select ifnull(num, 1) from (select max(cast(menu_id as SIGNED)) +1 num from menu t) n),
 			<if test="menuName != null and menuName != ''">
 				#{menuName, jdbcType=VARCHAR},
 			</if>

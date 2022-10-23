@@ -8,8 +8,6 @@
     "module": "esnext",
     "strict": false,
     "jsx": "preserve",
-    "moduleResolution": "node",
-    "volar.doctor.statusBarItem": false,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "moduleResolution": "node"
   }
 }

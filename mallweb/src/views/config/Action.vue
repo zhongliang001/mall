@@ -40,7 +40,7 @@
         <zl-button @click="add">新增</zl-button>
         <zl-button @click="update">修改</zl-button>
         <zl-button @click="del">删除</zl-button>
-        <zl-button @click="view">查看</zl-button>
+        <zl-button @click="viewDetail">查看</zl-button>
         <zl-table :loading="loading" :data="actions" @current-change="selected">
           <el-table-column
             label="操作id"
@@ -73,7 +73,7 @@
           :page-size="queryData.pageSize"
           :pager-count="5"
           v-model:current-page="queryData.pageNum"
-          @current-change="change"
+          @current-change="query()"
         ></el-pagination>
       </el-main>
     </el-container>
@@ -81,7 +81,7 @@
       <el-form
         labelWidth="100px"
         ref="addFrom"
-        :model="addAction"
+        :model="action"
         :rules="addRule"
       >
         <el-row>
@@ -96,7 +96,7 @@
                 name="el-input"
                 :min-rows="2"
                 type="text"
-                v-model="addAction.menuId"
+                v-model="action.menuId"
                 placeholder="菜单id"
                 :readonly="true"
               />
@@ -108,7 +108,7 @@
                 name="el-input"
                 :min-rows="2"
                 type="text"
-                v-model="addAction.menuName"
+                v-model="action.menuName"
                 placeholder="菜单名"
                 :readonly="true"
               />
@@ -127,7 +127,7 @@
                 name="el-input"
                 :min-rows="2"
                 type="text"
-                v-model="addAction.oper"
+                v-model="action.oper"
                 placeholder="操作编码"
               />
             </el-form-item>
@@ -138,23 +138,19 @@
                 name="el-input"
                 :min-rows="2"
                 type="text"
-                v-model="addAction.actionName"
+                v-model="action.actionName"
                 placeholder="操作名"
               />
             </el-form-item>
           </el-col>
         </el-row>
         <el-form-item label-width="0" style="text-align: center">
-          <zl-button @click="saveAdd">保存</zl-button>
-          <zl-button @click="closeAdd">关闭</zl-button>
+          <zl-button @click="save(addForm)">保存</zl-button>
+          <zl-button @click="close">关闭</zl-button>
         </el-form-item>
       </el-form>
     </el-dialog>
-    <el-dialog
-      ref="updateDialog"
-      v-model:visible="isUpdateShow"
-      title="修改操作"
-    >
+    <el-dialog ref="updateDialog" v-model="isUpdateShow" title="修改操作">
       <el-form
         labelWidth="100px"
         ref="updateForm"
@@ -246,13 +242,8 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-    <el-dialog ref="viewDialog" v-model:visible="isViewShow" title="查看操作">
-      <el-form
-        labelWidth="100px"
-        ref="viewForm"
-        :model="viewAction"
-        :rules="addRule"
-      >
+    <el-dialog ref="viewDialog" v-model="isViewShow" title="查看操作">
+      <el-form labelWidth="100px" ref="viewForm" :model="viewAction">
         <el-row>
           <el-col :span="12">
             <el-form-item
@@ -341,216 +332,271 @@
     </el-dialog>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { reactive, toRefs, ref, getCurrentInstance } from 'vue'
+import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { menuActionStore } from '@/stores/menuAction'
 export default {
-  name: "ActionConfig",
-  data: function () {
-    return {
+  name: 'ActionConfig',
+  setup() {
+    const store = menuActionStore()
+    const state = reactive({
       queryData: {
         condition: {
-          menuId: "",
-          menuName: "",
+          menuId: store.menuId,
+          menuName: store.menuName
         },
         pageSize: 5,
-        pageNum: 1,
+        pageNum: 1
       },
-      total: 0,
-      currentRow: {},
       loading: false,
       actions: [],
+      total: 0,
+      currentRow: {
+        actionId: '',
+        menuId: '',
+        menuName: '',
+        oper: '',
+        actionName: ''
+      },
       isAddShow: false,
+      action: {
+        actionId: '',
+        menuId: '',
+        menuName: '',
+        oper: '',
+        actionName: ''
+      },
       isUpdateShow: false,
+      updateAction: {
+        actionId: '',
+        menuId: '',
+        menuName: '',
+        oper: '',
+        actionName: ''
+      },
       isViewShow: false,
-      addAction: {},
-      updateAction: {},
-      viewAction: {},
-      addRule: {
-        oper: [
-          {
-            required: true,
-            message: "操作编码必输",
-            trigger: "blur",
-          },
-        ],
-        actionName: [
-          {
-            required: true,
-            message: "操作名必输",
-            trigger: "blur",
-          },
-        ],
-      },
-      updateRule: {
-        oper: [
-          {
-            required: true,
-            message: "操作编码必输",
-            trigger: "blur",
-          },
-        ],
-        actionName: [
-          {
-            required: true,
-            message: "操作名必输",
-            trigger: "blur",
-          },
-        ],
-      },
-    };
-  },
-  created: function () {
-    this.queryData.condition.menuId = this.$route.params.menuId;
-    this.queryData.condition.menuName = this.$route.params.menuName;
-  },
-  methods: {
-    query: function (flag) {
-      if (flag) {
-        this.queryData.pageNum = 1;
+      viewAction: {
+        actionId: '',
+        menuId: '',
+        menuName: '',
+        oper: '',
+        actionName: ''
       }
-      const _this = this;
-      _this.loading = true;
-      const url = this.service.userURL + "/action/queryMenuAction";
-      const queryData = this.queryData;
-      this.service.request({
-        method: "post",
+    })
+    interface rep {
+      data: any
+      total: number
+      pageNum: number
+    }
+    // @ts-ignore
+    const { proxy } = getCurrentInstance()
+    const service = proxy.$service
+    const query = (flag?: Boolean) => {
+      if (flag) {
+        state.queryData.pageNum = 1
+      }
+      state.loading = true
+      console.log(service)
+      const url = service.userURL + '/action/'
+      const queryData = state.queryData
+      service.request({
+        method: 'post',
         url: url,
         data: queryData,
-        success: function (rep) {
-          _this.loading = false;
-          _this.actions = rep.data;
-          _this.total = rep.total;
-          _this.queryData.pageNum = rep.pageNum;
-        },
-        failed: function () {
-          _this.loading = false;
-        },
-      });
-    },
-    add: function () {
-      this.isAddShow = true;
-      this.addAction = this.queryData.condition;
-    },
-    selected: function (val) {
-      this.currentRow = val;
-    },
-    change: function (val) {
-      this.query();
-    },
-    saveAdd: function () {
-      const _this = this;
-      this.$refs.addForm.validate((valid) => {
+        success: function (rep: rep) {
+          state.loading = false
+          state.actions = rep.data
+          state.total = rep.total
+          state.queryData.pageNum = rep.pageNum
+        }
+      })
+    }
+    const selected = (val: {
+      actionId: ''
+      menuId: ''
+      menuName: ''
+      oper: ''
+      actionName: ''
+    }) => {
+      state.currentRow = val
+    }
+
+    const add = () => {
+      state.isAddShow = true
+    }
+    const addRule = reactive<FormRules>({
+      oper: [
+        {
+          required: true,
+          message: '操作编码必输',
+          trigger: 'blur'
+        }
+      ],
+      actionName: [
+        {
+          required: true,
+          message: '操作名必输',
+          trigger: 'blur'
+        }
+      ]
+    })
+    const addForm = ref<FormInstance>()
+    const save = async (formEl: FormInstance | undefined) => {
+      if (!formEl) return
+      await formEl.validate((valid: any, fields: any) => {
         if (valid) {
-          const url = this.service.userURL + "/action/add";
-          const action = this.addAction;
-          this.service.request({
-            method: "post",
+          const url = service.userURL + '/action/add'
+          const action = state.action
+          service.request({
+            method: 'post',
             url: url,
             data: action,
-            success: function (rep) {
-              _this.isAddShow = false;
-              _this.action = {};
-              _this.query();
-            },
-          });
+            success: function (rep: rep) {
+              state.isAddShow = false
+              state.action = {
+                actionId: '',
+                menuId: '',
+                menuName: '',
+                oper: '',
+                actionName: ''
+              }
+              query()
+            }
+          })
         }
-      });
-    },
-    closeAdd: function () {
-      this.isAddShow = false;
-      this.action = {};
-    },
-    update: function () {
-      if (JSON.stringify(this.currentRow) !== "{}") {
-        this.queryDetail(this.currentRow.actionId, "updateAction");
-        this.isUpdateShow = true;
-      } else {
-        this.$message({
-          message: "请选择一条数据",
-          type: "warning",
-        });
+      })
+    }
+
+    const close = () => {
+      state.isAddShow = false
+      state.action = {
+        actionId: '',
+        menuId: '',
+        menuName: '',
+        oper: '',
+        actionName: ''
       }
-    },
-    queryDetail: function (actionId, data) {
-      const url = this.service.userURL + "/action/detail?actionId=" + actionId;
-      const _this = this;
-      this.service.request({
-        method: "post",
-        url: url,
-        success: function (rep) {
-          _this[data] = rep.data;
-        },
-      });
-    },
-    saveUpdate: function () {
-      const _this = this;
-      this.$refs.updateForm.validate((valid) => {
+    }
+
+    const updateDialog = ref<FormInstance>()
+    const update = () => {
+      if (state.currentRow.actionId !== '') {
+        state.isUpdateShow = true
+        state.updateAction = state.currentRow
+      } else {
+        ElMessage({
+          message: '请选择一条数据',
+          type: 'warning'
+        })
+      }
+    }
+
+    const saveUpdate = async (formEl: FormInstance | undefined) => {
+      if (!formEl) {
+        return
+      }
+      await formEl.validate((valid) => {
         if (valid) {
-          const url = this.service.userURL + "/action/update";
-          const action = this.updateAction;
-          this.service.request({
-            method: "post",
+          const url = service.userURL + '/action/update'
+          const updateAction = state.updateAction
+          service.request({
+            method: 'post',
             url: url,
-            data: action,
-            success: function (rep) {
-              _this.isUpdateShow = false;
-              _this.updateAction = {};
-              _this.query();
-            },
-          });
+            data: updateAction,
+            success: function (rep: rep) {
+              state.isUpdateShow = false
+              state.updateAction = {
+                actionId: '',
+                menuId: '',
+                menuName: '',
+                oper: '',
+                actionName: ''
+              }
+              query()
+            }
+          })
         }
-      });
-    },
-    closeUpdate: function () {
-      this.isUpdateShow = false;
-    },
-    del: function () {
-      if (JSON.stringify(this.currentRow) !== "{}") {
-        const _this = this;
-        this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning",
+      })
+    }
+    const closeUpdate = () => {
+      state.isUpdateShow = false
+      state.updateAction = {
+        actionId: '',
+        menuId: '',
+        menuName: '',
+        oper: '',
+        actionName: ''
+      }
+    }
+
+    const del = () => {
+      if (state.currentRow.actionId !== '') {
+        const _this = this
+        ElMessageBox.confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
         })
           .then(() => {
             const url =
-              this.service.userURL +
-              "/action/delete?actionId=" +
-              this.currentRow.actionId;
-            this.service.request({
-              method: "post",
+              service.userURL +
+              '/action/delete?actionId=' +
+              state.currentRow.actionId
+            service.request({
+              method: 'post',
               url: url,
-              success: function (rep) {
-                _this.query();
-                _this.$message({
-                  type: "success",
-                  message: "删除成功!",
-                });
-              },
-            });
+              success: function (rep: rep) {
+                query()
+                ElMessage({
+                  type: 'success',
+                  message: '删除成功!'
+                })
+              }
+            })
           })
-          .catch(() => {});
+          .catch(() => {})
       } else {
-        this.$message({
-          message: "请选择一条数据",
-          type: "warning",
-        });
+        ElMessage({
+          message: '请选择一条数据',
+          type: 'warning'
+        })
       }
-    },
-    view: function () {
-      if (JSON.stringify(this.currentRow) !== "{}") {
-        this.queryDetail(this.currentRow.actionId, "viewAction");
-        this.isViewShow = true;
+    }
+
+    const viewDetail = () => {
+      if (state.currentRow.menuId !== '') {
+        state.isViewShow = true
+        state.viewAction = state.currentRow
       } else {
-        this.$message({
-          message: "请选择一条数据",
-          type: "warning",
-        });
+        ElMessage({
+          message: '请选择一条数据',
+          type: 'warning'
+        })
       }
-    },
-    closeView: function () {
-      this.isViewShow = false;
-      this.viewAction = {};
-    },
-  },
-};
+    }
+
+    const closeView = () => {
+      state.isViewShow = false
+    }
+
+    return {
+      ...toRefs(state),
+      query,
+      selected,
+      add,
+      save,
+      addRule,
+      addForm,
+      close,
+      update,
+      saveUpdate,
+      closeUpdate,
+      del,
+      viewDetail,
+      closeView
+    }
+  }
+}
 </script>

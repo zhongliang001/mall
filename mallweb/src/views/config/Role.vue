@@ -63,55 +63,80 @@
                     :page-size="queryData.pageSize"
                     :pager-count="5"
                     v-model:current-page="queryData.pageNum"
-                    @current-change="change"
+                    @current-change="query()"
                 ></el-pagination>
             </el-main>
         </el-container>
     </div>
 </template>
-<script>
+<script lang="ts">
+import { reactive, toRefs, ref, getCurrentInstance } from 'vue'
+import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
+
 export default {
     name: 'RoleInfo',
-    data: function () {
-        return {
+    setup() {
+        const state = reactive({
             queryData: {
-                condition: {},
+                condition: {
+                    roleId: '',
+                    roleName: ''
+                },
                 pageSize: 5,
-                pageNum: 1,
+                pageNum: 1
             },
-            actions: [],
-            currentRow: {},
             total: 0,
-            loading: false,
+            actions: [],
+            currentRow: {
+                menuId: '',
+                menuName: '',
+                parentId: '',
+                path: ''
+            },
+            loading: false
+        })
+        interface rep {
+            data: any
+            total: number
+            pageNum: number
         }
-    },
-    methods: {
-        query: function (flag) {
+        // @ts-ignore
+        const { proxy } = getCurrentInstance()
+        const service = proxy.$service
+        const query = (flag?: Boolean) => {
             if (flag) {
-                this.queryData.pageNum = 1
+                state.queryData.pageNum = 1
             }
-            const _this = this
-            _this.loading = true
-            const url = this.service.userURL + '/role/'
-            const queryData = this.queryData
-            this.service.request({
+            state.loading = true
+            console.log(service)
+            const url = service.userURL + '/role/'
+            const queryData = state.queryData
+            service.request({
                 method: 'post',
                 url: url,
                 data: queryData,
-                success: function (rep) {
-                    _this.loading = false
-                    _this.actions = rep.data
-                    _this.total = rep.total
-                    _this.queryData.pageNum = rep.pageNum
-                },
+                success: function (rep: rep) {
+                    state.loading = false
+                    state.actions = rep.data
+                    state.total = rep.total
+                    state.queryData.pageNum = rep.pageNum
+                }
             })
-        },
-        selected: function (val) {
-            this.currentRow = val
-        },
-        change: function () {
-            this.query()
-        },
-    },
+        }
+        const selected = (val: {
+            menuId: ''
+            menuName: ''
+            parentId: ''
+            path: ''
+        }) => {
+            state.currentRow = val
+        }
+        return {
+            ...toRefs(state),
+            query,
+            selected
+        }
+    }
 }
 </script>
