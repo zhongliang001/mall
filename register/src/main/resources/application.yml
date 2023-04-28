@@ -1,0 +1,19 @@
+server:
+  port: 8091
+
+spring:
+  application:
+    name: regsiter
+eureka:
+  client:
+   registerWithEureka: false
+   fetchRegistry: false
+   service-url:
+     defaultZone: http://localhost:8091/eureka     
+  server:
+   waitTimeInMsWhenSyncEmpty: 0
+   enable-self-preservation: false
+   enewalPercentThreshold: 0.49
+   eviction-interval-timer-in-ms: 3000
+  instance:
+    leaseRenewalIntervalInSeconds: 30
