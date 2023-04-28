@@ -14,8 +14,8 @@
 # * Deploy built artifacts from master branch only.
 
 stages:
-  -verify
-  -deploy
+  - verify
+  - deploy
 
 variables:
   # `showDateTime` will show the passed time in milliseconds. You need to specify `--batch-mode` to make this work.
@@ -56,7 +56,7 @@ cache:
 # For merge requests do not `deploy` but only run `verify`.
 # See https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
 .verify:
-  stage: test
+  stage: verify
   script:
     - 'mvn $MAVEN_CLI_OPTS verify'
   except:
