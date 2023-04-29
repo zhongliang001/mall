@@ -1,0 +1,19 @@
+server:
+  port: 9094
+
+spring:
+  application:
+    name: user
+  datasource:
+    url: jdbc:mysql://192.168.111.129:3306/userCenter?useUnicode=true&characterEncoding=utf-8&relaxAutoCommit=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: zhongliang
+    password: ywlxslty4x;G
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.111.129:8091/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}

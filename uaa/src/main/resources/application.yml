@@ -4,12 +4,7 @@ server:
 spring:
   application:
     name: uaa
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-          lowerCaseServiceId: true
+    
 eureka:
   client:
     service-url:
