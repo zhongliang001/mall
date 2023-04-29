@@ -76,7 +76,7 @@ install:jdk8:
   stage: install
   script:
     - 'mvn $MAVEN_CLI_OPTS install --settings /usr/local/soft/apache-maven-3.6.3/conf/settings.xml'
-    - cd .
+    - cd ~
     - ./start.sh
   except:
     variables:
