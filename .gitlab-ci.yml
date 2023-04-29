@@ -15,13 +15,13 @@
 
 stages:
   - verify
-  - deploy
+  - install
 
 variables:
   # `showDateTime` will show the passed time in milliseconds. You need to specify `--batch-mode` to make this work.
+  # Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository
   MAVEN_OPTS: >-
-    -Dhttps.protocols=TLSv1.2
-    -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository
+    -Dhttps.protocols=TLSv1.2   
     -Dorg.slf4j.simpleLogger.showDateTime=true
     -Djava.awt.headless=true
 
@@ -72,13 +72,10 @@ verify:jdk8:
 # For deploying packages to GitLab's Maven Repository: See https://docs.gitlab.com/ee/user/packages/maven_repository/index.html#create-maven-packages-with-gitlab-cicd for more details.
 # Please note: The GitLab Maven Repository is currently only available in GitLab Premium / Ultimate.
 # For `master` or `main` branch run `mvn deploy` automatically.
-deploy:jdk8:
-  stage: deploy
+install:jdk8:
+  stage: install
   script:
-    - if [ ! -f ci_settings.xml ]; then
-        echo "CI settings missing\! If deploying to GitLab Maven Repository, please see https://docs.gitlab.com/ee/user/packages/maven_repository/index.html#create-maven-packages-with-gitlab-cicd for instructions.";
-      fi
-    - 'mvn $MAVEN_CLI_OPTS deploy --settings ci_settings.xml'
+    - 'mvn $MAVEN_CLI_OPTS install --settings /usr/local/soft/apache-maven-3.6.3/conf/settings.xml'
   except:
     variables:
       - $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
