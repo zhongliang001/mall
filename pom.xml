@@ -10,6 +10,9 @@
 		<spring-cloud.version>Hoxton.SR9</spring-cloud.version>
 		<gson.version>2.8.5</gson.version>
 		<jackson.version>2.11.1</jackson.version>
+		<spring-boot-maven-plugin.version>2.7.0</spring-boot-maven-plugin.version>
+		<maven.compiler.compilerVersion>3.8.1</maven.compiler.compilerVersion>
+		 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -42,6 +45,46 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<distributionManagement>
+		<repository>
+			<id>maven-releases</id>
+			<name>user-centric</name>
+			<url>http://192.168.111.129:8081/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>maven-snapshots</id>
+			<name>user-centric</name>
+			<url>http://192.168.111.129:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring-boot-maven-plugin.version}</version>					
+					<executions>
+						<execution>
+							<goals>
+								<goal>repackage</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven.compiler.compilerVersion}</version>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 	<modules>
 		<module>gateway</module>
 		<module>register</module>
