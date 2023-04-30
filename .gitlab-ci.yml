@@ -58,6 +58,8 @@ cache:
 .verify:
   stage: verify
   script:
+    - git checkout feature/v0.0.1
+    - git pull
     - 'mvn $MAVEN_CLI_OPTS verify'
   except:
     variables:
