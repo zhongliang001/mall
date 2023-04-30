@@ -19,6 +19,7 @@
 		<pagehelper.starter.version>1.2.5</pagehelper.starter.version>
 		<mybatis-spring-boot-starter.version>2.1.3</mybatis-spring-boot-starter.version>
 		<mall-common.version>0.0.1-SNAPSHOT</mall-common.version>
+		<admin.version>2.3.1</admin.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -37,6 +38,16 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${springboot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-actuator</artifactId>
+				<version>${springboot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
 				<version>${springboot.version}</version>
 			</dependency>
 			<dependency>
@@ -102,6 +113,11 @@
 				</exclusions>
 			</dependency>
 			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-starter-client</artifactId>
+				<version>${admin.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.zl</groupId>
 				<artifactId>mall-common</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
@@ -154,5 +170,6 @@
 		<module>uaa</module>
 		<module>mall-user</module>
 		<module>mall-common</module>
+		<module>mall-admin</module>
 	</modules>
 </project>

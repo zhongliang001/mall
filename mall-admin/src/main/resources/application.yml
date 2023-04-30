@@ -1,0 +1,18 @@
+server:
+  port: 9095
+
+spring:
+  application:
+    name: admin
+  security:
+    user:
+      name: admin
+      password: 123456
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.111.129:8091/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
