@@ -122,6 +122,11 @@
 				<artifactId>mall-common</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>com.zl</groupId>
+				<artifactId>mall-user-dto</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<distributionManagement>
