@@ -3,6 +3,7 @@ package com.zl.mall.user.userauth.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
+import com.zl.mall.user.userauth.entity.UserAuthDto;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
 import com.zl.mall.user.userauth.service.UserAuthService;
 /*
@@ -30,7 +32,6 @@ public class UserAuthController {
 		List<UserAuthEntity> list = userAuthService.queryList(queryCondition);
 		return  ResultUtil.generate(list, "查询成功");
 	}
-	
 	@PostMapping("/add")
 	public ResultDto<Integer> add(@RequestBody UserAuthEntity userAuthEntity){
 		int num = userAuthService.add(userAuthEntity);
@@ -50,7 +51,12 @@ public class UserAuthController {
 	@PostMapping("/login")
 	public ResultDto<UserAuthEntity> login(String userName) {
 		UserAuthEntity userAuthEntity = userAuthService.login(userName);
-		return ResultUtil.generate(userAuthEntity, TradeCodeDict.SUCCESS_QUERRY_CODE);
-		
+		return ResultUtil.generate(userAuthEntity, TradeCodeDict.SUCCESS_QUERRY_CODE);		
+	}
+	
+	@PostMapping("/regist")
+	public ResultDto<UserAuthEntity> regist(@Validated @RequestBody UserAuthDto userAuthDto) {
+		UserAuthEntity userAuthEntity = userAuthService.regiter(userAuthDto);
+		return ResultUtil.generate(userAuthEntity, TradeCodeDict.SUCCESS_QUERRY_CODE);		
 	}
 }

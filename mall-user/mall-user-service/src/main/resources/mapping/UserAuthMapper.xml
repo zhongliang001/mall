@@ -78,31 +78,31 @@
 		) values (
 		<trim suffixOverrides=",">
 			<if test="userId != null and userId != ''">
-				#{userId, jdbcType=VARCHAR}
+				#{userId, jdbcType=VARCHAR},
 			</if>
 			<if test="userName != null and userName != ''">
-				#{userName, jdbcType=VARCHAR}
+				#{userName, jdbcType=VARCHAR},
 			</if>
 			<if test="email != null and email != ''">
-				#{email, jdbcType=VARCHAR}
+				#{email, jdbcType=VARCHAR},
 			</if>
 			<if test="password != null and password != ''">
-				#{password, jdbcType=VARCHAR}
+				#{password, jdbcType=VARCHAR},
 			</if>
 			<if test="loginTime != null and loginTime != ''">
-				#{loginTime, jdbcType=VARCHAR}
+				#{loginTime, jdbcType=VARCHAR},
 			</if>
 			<if test="registTime != null and registTime != ''">
-				#{registTime, jdbcType=VARCHAR}
+				#{registTime, jdbcType=VARCHAR},
 			</if>
 			<if test="loginErrorTime != null and loginErrorTime != ''">
-				#{loginErrorTime, jdbcType=VARCHAR}
+				#{loginErrorTime, jdbcType=VARCHAR},
 			</if>
 			<if test="loginErrorTimes != null and loginErrorTimes != ''">
-				#{loginErrorTimes, jdbcType=INT}
+				#{loginErrorTimes, jdbcType=INT},
 			</if>
 			<if test="userState != null and userState != ''">
-				#{userState, jdbcType=CHAR}
+				#{userState, jdbcType=CHAR},
 			</if>
 		</trim>
 )
