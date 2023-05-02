@@ -19,6 +19,8 @@ management:
       enable: true
       show-details: ALWAYS
 
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
     
 eureka:
   client:
