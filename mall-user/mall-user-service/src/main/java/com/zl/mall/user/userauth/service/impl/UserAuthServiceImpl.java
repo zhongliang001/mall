@@ -3,12 +3,14 @@ package com.zl.mall.user.userauth.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.zl.mall.common.dto.QueryCondition;
+import com.zl.mall.user.userauth.entity.UserAuthDto;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
 import com.zl.mall.user.userauth.mapper.UserAuthMapper;
 import com.zl.mall.user.userauth.service.UserAuthService;
@@ -43,5 +45,28 @@ public class UserAuthServiceImpl implements UserAuthService {
 		map.put("userName", userName);
 		List<UserAuthEntity> queryList = userAuthMapper.queryList(map);		
 		return queryList.get(0);
+	}
+
+	@Override
+	public UserAuthEntity regiter(UserAuthDto userAuthDto) {
+		String userName = userAuthDto.getUserName();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userName", userName);
+		List<UserAuthEntity> queryList = userAuthMapper.queryList(map);
+		if(queryList.size() > 0) {
+			throw new RuntimeException("该用户名已经存在");
+		}
+		String password = userAuthDto.getPassword();
+		String repeatPassword = userAuthDto.getRepeatPassword();
+		if(password== null || !password.equals(repeatPassword)) {
+			throw new RuntimeException("两次输入的密码不一致");
+		}
+		UserAuthEntity userAuthEntity = new UserAuthEntity();
+		userAuthEntity.setUserId(UUID.randomUUID().toString());
+		userAuthEntity.setPassword(password);
+		userAuthEntity.setEmail(userAuthDto.getEmail());
+		userAuthEntity.setUserName(userAuthDto.getUserName());
+		userAuthMapper.add(userAuthEntity);
+		return userAuthEntity;
 	}
 }
