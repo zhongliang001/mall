@@ -77,7 +77,7 @@ verify:jdk8:
 install:jdk8:
   stage: install
   script:
-    - 'mvn $MAVEN_CLI_OPTS install --settings /usr/local/soft/apache-maven-3.6.3/conf/settings.xml'
+    - 'mvn $MAVEN_CLI_OPTS clean install --settings /usr/local/soft/apache-maven-3.6.3/conf/settings.xml'
     - git checkout feature/v0.0.1
     - git pull
     - cd ~
