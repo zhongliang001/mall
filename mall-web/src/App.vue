@@ -1,85 +1,125 @@
 <script setup lang="ts">
+import { ref, reactive } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import zlaxios from '../lib/zlaxios'
+import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessage } from 'element-plus'
+
+const reqForm = ref<FormInstance>()
+const reqdata = reactive({
+  userName: '',
+  email: '',
+  password: '',
+  repeatPassword: ''
+})
+
+const checkpasswod = (rule: any, value: any, callback: any) => {
+  if (value && reqdata.repeatPassword) {
+    if (value !== reqdata.repeatPassword) {
+      callback(new Error('两次输入的密码不一致!'))
+    } else {
+      callback()
+    }
+  }
+}
+const checkRepeatPassword = (rule: any, value: any, callback: any) => {
+  if (value && reqdata.repeatPassword) {
+    if (value !== reqdata.password) {
+      callback(new Error('两次输入的密码不一致!'))
+    } else {
+      callback()
+    }
+  }
+}
+
+const rules = reactive<FormRules>({
+  userName: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+  password: [
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    {
+      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\s\S]{8,16}$/,
+      message: '密码至少8-16个字符，必须包含大写字母，小写字母，数字',
+      trigger: 'blur'
+    },
+    {
+      validator: checkpasswod,
+      message: '两次输入的密码不一致',
+      trigger: 'blur'
+    }
+  ],
+  repeatPassword: [
+    { required: true, message: '请重复密码', trigger: 'blur' },
+    {
+      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/,
+      message: '密码至少8-16个字符，必须包含大写字母，小写字母，数字',
+      trigger: 'blur'
+    },
+    {
+      validator: checkRepeatPassword,
+      message: '两次输入的密码不一致',
+      trigger: 'blur'
+    }
+  ],
+  email: [
+    { required: true, message: '请输入邮箱', trigger: 'blur' },
+    {
+      pattern: '^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$',
+      message: '请输入正确的邮箱',
+      trigger: 'blur'
+    }
+  ]
+})
+
+const regist = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  await formEl.validate((valid, fields) => {
+    if (valid) {
+      zlaxios.request({
+        url: 'http://192.168.111.130:9092/user/userAuth/regist',
+        data: reqdata,
+        method: 'post',
+        success: function (data: any) {
+          debugger
+          //router.push({ name: 'UserDetail', query: { id: data.data } })
+        },
+        failed: function (data: any) {
+          ElMessage({
+            message: data.msg,
+            grouping: true,
+            type: 'error'
+          })
+        }
+      })
+    } else {
+      console.log('error submit!', fields)
+    }
+  })
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <el-container>
+    <el-header>
+      <h1>注册</h1>
+    </el-header>
+    <el-main>
+      <el-form ref="reqForm" :rules="rules" :model="reqdata">
+        <el-form-item label="用户名" prop="userName">
+          <el-input v-model="reqdata.userName"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="reqdata.email"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="empasswordail">
+          <el-input v-model="reqdata.password" type="password"></el-input>
+        </el-form-item>
+        <el-form-item label="重复密码" prop="repeatPassword">
+          <el-input v-model="reqdata.repeatPassword" type="password"></el-input>
+        </el-form-item>
+      </el-form>
+      <el-button type="primary" @click="regist(reqForm)">提交</el-button>
+    </el-main>
+  </el-container>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
+<style scoped></style>
