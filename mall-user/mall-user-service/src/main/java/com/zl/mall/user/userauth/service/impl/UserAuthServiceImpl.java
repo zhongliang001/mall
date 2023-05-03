@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -62,8 +63,10 @@ public class UserAuthServiceImpl implements UserAuthService {
 			throw new RuntimeException("两次输入的密码不一致");
 		}
 		UserAuthEntity userAuthEntity = new UserAuthEntity();
-		userAuthEntity.setUserId(UUID.randomUUID().toString());
-		userAuthEntity.setPassword(password);
+		userAuthEntity.setUserId(UUID.randomUUID().toString().replaceAll("-", ""));
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		
+		userAuthEntity.setPassword(bCryptPasswordEncoder.encode(password));
 		userAuthEntity.setEmail(userAuthDto.getEmail());
 		userAuthEntity.setUserName(userAuthDto.getUserName());
 		userAuthMapper.add(userAuthEntity);

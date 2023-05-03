@@ -26,6 +26,7 @@ public class WebConfig implements WebFluxConfigurer {
         list.add("http://127.0.0.1:8081");
         list.add("http://127.0.0.1:90");
         list.add("http://192.168.111.130:5173");
+        list.add("http://localhost:5173");
         list.add("http://192.168.31.194");
         list.add("http://195966hp14.iok.la");
         //1,允许任何来源
