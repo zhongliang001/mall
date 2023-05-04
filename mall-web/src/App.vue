@@ -75,7 +75,7 @@ const regist = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       zlaxios.request({
-        url: 'http://192.168.111.130:9092/user/userAuth/regist',
+        url: 'http://192.168.111.129:9092/user/userAuth/regist',
         data: reqdata,
         method: 'post',
         success: function (data: any) {
