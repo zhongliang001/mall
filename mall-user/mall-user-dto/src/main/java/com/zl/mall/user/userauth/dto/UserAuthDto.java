@@ -1,4 +1,4 @@
-package com.zl.mall.user.userauth.entity;
+package com.zl.mall.user.userauth.dto;
 
 import java.io.Serializable;
 

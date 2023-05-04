@@ -2,6 +2,7 @@ package com.zl.mall.user.userauth.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,7 @@ import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
-import com.zl.mall.user.userauth.entity.UserAuthDto;
+import com.zl.mall.user.userauth.dto.UserAuthDto;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
 import com.zl.mall.user.userauth.service.UserAuthService;
 /*
@@ -49,7 +50,7 @@ public class UserAuthController {
 	}
 	
 	@PostMapping("/login")
-	public ResultDto<UserAuthEntity> login(String userName) {
+	public ResultDto<UserAuthEntity> login(@RequestParam(value = "userName") String userName) {
 		UserAuthEntity userAuthEntity = userAuthService.login(userName);
 		return ResultUtil.generate(userAuthEntity, TradeCodeDict.SUCCESS_QUERRY_CODE);		
 	}

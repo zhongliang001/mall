@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.zl.mall.common.dto.QueryCondition;
-import com.zl.mall.user.userauth.entity.UserAuthDto;
+import com.zl.mall.user.userauth.dto.UserAuthDto;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
 /*
  * 

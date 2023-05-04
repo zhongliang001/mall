@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.zl.mall.common.dto.QueryCondition;
-import com.zl.mall.user.userauth.entity.UserAuthDto;
+import com.zl.mall.user.userauth.dto.UserAuthDto;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
 import com.zl.mall.user.userauth.mapper.UserAuthMapper;
 import com.zl.mall.user.userauth.service.UserAuthService;
