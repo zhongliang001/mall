@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.user.userauth.mapper.UserAuthMapper">
+	<resultMap id="userAuth" type="com.zl.mall.user.userauth.entity.UserAuthEntity">
+		<id column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="login_time" jdbcType="VARCHAR" property="loginTime" />
+		<result column="regist_time" jdbcType="VARCHAR" property="registTime" />
+		<result column="login_error_time" jdbcType="VARCHAR" property="loginErrorTime" />
+		<result column="login_error_times" jdbcType="INTEGER" property="loginErrorTimes" />
+		<result column="user_state" jdbcType="CHAR" property="userState" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="userAuth">
+		select * from user_auth
+		<where>
+			<if test="userId != null and userId != ''">
+				 and user_id=#{userId, jdbcType=VARCHAR}
+			</if>
+			<if test="userName != null and userName != ''">
+				 and user_name=#{userName, jdbcType=VARCHAR}
+			</if>
+			<if test="email != null and email != ''">
+				 and email=#{email, jdbcType=VARCHAR}
+			</if>
+			<if test="password != null and password != ''">
+				 and password=#{password, jdbcType=VARCHAR}
+			</if>
+			<if test="loginTime != null and loginTime != ''">
+				 and login_time=#{loginTime, jdbcType=VARCHAR}
+			</if>
+			<if test="registTime != null and registTime != ''">
+				 and regist_time=#{registTime, jdbcType=VARCHAR}
+			</if>
+			<if test="loginErrorTime != null and loginErrorTime != ''">
+				 and login_error_time=#{loginErrorTime, jdbcType=VARCHAR}
+			</if>
+			<if test="loginErrorTimes != null and loginErrorTimes != ''">
+				 and login_error_times=#{loginErrorTimes, jdbcType=INT}
+			</if>
+			<if test="userState != null and userState != ''">
+				 and user_state=#{userState, jdbcType=CHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.user.userauth.entity.UserAuthEntity">
+		insert into user_auth (
+		<trim suffixOverrides=",">
+			user_id,
+			<if test="userName != null and userName != ''">
+				user_name,
+			</if>
+			<if test="email != null and email != ''">
+				email,
+			</if>
+			<if test="password != null and password != ''">
+				password,
+			</if>
+			<if test="loginTime != null and loginTime != ''">
+				login_time,
+			</if>
+			<if test="registTime != null and registTime != ''">
+				regist_time,
+			</if>
+			<if test="loginErrorTime != null and loginErrorTime != ''">
+				login_error_time,
+			</if>
+			<if test="loginErrorTimes != null and loginErrorTimes != ''">
+				login_error_times,
+			</if>
+			<if test="userState != null and userState != ''">
+				user_state,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="userId != null and userId != ''">
+				#{userId, jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null and userName != ''">
+				#{userName, jdbcType=VARCHAR},
+			</if>
+			<if test="email != null and email != ''">
+				#{email, jdbcType=VARCHAR},
+			</if>
+			<if test="password != null and password != ''">
+				#{password, jdbcType=VARCHAR},
+			</if>
+			<if test="loginTime != null and loginTime != ''">
+				#{loginTime, jdbcType=VARCHAR},
+			</if>
+			<if test="registTime != null and registTime != ''">
+				#{registTime, jdbcType=VARCHAR},
+			</if>
+			<if test="loginErrorTime != null and loginErrorTime != ''">
+				#{loginErrorTime, jdbcType=VARCHAR},
+			</if>
+			<if test="loginErrorTimes != null and loginErrorTimes != ''">
+				#{loginErrorTimes, jdbcType=INT},
+			</if>
+			<if test="userState != null and userState != ''">
+				#{userState, jdbcType=CHAR},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.user.userauth.entity.UserAuthEntity">
+		update user_auth set 
+		<trim suffixOverrides=",">
+			<if test="userName != null and userName != ''">
+				user_name=#{userName, jdbcType=VARCHAR},
+			</if>
+			<if test="email != null and email != ''">
+				email=#{email, jdbcType=VARCHAR},
+			</if>
+			<if test="password != null and password != ''">
+				password=#{password, jdbcType=VARCHAR},
+			</if>
+			<if test="loginTime != null and loginTime != ''">
+				login_time=#{loginTime, jdbcType=VARCHAR},
+			</if>
+			<if test="registTime != null and registTime != ''">
+				regist_time=#{registTime, jdbcType=VARCHAR},
+			</if>
+			<if test="loginErrorTime != null and loginErrorTime != ''">
+				login_error_time=#{loginErrorTime, jdbcType=VARCHAR},
+			</if>
+			<if test="loginErrorTimes != null and loginErrorTimes != ''">
+				login_error_times=#{loginErrorTimes, jdbcType=INT},
+			</if>
+			<if test="userState != null and userState != ''">
+				user_state=#{userState, jdbcType=CHAR},
+			</if>
+		</trim>
+		<where>
+			 and user_id=#{userId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from user_auth 
+			<where>
+			 and user_id=#{userId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+</mapper>
