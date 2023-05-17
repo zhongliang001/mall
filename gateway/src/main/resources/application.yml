@@ -28,3 +28,7 @@ management:
     health:
       enable: true
       show-details: ALWAYS
+auth:
+  whiteList:
+    - /uaa/oauth/check_token
+    - /uaa/oauth/token
