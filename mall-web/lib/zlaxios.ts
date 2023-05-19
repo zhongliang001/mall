@@ -30,7 +30,7 @@ interface requestInfo {
   method: string,
   failed?: Function|any,
   success?: Function|any,
-  data: Object,
+  data?: Object|any,
   config?: Object| any
 }
 const zlaxios = {
