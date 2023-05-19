@@ -18,7 +18,7 @@ app.use(router)
 app.mount('#app')
 
 zlaxios.request({
-  url: "http://192.168.111.129:9092/common/dict/queryAllTree",
+  url: "http://localhost:18096/common/dict/queryAllTree",
   data: {},
   method: "post",
   success: function (data: any) {
