@@ -61,7 +61,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 		} else if (!"null".equals(token)) {
 			MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
 			queryParams.add("token", token);
-			String object = restTemplate.postForObject("http://localhost:18096/uaa/oauth/check_token", queryParams,
+			String object = restTemplate.postForObject("/uaa/oauth/check_token", queryParams,
 					String.class);
 			if (StringUtils.isBlank(object)) {
 				serverHttpResponse.setStatusCode(HttpStatus.UNAUTHORIZED);
