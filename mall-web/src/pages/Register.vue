@@ -97,28 +97,36 @@ const regist = async (formEl: FormInstance | undefined) => {
 </script>
 
 <template>
-  <el-container>
-    <el-header>
-      <h1>注册</h1>
-    </el-header>
-    <el-main>
-      <el-form ref="reqForm" :rules="rules" :model="reqdata">
-        <el-form-item label="用户名" prop="userName">
-          <el-input v-model="reqdata.userName"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="reqdata.email"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input v-model="reqdata.password" type="password"></el-input>
-        </el-form-item>
-        <el-form-item label="重复密码" prop="repeatPassword">
-          <el-input v-model="reqdata.repeatPassword" type="password"></el-input>
-        </el-form-item>
-      </el-form>
-      <el-button type="primary" @click="regist(reqForm)">提交</el-button>
-    </el-main>
-  </el-container>
+  <div class="regist">
+    <el-container>
+      <el-header>
+        <h1>注册</h1>
+      </el-header>
+      <el-main>
+        <el-form ref="reqForm" :rules="rules" :model="reqdata">
+          <el-form-item label="用户名" prop="userName">
+            <el-input v-model="reqdata.userName"></el-input>
+          </el-form-item>
+          <el-form-item label="邮箱" prop="email">
+            <el-input v-model="reqdata.email"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="reqdata.password" type="password"></el-input>
+          </el-form-item>
+          <el-form-item label="重复密码" prop="repeatPassword">
+            <el-input v-model="reqdata.repeatPassword" type="password"></el-input>
+          </el-form-item>
+        </el-form>
+        <el-button type="primary" @click="regist(reqForm)">提交</el-button>
+      </el-main>
+    </el-container>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.regist {
+  margin-left: 36%;
+  width: 24%;
+  margin-top: 10%;
+}
+</style>

@@ -3,6 +3,7 @@ package com.zl.mall.user.userinfo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
+import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
 import com.zl.mall.user.userinfo.entity.UserInfoEntity;
 import com.zl.mall.user.userinfo.service.UserInfoService;
@@ -40,15 +42,15 @@ public class UserInfoController {
 		int num = userInfoService.update(userInfoEntity);
 		return ResultUtil.generate(num, "修改成功");
 	}
-	@PostMapping("/delete")
+	@GetMapping("/delete")
 	public ResultDto<Integer> delete(@RequestParam(value = "userId") String userId){
 		int num = userInfoService.delete(userId);
 		return ResultUtil.generate(num, "删除成功");
 	}
 	
-	@PostMapping("/queryByUserId")
+	@GetMapping("/queryByUserId")
 	public ResultDto<UserInfoEntity> queryByUserId(@RequestParam(value = "userId") String userId){
 		UserInfoEntity userInfoEntity = userInfoService.queryByUserId(userId);
-		return  ResultUtil.generate(userInfoEntity, "查询成功");
+		return  ResultUtil.generate(userInfoEntity, TradeCodeDict.SUCCESS_QUERRY_CODE);
 	}
 }
