@@ -19,12 +19,7 @@
       <el-aside width="200px">
         <el-row class="tac">
           <el-col :span="12">
-            <el-menu
-              default-active="2"
-              background-color="#545c64"
-              @open="handleOpen"
-              @close="handleClose"
-            >
+            <el-menu default-active="2" background-color="#545c64">
               <el-sub-menu index="1">
                 <template #title>
                   <el-icon><location /></el-icon>
@@ -58,11 +53,4 @@ onMounted(() => {
     username = jsa.username
   }
 })
-
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
 </script>

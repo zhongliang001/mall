@@ -70,18 +70,16 @@ const toRegister = function () {
         登录
       </el-header>
       <el-main>
-        <el-form>
-          <el-form ref="reqForm" :rules="rules" :model="reqdata">
-            <el-form-item label="用户名" prop="username">
-              <el-input v-model="reqdata.username"></el-input>
-            </el-form-item>
-            <el-form-item label="密码" prop="password">
-              <el-input v-model="reqdata.password" type="password"></el-input>
-            </el-form-item>
-          </el-form>
-          <el-button type="primary" @click="login(reqForm)">提交</el-button>
-          <el-button type="primary" @click="toRegister">注册</el-button>
+        <el-form ref="reqForm" :rules="rules" :model="reqdata">
+          <el-form-item label="用户名" prop="username">
+            <el-input v-model="reqdata.username"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="reqdata.password" type="password"></el-input>
+          </el-form-item>
         </el-form>
+        <el-button type="primary" @click="login(reqForm)">提交</el-button>
+        <el-button type="primary" @click="toRegister">注册</el-button>
       </el-main>
     </el-container>
   </div>
@@ -89,9 +87,9 @@ const toRegister = function () {
 
 <style scoped>
 .login {
-  margin-left: 200%;
-  width: 100%;
-  margin-top: 80%;
+  margin-left: 36%;
+  width: 24%;
+  margin-top: 10%;
 }
 .el-container {
   border: solid grey 1px;

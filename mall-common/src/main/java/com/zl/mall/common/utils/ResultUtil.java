@@ -7,7 +7,7 @@ public class ResultUtil {
 
 	public static <T> ResultDto<T> generate(T t, String tradeCode) {
 		ResultDto<T> resultDto = new ResultDto<>();
-		resultDto.setT(t);
+		resultDto.setData(t);
 		formatResponseInfo(resultDto, tradeCode);
 		return resultDto;
 	}

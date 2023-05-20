@@ -11,7 +11,7 @@ public class ResultDto<T> {
 	/**
 	 * 封装返回数据
 	 */
-	T t;
+	T data;
 	
 	/**
 	 * 返回请求结果码
@@ -23,12 +23,12 @@ public class ResultDto<T> {
 	 */
 	String msg;
 	
-	public T getT() {
-		return t;
+	public T getData() {
+		return data;
 	}
 
-	public void setT(T t) {
-		this.t = t;
+	public void setData(T data) {
+		this.data = data;
 	}
 
 	public String getCode() {

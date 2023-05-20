@@ -42,6 +42,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		List<UserInfoEntity> list = userInfoMapper.queryList(map);
-		return list.get(0);
+		if(list.size() > 0) {
+			return list.get(0);
+		}else {
+			return null;
+		}
 	}
 }

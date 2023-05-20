@@ -18,9 +18,10 @@ public class UserServiceImp implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		ResultDto<UserAuthEntity> resultDto = userAuthClient.login(username);
-		UserAuthEntity userAuthEntity = resultDto.getT();
-		if(userAuthEntity != null) {
+		UserAuthEntity userAuthEntity = resultDto.getData();
+		if(userAuthEntity != null) {			
 			UserAuthDetails userAuthDetails = new UserAuthDetails();
+			userAuthDetails.setUserId(userAuthEntity.getUserId());
 			userAuthDetails.setPassword(userAuthEntity.getPassword());
 			userAuthDetails.setUserName(userAuthEntity.getUserName());
 			return userAuthDetails;
