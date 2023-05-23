@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.zl.mall.uaa.service.UserServiceImp;
+import com.zl.mall.uaa.service.UserServiceImpl;
 
 /**
  * @author zhongliang
@@ -18,7 +18,7 @@ public class MallAuthenticationProvider extends AbstractUserDetailsAuthenticatio
 
     private PasswordEncoder passwordEncoder;
 
-    private UserServiceImp userServiceImp;
+    private UserServiceImpl userServiceImpl;
 
     private volatile String userNotFoundEncodedPassword;
 
@@ -32,12 +32,12 @@ public class MallAuthenticationProvider extends AbstractUserDetailsAuthenticatio
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserServiceImp getUserSecurityServiceImpl() {
-        return userServiceImp;
+    public UserServiceImpl getUserSecurityServiceImpl() {
+        return userServiceImpl;
     }
 
-    public void setUserServiceImp(UserServiceImp userServiceImp) {
-        this.userServiceImp = userServiceImp;
+    public void setUserServiceImp(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
 
     @Override

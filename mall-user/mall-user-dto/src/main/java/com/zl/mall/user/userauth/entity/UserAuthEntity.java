@@ -2,7 +2,7 @@ package com.zl.mall.user.userauth.entity;
 
 
 import java.io.Serializable;
-/*
+/**
  * 
  * @author coolz
  *

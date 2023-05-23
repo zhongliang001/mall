@@ -19,7 +19,7 @@ import com.zl.mall.user.userauth.dto.UserAuthDto;
 import com.zl.mall.user.userauth.dto.UserAuthLogOutDto;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
 import com.zl.mall.user.userauth.service.UserAuthService;
-/*
+/**
  * 
  * @author coolz
  *

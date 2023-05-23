@@ -1,4 +1,4 @@
-package com.zl.mall.common.Handler;
+package com.zl.mall.common.handler;
 
 import java.util.List;
 
@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.zl.mall.common.dto.ResultDto;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 @ControllerAdvice
 public class ValidExceptionHandler {
 	private Logger logger = LoggerFactory.getLogger(ValidExceptionHandler.class);

@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 public class UserAuthDto implements Serializable{
 	
 	/**
