@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.user.userinfo.mapper.UserInfoMapper">
+	<resultMap id="userInfo" type="com.zl.mall.user.userinfo.entity.UserInfoEntity">
+		<id column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+		<result column="cert_type" jdbcType="VARCHAR" property="certType" />
+		<result column="cert_code" jdbcType="VARCHAR" property="certCode" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="sex" jdbcType="CHAR" property="sex" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="userInfo">
+		select * from user_info
+		<where>
+			<if test="userId != null and userId != ''">
+				 and user_id=#{userId, jdbcType=VARCHAR}
+			</if>
+			<if test="userName != null and userName != ''">
+				 and user_name=#{userName, jdbcType=VARCHAR}
+			</if>
+			<if test="nickName != null and nickName != ''">
+				 and nick_name=#{nickName, jdbcType=VARCHAR}
+			</if>
+			<if test="certType != null and certType != ''">
+				 and cert_type=#{certType, jdbcType=VARCHAR}
+			</if>
+			<if test="certCode != null and certCode != ''">
+				 and cert_code=#{certCode, jdbcType=VARCHAR}
+			</if>
+			<if test="phone != null and phone != ''">
+				 and phone=#{phone, jdbcType=VARCHAR}
+			</if>
+			<if test="sex != null and sex != ''">
+				 and sex=#{sex, jdbcType=CHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.user.userinfo.entity.UserInfoEntity">
+		insert into user_info (
+		<trim suffixOverrides=",">
+			user_id,
+			<if test="userName != null and userName != ''">
+				user_name,
+			</if>
+			<if test="nickName != null and nickName != ''">
+				nick_name,
+			</if>
+			<if test="certType != null and certType != ''">
+				cert_type,
+			</if>
+			<if test="certCode != null and certCode != ''">
+				cert_code,
+			</if>
+			<if test="phone != null and phone != ''">
+				phone,
+			</if>
+			<if test="sex != null and sex != ''">
+				sex,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="userId != null and userId != ''">
+				#{userId, jdbcType=VARCHAR}
+			</if>
+			<if test="userName != null and userName != ''">
+				#{userName, jdbcType=VARCHAR}
+			</if>
+			<if test="nickName != null and nickName != ''">
+				#{nickName, jdbcType=VARCHAR}
+			</if>
+			<if test="certType != null and certType != ''">
+				#{certType, jdbcType=VARCHAR}
+			</if>
+			<if test="certCode != null and certCode != ''">
+				#{certCode, jdbcType=VARCHAR}
+			</if>
+			<if test="phone != null and phone != ''">
+				#{phone, jdbcType=VARCHAR}
+			</if>
+			<if test="sex != null and sex != ''">
+				#{sex, jdbcType=CHAR}
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.user.userinfo.entity.UserInfoEntity">
+		update user_info set 
+		<trim suffixOverrides=",">
+			<if test="userName != null and userName != ''">
+				user_name=#{userName, jdbcType=VARCHAR},
+			</if>
+			<if test="nickName != null and nickName != ''">
+				nick_name=#{nickName, jdbcType=VARCHAR},
+			</if>
+			<if test="certType != null and certType != ''">
+				cert_type=#{certType, jdbcType=VARCHAR},
+			</if>
+			<if test="certCode != null and certCode != ''">
+				cert_code=#{certCode, jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null and phone != ''">
+				phone=#{phone, jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null and sex != ''">
+				sex=#{sex, jdbcType=CHAR},
+			</if>
+		</trim>
+		<where>
+			 and user_id=#{userId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from user_info 
+			<where>
+			 and user_id=#{userId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+</mapper>

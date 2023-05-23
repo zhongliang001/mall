@@ -1,9 +1,9 @@
 package com.zl.mall.common.dto;
 
 public enum TradeCodeEnum {
-	
-	//查询成功
-    SUCCESS_QUERRY_CODE("000000", "查询成功");
+
+    SUCCESS_QUERRY_CODE("000000", "查询成功"),
+	  NO_AUTH("111111", "未授权");
     
     private String code;
 

@@ -23,6 +23,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ServerWebExchange;
 
 import com.google.gson.Gson;
+import com.zl.mall.common.dto.ResultDto;
+import com.zl.mall.common.dto.TradeCodeDict;
+import com.zl.mall.common.utils.ResultUtil;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -34,6 +37,9 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@Value("${server.port}")
+	private String port;
 
 	@Autowired
 	private ApplicationProperties applicationProperties;
@@ -61,10 +67,17 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 		} else if (!"null".equals(token)) {
 			MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
 			queryParams.add("token", token);
-			String object = restTemplate.postForObject("http://localhost:18096/uaa/oauth/check_token", queryParams,
-					String.class);
-			if (StringUtils.isBlank(object)) {
-				serverHttpResponse.setStatusCode(HttpStatus.UNAUTHORIZED);
+			try {
+				String object = restTemplate.postForObject("http://localhost:"+port+"/uaa/oauth/check_token", queryParams,
+						String.class);
+				if (StringUtils.isBlank(object)) {
+					serverHttpResponse.setStatusCode(HttpStatus.UNAUTHORIZED);
+					return getVoidMono(serverHttpResponse);
+				}
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+				logger.info("失败原因：{}", e.getMessage());
 				return getVoidMono(serverHttpResponse);
 			}
 		}
@@ -74,8 +87,10 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 
 	private Mono<Void> getVoidMono(ServerHttpResponse serverHttpResponse) {
 		serverHttpResponse.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
+		ResultDto<Object> result = ResultUtil.genenrateByCode(TradeCodeDict.NO_AUTH);
 		Gson gson = new Gson();
-		DataBuffer dataBuffer = serverHttpResponse.bufferFactory().wrap(gson.toJson("未授权").getBytes());
+		DataBuffer dataBuffer = serverHttpResponse.bufferFactory().wrap(gson.toJson(result).getBytes());
+
 		return serverHttpResponse.writeWith(Flux.just(dataBuffer));
 	}
 }
