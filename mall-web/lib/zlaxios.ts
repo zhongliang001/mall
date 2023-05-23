@@ -51,7 +51,6 @@ const zlaxios = {
             window.localStorage.setItem('token', '');
             location.reload();
            }else {
-
             requestInfo.failed(reseponse.data)
           }
         }
