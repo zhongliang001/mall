@@ -1,5 +1,5 @@
 server:
-  port: 8096
+  port: 18096
 
 spring:
   application:
@@ -10,6 +10,17 @@ spring:
         locator:
           enabled: true
           lowerCaseServiceId: true
+  redis:
+    database: 0
+    host: 192.168.111.129        
+    port: 6379             
+    password: 123456
+    pool:
+      max-active: 200     
+      max-idle: 10       
+      max-wait: -1      
+      min-idle: 0        
+    timeout: 1000
 eureka:
   client:
     service-url:
