@@ -2,6 +2,11 @@ package com.zl.mall.user.userauth.dto;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 public class UserAuthLogOutDto implements Serializable{
 
 	/**

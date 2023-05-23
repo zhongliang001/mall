@@ -5,6 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 @SpringBootApplication
 @EnableAdminServer
 public class Application {

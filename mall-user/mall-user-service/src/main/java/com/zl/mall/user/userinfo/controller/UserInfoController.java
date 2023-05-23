@@ -16,7 +16,7 @@ import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
 import com.zl.mall.user.userinfo.entity.UserInfoEntity;
 import com.zl.mall.user.userinfo.service.UserInfoService;
-/*
+/**
  * 
  * @author coolz
  *

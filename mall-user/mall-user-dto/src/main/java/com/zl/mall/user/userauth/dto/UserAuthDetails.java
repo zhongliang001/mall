@@ -7,6 +7,11 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 public class UserAuthDetails implements UserDetails {
 
 	/**

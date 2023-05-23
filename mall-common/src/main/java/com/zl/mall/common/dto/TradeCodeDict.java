@@ -1,5 +1,10 @@
 package com.zl.mall.common.dto;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 public class TradeCodeDict {
 	
 	public static final String SUCCESS_QUERRY_CODE = "SUCCESS_QUERRY_CODE";

@@ -1,6 +1,5 @@
 package com.zl.mall.user.userauth.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,7 @@ import com.zl.mall.user.userauth.dto.UserAuthLogOutDto;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
 import com.zl.mall.user.userauth.mapper.UserAuthMapper;
 import com.zl.mall.user.userauth.service.UserAuthService;
-/*
+/**
  * 
  * @author coolz
  *
@@ -27,6 +26,7 @@ import com.zl.mall.user.userauth.service.UserAuthService;
 @Service
 public class UserAuthServiceImpl implements UserAuthService {
 	
+	@SuppressWarnings("rawtypes")
 	@Autowired
 	private RedisTemplate redisTemplate;
 	
@@ -50,7 +50,7 @@ public class UserAuthServiceImpl implements UserAuthService {
 
 	@Override
 	public UserAuthEntity login(String userName) {
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>(16);
 		map.put("userName", userName);
 		List<UserAuthEntity> queryList = userAuthMapper.queryList(map);		
 		return queryList.get(0);
@@ -59,7 +59,7 @@ public class UserAuthServiceImpl implements UserAuthService {
 	@Override
 	public UserAuthEntity regiter(UserAuthDto userAuthDto) {
 		String userName = userAuthDto.getUserName();
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>(16);
 		map.put("userName", userName);
 		List<UserAuthEntity> queryList = userAuthMapper.queryList(map);
 		if(queryList.size() > 0) {

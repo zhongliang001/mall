@@ -10,8 +10,14 @@ import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.user.userauth.UserAuthClient;
 import com.zl.mall.user.userauth.dto.UserAuthDetails;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
+
+/**
+ * 
+ * @author coolz
+ *
+ */
 @Component
-public class UserServiceImp implements UserDetailsService{
+public class UserServiceImpl implements UserDetailsService{
 
 	@Autowired
 	private UserAuthClient userAuthClient;

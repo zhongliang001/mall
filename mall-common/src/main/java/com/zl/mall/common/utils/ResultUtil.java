@@ -3,6 +3,11 @@ package com.zl.mall.common.utils;
 import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.common.dto.TradeCodeEnum;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 public class ResultUtil {
 
 	public static <T> ResultDto<T> generate(T t, String tradeCode) {
