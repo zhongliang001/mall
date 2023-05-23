@@ -22,7 +22,7 @@ public class ResultDto<T> {
 	 * 返回请求结果信息
 	 */
 	String msg;
-	
+
 	public T getData() {
 		return data;
 	}

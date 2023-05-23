@@ -90,6 +90,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 		ResultDto<Object> result = ResultUtil.genenrateByCode(TradeCodeDict.NO_AUTH);
 		Gson gson = new Gson();
 		DataBuffer dataBuffer = serverHttpResponse.bufferFactory().wrap(gson.toJson(result).getBytes());
+
 		return serverHttpResponse.writeWith(Flux.just(dataBuffer));
 	}
 }
