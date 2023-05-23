@@ -34,9 +34,16 @@ import com.zl.mall.common.utils.ResultUtil;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 @Component
 @ConfigurationProperties(prefix = "auth")
 public class AuthorizeFilter implements GlobalFilter, Ordered {
+	
+	private static final String NULL_STR = "NULL";
 	private final Logger logger = LoggerFactory.getLogger(AuthorizeFilter.class);
 
 	@Autowired
@@ -73,7 +80,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 		if (StringUtils.isBlank(token)) {
 			serverHttpResponse.setStatusCode(HttpStatus.UNAUTHORIZED);
 			return getVoidMono(serverHttpResponse);
-		} else if (!"null".equals(token)) {
+		} else if (!NULL_STR.equals(token)) {
 			Map<String, Claim> parse = JwtUtil.parse(token);
 			Claim claim = parse.get("userId");
 			String userId = claim.asString();

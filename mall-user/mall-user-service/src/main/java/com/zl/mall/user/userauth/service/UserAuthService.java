@@ -8,7 +8,7 @@ import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.user.userauth.dto.UserAuthDto;
 import com.zl.mall.user.userauth.dto.UserAuthLogOutDto;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
-/*
+/**
  * 
  * @author coolz
  *
@@ -54,14 +54,13 @@ public interface UserAuthService{
 	/**
 	 * 用户注册
 	 * @param userAuthDto 注册用户信息
-	 * @return
+	 * @return UserAuthEntity
 	 */
 	public UserAuthEntity regiter(UserAuthDto userAuthDto);
 		
 	/**
 	 * 用户退出
-	 * @param userName 用户名
-	 * @return
+	 * @param userAuthLogOutDto 用户登录信息
 	 */
 	public void logout(UserAuthLogOutDto userAuthLogOutDto);
 }

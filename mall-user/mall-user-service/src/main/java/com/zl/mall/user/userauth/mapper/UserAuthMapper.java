@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
-/*
+/**
  * 
  * @author coolz
  *

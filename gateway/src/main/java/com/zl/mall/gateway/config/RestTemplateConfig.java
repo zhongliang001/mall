@@ -9,6 +9,11 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 @Configuration
 public class RestTemplateConfig {
 	@Bean
