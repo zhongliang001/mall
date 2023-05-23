@@ -77,6 +77,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 				
 			}catch (Exception e) {
 				e.printStackTrace();
+				logger.info("失败原因：{}", e.getMessage());
 				return getVoidMono(serverHttpResponse);
 			}
 		}
