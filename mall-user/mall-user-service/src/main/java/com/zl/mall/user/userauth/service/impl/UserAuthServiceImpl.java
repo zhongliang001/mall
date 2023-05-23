@@ -1,17 +1,21 @@
 package com.zl.mall.user.userauth.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.user.userauth.dto.UserAuthDto;
+import com.zl.mall.user.userauth.dto.UserAuthLogOutDto;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
 import com.zl.mall.user.userauth.mapper.UserAuthMapper;
 import com.zl.mall.user.userauth.service.UserAuthService;
@@ -22,6 +26,10 @@ import com.zl.mall.user.userauth.service.UserAuthService;
 */
 @Service
 public class UserAuthServiceImpl implements UserAuthService {
+	
+	@Autowired
+	private RedisTemplate redisTemplate;
+	
 	@Autowired
 	private UserAuthMapper userAuthMapper;
 	public List<UserAuthEntity> queryList(QueryCondition queryCondition){
@@ -71,5 +79,12 @@ public class UserAuthServiceImpl implements UserAuthService {
 		userAuthEntity.setUserName(userAuthDto.getUserName());
 		userAuthMapper.add(userAuthEntity);
 		return userAuthEntity;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void logout(UserAuthLogOutDto userAuthLogOutDto) {
+		redisTemplate.opsForSet().add(userAuthLogOutDto.getUserId(), userAuthLogOutDto.getToken());
+		redisTemplate.expire(userAuthLogOutDto.getUserId(),7200, TimeUnit.SECONDS);
 	}
 }

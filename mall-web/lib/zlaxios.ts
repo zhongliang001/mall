@@ -41,7 +41,13 @@ const zlaxios = {
     if (method === undefined || method === 'get') {
       request.get(url, { params: requestInfo.params }).then(reseponse => {
         if (reseponse.request.status !== 200) {
-          requestInfo.failed(reseponse)
+          if (reseponse.request.status === 401) {
+            alert('登录失效，请重新登录');
+            window.localStorage.setItem('token', '');
+            location.reload();
+          } else {
+            requestInfo.failed(reseponse)
+          }
         } else {
           const code = reseponse.data.code
           if (code === '000000') {
@@ -62,7 +68,13 @@ const zlaxios = {
       }
       request.post(url, requestInfo.data, requestInfo.config).then(reseponse => {
         if (reseponse.request.status !== 200) {
-          requestInfo.failed(reseponse)
+          if (reseponse.request.status === 401) {
+            alert('登录失效，请重新登录');
+            window.localStorage.setItem('token', '');
+            location.reload();
+          } else {
+            requestInfo.failed(reseponse)
+          }          
         } else {
           if (url && url.indexOf('/oauth/token') !== -1) {
             window.localStorage.setItem('token', reseponse.data.access_token)
