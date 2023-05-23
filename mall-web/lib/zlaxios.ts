@@ -30,22 +30,27 @@ interface requestInfo {
   method: string,
   failed?: Function|any,
   success?: Function|any,
-  data: Object,
-  config?: Object| any
+  data?: Object|any,
+  config?: Object | any,
+  params?: Object | any
 }
 const zlaxios = {
   request: function (requestInfo: requestInfo) {
     const url = requestInfo.url
     const method = requestInfo.method
     if (method === undefined || method === 'get') {
-      request.get(url).then(reseponse => {
+      request.get(url, { params: requestInfo.params }).then(reseponse => {
         if (reseponse.request.status !== 200) {
           requestInfo.failed(reseponse)
         } else {
           const code = reseponse.data.code
           if (code === '000000') {
             requestInfo.success(reseponse.data)
-          } else {
+          } else if (code === '111111') {
+            alert('登录失效，请重新登录');
+            window.localStorage.setItem('token', '');
+            location.reload();
+           }else {
             requestInfo.failed(reseponse.data)
           }
         }

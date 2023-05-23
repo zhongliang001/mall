@@ -33,6 +33,10 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.zl</groupId>
+			<artifactId>mall-common</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
