@@ -2,9 +2,9 @@ package com.zl.mall.user.userauth.controller;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +16,7 @@ import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
 import com.zl.mall.user.userauth.dto.UserAuthDto;
+import com.zl.mall.user.userauth.dto.UserAuthLogOutDto;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
 import com.zl.mall.user.userauth.service.UserAuthService;
 /*
@@ -49,7 +50,7 @@ public class UserAuthController {
 		return ResultUtil.generate(num, "删除成功");
 	}
 	
-	@PostMapping("/login")
+	@GetMapping("/login")
 	public ResultDto<UserAuthEntity> login(@RequestParam(value = "userName") String userName) {
 		UserAuthEntity userAuthEntity = userAuthService.login(userName);
 		return ResultUtil.generate(userAuthEntity, TradeCodeDict.SUCCESS_QUERRY_CODE);		
@@ -59,5 +60,11 @@ public class UserAuthController {
 	public ResultDto<UserAuthEntity> regist(@Validated @RequestBody UserAuthDto userAuthDto) {
 		UserAuthEntity userAuthEntity = userAuthService.regiter(userAuthDto);
 		return ResultUtil.generate(userAuthEntity, TradeCodeDict.SUCCESS_QUERRY_CODE);		
+	}
+	
+	@PostMapping("/logout")
+	public ResultDto<Integer> logout(@RequestBody UserAuthLogOutDto userAuthLogOutDto) {
+		userAuthService.logout(userAuthLogOutDto);
+		return ResultUtil.generate(1, TradeCodeDict.SUCCESS_QUERRY_CODE);		
 	}
 }

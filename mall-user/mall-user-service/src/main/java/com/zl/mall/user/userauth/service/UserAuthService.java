@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.user.userauth.dto.UserAuthDto;
+import com.zl.mall.user.userauth.dto.UserAuthLogOutDto;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
 /*
  * 
@@ -56,4 +57,11 @@ public interface UserAuthService{
 	 * @return
 	 */
 	public UserAuthEntity regiter(UserAuthDto userAuthDto);
+		
+	/**
+	 * 用户退出
+	 * @param userName 用户名
+	 * @return
+	 */
+	public void logout(UserAuthLogOutDto userAuthLogOutDto);
 }

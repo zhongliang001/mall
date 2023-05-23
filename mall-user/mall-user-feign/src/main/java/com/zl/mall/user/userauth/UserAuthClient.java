@@ -1,7 +1,7 @@
 package com.zl.mall.user.userauth;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,6 +21,6 @@ public interface UserAuthClient {
 	 * @param userName 用户名
 	 * @return
 	 */
-	@PostMapping("/login")
+	@GetMapping("/login")
 	public ResultDto<UserAuthEntity> login(@RequestParam(value = "userName")  String userName);
 }
