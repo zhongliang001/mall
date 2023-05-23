@@ -21,8 +21,13 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 
-import com.zl.mall.uaa.service.UserServiceImp;
+import com.zl.mall.uaa.service.UserServiceImpl;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
@@ -35,7 +40,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
-    private UserServiceImp userServiceImp;
+    private UserServiceImpl userServiceImpl;
 
     @Bean
     public TokenEnhancer jwtTokenEnhancer(){
@@ -69,7 +74,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .accessTokenConverter(jwtAccessTokenConverter);
         //使用oauth2的密码模式时需要配置
         security.authenticationManager(authorizationAuthenticationManager())
-                .userDetailsService(userServiceImp);
+                .userDetailsService(userServiceImpl);
     }
 
     @Override
@@ -95,7 +100,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     private PreAuthenticatedAuthenticationProvider preAuthenticatedAuthenticationProvider() {
         PreAuthenticatedAuthenticationProvider preAuthenticatedAuthenticationProvider = new PreAuthenticatedAuthenticationProvider();
-        preAuthenticatedAuthenticationProvider.setPreAuthenticatedUserDetailsService(new UserDetailsByNameServiceWrapper<>(userServiceImp));
+        preAuthenticatedAuthenticationProvider.setPreAuthenticatedUserDetailsService(new UserDetailsByNameServiceWrapper<>(userServiceImpl));
         return preAuthenticatedAuthenticationProvider;
     }
 
@@ -109,7 +114,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     private AuthenticationProvider daoAuthenticationProvider() {
         MallAuthenticationProvider daoAuthenticationProvider = new MallAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder);
-        daoAuthenticationProvider.setUserServiceImp(userServiceImp);
+        daoAuthenticationProvider.setUserServiceImp(userServiceImpl);
         return daoAuthenticationProvider;
     }
 

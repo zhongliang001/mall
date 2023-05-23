@@ -12,7 +12,7 @@ import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.user.userinfo.entity.UserInfoEntity;
 import com.zl.mall.user.userinfo.mapper.UserInfoMapper;
 import com.zl.mall.user.userinfo.service.UserInfoService;
-/*
+/**
  * 
  * @author coolz
  *
@@ -39,7 +39,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	@Override
 	public UserInfoEntity queryByUserId(String userId) {
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>(16);
 		map.put("userId", userId);
 		List<UserInfoEntity> list = userInfoMapper.queryList(map);
 		if(list.size() > 0) {
