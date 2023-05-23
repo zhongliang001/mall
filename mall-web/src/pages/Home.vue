@@ -11,6 +11,9 @@
             <el-dropdown-item class="el-dropdown-link">
               <router-link to="userInfo">用户个人信息</router-link>
             </el-dropdown-item>
+            <el-dropdown-item class="el-dropdown-link">
+              <a @click="logout">退出</a>
+            </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -41,16 +44,40 @@
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { ArrowDown } from '@element-plus/icons-vue'
+import zlaxios from '../../lib/zlaxios'
+import { ElMessage } from 'element-plus'
+import router from '@/router'
 const route = useRoute()
 let username = ref<string>()
-
+const token = localStorage.getItem('token')
+let logoutdata = { userId: '', token: token }
 onMounted(() => {
-  const token = localStorage.getItem('token')
   const j = token?.split('.')[1]
   if (j) {
     const a = window.atob(j)
     const jsa = JSON.parse(a)
-    username = jsa.username
+    debugger
+    logoutdata.userId = jsa.userId
   }
 })
+
+const logout = function () {
+  zlaxios.request({
+    url: 'http://192.168.111.129:8096/user/userAuth/logout',
+    // url: 'http://localhost:18096/uaa/oauth/token',
+    method: 'post',
+    data: logoutdata,
+    success: function (data: any) {
+      window.localStorage.setItem('token', '')
+      location.reload()
+    },
+    failed: function (data: any) {
+      ElMessage({
+        message: data.msg,
+        grouping: true,
+        type: 'error'
+      })
+    }
+  })
+}
 </script>
