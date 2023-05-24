@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+
+const baseUrl = import.meta.env.VITE_BASE_URL
+alert(baseUrl)
 const request = axios.create({
   responseType: 'json',
   timeout: 300000,
@@ -36,7 +39,7 @@ interface requestInfo {
 }
 const zlaxios = {
   request: function (requestInfo: requestInfo) {
-    const url = requestInfo.url
+    const url = baseUrl + requestInfo.url
     const method = requestInfo.method
     if (method === undefined || method === 'get') {
       request.get(url, { params: requestInfo.params }).then(reseponse => {
