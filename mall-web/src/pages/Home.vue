@@ -58,7 +58,6 @@ onMounted(() => {
   if (j) {
     const a = window.atob(j)
     const jsa = JSON.parse(a)
-    debugger
     logoutdata.userId = jsa.userId
   }
   router.push('welcome')
