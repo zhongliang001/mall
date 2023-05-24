@@ -28,8 +28,7 @@ const login = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       zlaxios.request({
-        url: 'http://192.168.111.129:8096/uaa/oauth/token',
-        // url: 'http://localhost:18096/uaa/oauth/token',
+        url: '/uaa/oauth/token',
         config: {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
