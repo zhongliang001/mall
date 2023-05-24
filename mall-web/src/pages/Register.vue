@@ -78,7 +78,6 @@ const regist = async (formEl: FormInstance | undefined) => {
         data: reqdata,
         method: 'post',
         success: function (data: any) {
-          debugger
           //router.push({ name: 'UserDetail', query: { id: data.data } })
         },
         failed: function (data: any) {

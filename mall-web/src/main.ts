@@ -11,6 +11,14 @@ import './assets/main.css'
 
 const app = createApp(App)
 
+const coms:any = import.meta.glob('./components/*.vue',{eager:true});
+for (let objname in coms) {
+    let myval = coms[objname]; 
+    app.component(objname.substring(13).replace('.vue',''),myval.default)
+}
+
+
+
 app.use(ElementPlus, { size: 'small', zIndex: 3000 })
 app.use(createPinia())
 app.use(router)

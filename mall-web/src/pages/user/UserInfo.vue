@@ -28,7 +28,6 @@ import { reactive, onMounted, ref } from 'vue'
 import router from '@/router'
 import zlaxios from '../../../lib/zlaxios'
 import { ElMessage } from 'element-plus'
-import ZlSelect from '@/components/ZlSelect.vue'
 let formdata = reactive({
   userName: '',
   nickName: '',
@@ -52,7 +51,6 @@ onMounted(() => {
       },
       method: 'get',
       success: function (data: any) {
-        debugger
         Object.assign(formdata, data.data)
       },
       failed: function (data: any) {

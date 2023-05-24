@@ -10,10 +10,8 @@
 </template>
 
 <script setup lang="ts">
-import { useAttrs } from 'vue'
 import useCurrentInstance from '../../lib/useCurrentInstance'
 const props = defineProps(['type'])
 const { proxy } = useCurrentInstance()
 const dict = proxy.dict
-const attrs = useAttrs()
 </script>
