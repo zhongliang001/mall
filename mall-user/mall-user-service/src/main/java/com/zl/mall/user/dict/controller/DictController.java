@@ -1,8 +1,10 @@
 package com.zl.mall.user.dict.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
+import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
 import com.zl.mall.user.dict.entity.DictEntity;
 import com.zl.mall.user.dict.service.DictService;
@@ -44,5 +47,11 @@ public class DictController {
 	public ResultDto<Integer> delete(@RequestParam(value = "dictId") String dictId){
 		int num = dictService.delete(dictId);
 		return ResultUtil.generate(num, "删除成功");
+	}
+	
+	@GetMapping("/queryAll")
+	public ResultDto< Map<String, List<Map<String, String>>>> queryAll(){
+		 Map<String, List<Map<String, String>>> map = dictService.queryAll();
+		return ResultUtil.generate(map, TradeCodeDict.SUCCESS_QUERRY_CODE);
 	}
 }

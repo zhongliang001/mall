@@ -15,12 +15,11 @@ app.use(ElementPlus, { size: 'small', zIndex: 3000 })
 app.use(createPinia())
 app.use(router)
 
-app.mount('#app')
+//app.mount('#app')
 
 zlaxios.request({
-  url: "http://localhost:18096/common/dict/queryAllTree",
-  data: {},
-  method: "post",
+  url: "/user/dict/queryAll",
+  method: "get",
   success: function (data: any) {
     app.config.globalProperties.dict = data.data
     app.mount('#app')

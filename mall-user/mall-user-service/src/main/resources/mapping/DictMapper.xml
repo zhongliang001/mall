@@ -107,4 +107,12 @@
 			 and dict_id=#{dictId, jdbcType=VARCHAR}
 		</where>
 	</delete>
+	
+	<select id="selectTypes" resultType="java.lang.String">
+		select dict_type from dict group by dict_type
+	</select>
+	
+	<select id="queryByType" parameterType="java.util.Map" resultType="java.util.Map">
+		select cn_name cnName, en_name enName from dict where dict_type = #{dictType, jdbcType=VARCHAR}
+	</select>
 </mapper>
