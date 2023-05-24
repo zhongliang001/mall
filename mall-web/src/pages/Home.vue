@@ -42,21 +42,22 @@
 </template>
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, getCurrentInstance } from 'vue'
 import { ArrowDown } from '@element-plus/icons-vue'
 import zlaxios from '../../lib/zlaxios'
 import { ElMessage } from 'element-plus'
 import router from '@/router'
+
 const route = useRoute()
 let username = ref<string>()
 const token = localStorage.getItem('token')
 let logoutdata = { userId: '', token: token }
+
 onMounted(() => {
   const j = token?.split('.')[1]
   if (j) {
     const a = window.atob(j)
     const jsa = JSON.parse(a)
-    debugger
     logoutdata.userId = jsa.userId
   }
   router.push('welcome')

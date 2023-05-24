@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.user.dict.mapper.DictMapper">
+	<resultMap id="dict" type="com.zl.mall.user.dict.entity.DictEntity">
+		<id column="dict_id" jdbcType="VARCHAR" property="dictId" />
+		<result column="cn_name" jdbcType="VARCHAR" property="cnName" />
+		<result column="en_name" jdbcType="VARCHAR" property="enName" />
+		<result column="dict_type" jdbcType="VARCHAR" property="dictType" />
+		<result column="dict_type_name" jdbcType="VARCHAR" property="dictTypeName" />
+		<result column="order_id" jdbcType="INTEGER" property="orderId" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="dict">
+		select * from dict
+		<where>
+			<if test="dictId != null and dictId != ''">
+				 and dict_id=#{dictId, jdbcType=VARCHAR}
+			</if>
+			<if test="cnName != null and cnName != ''">
+				 and cn_name=#{cnName, jdbcType=VARCHAR}
+			</if>
+			<if test="enName != null and enName != ''">
+				 and en_name=#{enName, jdbcType=VARCHAR}
+			</if>
+			<if test="dictType != null and dictType != ''">
+				 and dict_type=#{dictType, jdbcType=VARCHAR}
+			</if>
+			<if test="dictTypeName != null and dictTypeName != ''">
+				 and dict_type_name=#{dictTypeName, jdbcType=VARCHAR}
+			</if>
+			<if test="orderId != null and orderId != ''">
+				 and order_id=#{orderId, jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.user.dict.entity.DictEntity">
+		insert into dict (
+		<trim suffixOverrides=",">
+			dict_id,
+			<if test="cnName != null and cnName != ''">
+				cn_name,
+			</if>
+			<if test="enName != null and enName != ''">
+				en_name,
+			</if>
+			<if test="dictType != null and dictType != ''">
+				dict_type,
+			</if>
+			<if test="dictTypeName != null and dictTypeName != ''">
+				dict_type_name,
+			</if>
+			<if test="orderId != null and orderId != ''">
+				order_id,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="dictId != null and dictId != ''">
+				#{dictId, jdbcType=VARCHAR}
+			</if>
+			<if test="cnName != null and cnName != ''">
+				#{cnName, jdbcType=VARCHAR}
+			</if>
+			<if test="enName != null and enName != ''">
+				#{enName, jdbcType=VARCHAR}
+			</if>
+			<if test="dictType != null and dictType != ''">
+				#{dictType, jdbcType=VARCHAR}
+			</if>
+			<if test="dictTypeName != null and dictTypeName != ''">
+				#{dictTypeName, jdbcType=VARCHAR}
+			</if>
+			<if test="orderId != null and orderId != ''">
+				#{orderId, jdbcType=INTEGER}
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.user.dict.entity.DictEntity">
+		update dict set 
+		<trim suffixOverrides=",">
+			<if test="cnName != null and cnName != ''">
+				cn_name=#{cnName, jdbcType=VARCHAR},
+			</if>
+			<if test="enName != null and enName != ''">
+				en_name=#{enName, jdbcType=VARCHAR},
+			</if>
+			<if test="dictType != null and dictType != ''">
+				dict_type=#{dictType, jdbcType=VARCHAR},
+			</if>
+			<if test="dictTypeName != null and dictTypeName != ''">
+				dict_type_name=#{dictTypeName, jdbcType=VARCHAR},
+			</if>
+			<if test="orderId != null and orderId != ''">
+				order_id=#{orderId, jdbcType=INTEGER},
+			</if>
+		</trim>
+		<where>
+			 and dict_id=#{dictId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from dict 
+			<where>
+			 and dict_id=#{dictId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+	
+	<select id="selectTypes" resultType="java.lang.String">
+		select dict_type from dict group by dict_type
+	</select>
+	
+	<select id="queryByType" parameterType="java.util.Map" resultType="java.util.Map">
+		select cn_name cnName, en_name enName from dict where dict_type = #{dictType, jdbcType=VARCHAR}
+	</select>
+</mapper>

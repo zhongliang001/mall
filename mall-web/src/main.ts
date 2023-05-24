@@ -11,16 +11,23 @@ import './assets/main.css'
 
 const app = createApp(App)
 
+const coms:any = import.meta.glob('./components/*.vue',{eager:true});
+for (let objname in coms) {
+    let myval = coms[objname]; 
+    app.component(objname.substring(13).replace('.vue',''),myval.default)
+}
+
+
+
 app.use(ElementPlus, { size: 'small', zIndex: 3000 })
 app.use(createPinia())
 app.use(router)
 
-app.mount('#app')
+//app.mount('#app')
 
 zlaxios.request({
-  url: "http://localhost:18096/common/dict/queryAllTree",
-  data: {},
-  method: "post",
+  url: "/user/dict/queryAll",
+  method: "get",
   success: function (data: any) {
     app.config.globalProperties.dict = data.data
     app.mount('#app')

@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-
 const baseUrl = import.meta.env.VITE_BASE_URL
-alert(baseUrl)
 const request = axios.create({
   responseType: 'json',
   timeout: 300000,
