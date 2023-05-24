@@ -28,7 +28,7 @@
                   <el-icon><location /></el-icon>
                   <span>菜单</span>
                 </template>
-                <el-menu-item><router-link to="welcome">首页</router-link></el-menu-item>
+                <el-menu-item index="2"><router-link to="welcome">首页</router-link></el-menu-item>
               </el-sub-menu>
             </el-menu>
           </el-col>
@@ -59,12 +59,12 @@ onMounted(() => {
     debugger
     logoutdata.userId = jsa.userId
   }
+  router.push('welcome')
 })
 
 const logout = function () {
   zlaxios.request({
-    url: 'http://192.168.111.129:8096/user/userAuth/logout',
-    // url: 'http://localhost:18096/uaa/oauth/token',
+    url: '/user/userAuth/logout',
     method: 'post',
     data: logoutdata,
     success: function (data: any) {

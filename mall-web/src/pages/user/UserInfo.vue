@@ -65,8 +65,7 @@ onMounted(() => {
     const jsa = JSON.parse(a)
     const userId = jsa.userId
     zlaxios.request({
-      url: 'http://192.168.111.129:8096/user/userInfo/queryByUserId',
-      //url: 'http://localhost:18096/user/userInfo/queryByUserId',
+      url: '/user/userInfo/queryByUserId',
       params: {
         userId: '1'
       },
