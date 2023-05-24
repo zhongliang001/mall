@@ -43,3 +43,4 @@ auth:
   whiteList:
     - /uaa/oauth/check_token
     - /uaa/oauth/token
+    - /user/dict/queryAll
