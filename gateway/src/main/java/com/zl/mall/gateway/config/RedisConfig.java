@@ -1,8 +1,5 @@
-package com.zl.mall.common.config;
+package com.zl.mall.gateway.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -20,15 +17,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 @Configuration
-//@Conditional(RedisCondtion.class)
-@ConditionalOnClass(RedisTemplate.class)
 public class RedisConfig {
-	
-	private final Logger logger = LoggerFactory.getLogger(RedisConfig.class);
     @Bean
     @SuppressWarnings("all")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
-    	logger.info("初始化RedisTemplate");
         RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         template.setConnectionFactory(factory);
         

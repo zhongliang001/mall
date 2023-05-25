@@ -44,3 +44,5 @@ auth:
     - /uaa/oauth/check_token
     - /uaa/oauth/token
     - /user/dict/queryAll
+    - /user/userAuth/regist
+    - /user/userInfo/add

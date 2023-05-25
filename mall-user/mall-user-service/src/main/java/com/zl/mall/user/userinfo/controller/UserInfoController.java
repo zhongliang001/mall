@@ -29,13 +29,13 @@ public class UserInfoController {
 	@PostMapping("/")
 	public ResultDto<List<UserInfoEntity>> queryList(QueryCondition queryCondition){
 		List<UserInfoEntity> list = userInfoService.queryList(queryCondition);
-		return  ResultUtil.generate(list, "查询成功");
+		return  ResultUtil.generate(list, TradeCodeDict.SUCCESS_QUERRY_CODE);
 	}
 	
 	@PostMapping("/add")
 	public ResultDto<Integer> add(@RequestBody UserInfoEntity userInfoEntity){
 		int num = userInfoService.add(userInfoEntity);
-		return ResultUtil.generate(num, "新增成功");
+		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_ADD_CODE);
 	}
 	@PostMapping("/update")
 	public ResultDto<Integer> update(@RequestBody UserInfoEntity userInfoEntity){

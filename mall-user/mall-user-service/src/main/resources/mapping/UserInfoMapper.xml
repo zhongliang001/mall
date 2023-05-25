@@ -64,25 +64,25 @@
 		) values (
 		<trim suffixOverrides=",">
 			<if test="userId != null and userId != ''">
-				#{userId, jdbcType=VARCHAR}
+				#{userId, jdbcType=VARCHAR},
 			</if>
 			<if test="userName != null and userName != ''">
-				#{userName, jdbcType=VARCHAR}
+				#{userName, jdbcType=VARCHAR},
 			</if>
 			<if test="nickName != null and nickName != ''">
-				#{nickName, jdbcType=VARCHAR}
+				#{nickName, jdbcType=VARCHAR},
 			</if>
 			<if test="certType != null and certType != ''">
-				#{certType, jdbcType=VARCHAR}
+				#{certType, jdbcType=VARCHAR},
 			</if>
 			<if test="certCode != null and certCode != ''">
-				#{certCode, jdbcType=VARCHAR}
+				#{certCode, jdbcType=VARCHAR},
 			</if>
 			<if test="phone != null and phone != ''">
-				#{phone, jdbcType=VARCHAR}
+				#{phone, jdbcType=VARCHAR},
 			</if>
 			<if test="sex != null and sex != ''">
-				#{sex, jdbcType=CHAR}
+				#{sex, jdbcType=CHAR},
 			</if>
 		</trim>
 )
