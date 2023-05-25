@@ -113,6 +113,6 @@
 	</select>
 	
 	<select id="queryByType" parameterType="java.util.Map" resultType="java.util.Map">
-		select cn_name cnName, en_name enName from dict where dict_type = #{dictType, jdbcType=VARCHAR}
+		select cn_name cnName, en_name enName from dict where dict_type = #{dictType, jdbcType=VARCHAR} order by order_id
 	</select>
 </mapper>
