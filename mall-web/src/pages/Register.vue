@@ -3,7 +3,7 @@ import { ref, reactive } from 'vue'
 import zlaxios from '../../lib/zlaxios'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
-
+import router from '@/router'
 const reqForm = ref<FormInstance>()
 const reqdata = reactive({
   userName: '',
@@ -74,11 +74,14 @@ const regist = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       zlaxios.request({
-        url: 'http://192.168.111.129:8096/user/userAuth/regist',
+        url: '/user/userAuth/regist',
         data: reqdata,
         method: 'post',
         success: function (data: any) {
-          //router.push({ name: 'UserDetail', query: { id: data.data } })
+          router.push({
+            name: 'addUserInfo',
+            query: { userId: data.userId, userName: data.userName }
+          })
         },
         failed: function (data: any) {
           ElMessage({

@@ -4,19 +4,22 @@
     <el-main>
       <el-form ref="reqForm" :model="formdata">
         <el-form-item label="用户名" prop="userName">
-          <el-input v-model="formdata.userName" readonly="true"></el-input>
+          <el-input v-model="formdata.userName" :readonly="true"></el-input>
         </el-form-item>
         <el-form-item label="昵称" prop="nickName">
-          <el-input v-model="formdata.nickName" readonly="true"></el-input>
+          <el-input v-model="formdata.nickName" :readonly="true"></el-input>
         </el-form-item>
         <el-form-item label="证件类型" prop="certType">
-          <zl-select v-model="formdata.certType" type="CERT_TYPE" disabled="true"></zl-select>
+          <zl-select v-model="formdata.certType" type="CERT_TYPE" :disabled="true"></zl-select>
         </el-form-item>
         <el-form-item label="证件号" prop="certCode">
-          <el-input v-model="formdata.certCode" readonly="true"></el-input>
+          <el-input v-model="formdata.certCode" :readonly="true"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号" prop="phone">
+          <el-input v-model="formdata.phone" :readonly="true"></el-input>
         </el-form-item>
         <el-form-item label="性别" prop="sex">
-          <zl-select v-model="formdata.sex" type="SEX" disabled="true"></zl-select>
+          <zl-select v-model="formdata.sex" type="SEX" :disabled="true"></zl-select>
         </el-form-item>
       </el-form>
       <el-button type="primary" @click="goback">返回</el-button>
@@ -34,10 +37,12 @@ let formdata = reactive({
   certType: '',
   certCode: '',
   sex: '',
-  sex1: ''
+  sex1: '',
+  phone: ''
 })
 
 onMounted(() => {
+  debugger
   const token = localStorage.getItem('token')
   const j = token?.split('.')[1]
   if (j) {
@@ -51,7 +56,7 @@ onMounted(() => {
       },
       method: 'get',
       success: function (data: any) {
-        Object.assign(formdata, data.data)
+        Object.assign(formdata, data)
       },
       failed: function (data: any) {
         ElMessage({
@@ -61,6 +66,13 @@ onMounted(() => {
         })
       }
     })
+  } else {
+    ElMessage({
+      message: '请重新登录',
+      grouping: true,
+      type: 'error'
+    })
+    router.push({ name: 'login' })
   }
 })
 const goback = function () {
