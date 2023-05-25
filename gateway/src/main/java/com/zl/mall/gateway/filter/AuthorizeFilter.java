@@ -1,5 +1,6 @@
 package com.zl.mall.gateway.filter;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,12 +25,10 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ServerWebExchange;
 
+import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.gson.Gson;
-import com.zl.mall.common.dto.ResultDto;
-import com.zl.mall.common.dto.TradeCodeDict;
-import com.zl.mall.common.utils.JwtUtil;
-import com.zl.mall.common.utils.ResultUtil;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -81,8 +80,9 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 			serverHttpResponse.setStatusCode(HttpStatus.UNAUTHORIZED);
 			return getVoidMono(serverHttpResponse);
 		} else if (!NULL_STR.equals(token)) {
-			Map<String, Claim> parse = JwtUtil.parse(token);
-			Claim claim = parse.get("userId");
+			DecodedJWT decode = JWT.decode(token);
+		    Map<String, Claim> claims = decode.getClaims();
+			Claim claim = claims.get("userId");
 			String userId = claim.asString();
 			Boolean boolean1 = redisTemplate.opsForSet().isMember(userId, token);
 			if(boolean1.booleanValue()) {
@@ -112,9 +112,13 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 
 	private Mono<Void> getVoidMono(ServerHttpResponse serverHttpResponse) {
 		serverHttpResponse.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-		ResultDto<Object> result = ResultUtil.genenrateByCode(TradeCodeDict.NO_AUTH);
+//		ResultDto<Object> result = ResultUtil.genenrateByCode(TradeCodeDict.NO_AUTH);
 		Gson gson = new Gson();
-		DataBuffer dataBuffer = serverHttpResponse.bufferFactory().wrap(gson.toJson(result).getBytes());
+		Map<String, String> map = new HashMap<>(16);
+		map.put("code", "111111");
+		map.put("message", "未授权");
+		map.put("data", "");
+		DataBuffer dataBuffer = serverHttpResponse.bufferFactory().wrap(gson.toJson(map).getBytes());
 
 		return serverHttpResponse.writeWith(Flux.just(dataBuffer));
 	}
