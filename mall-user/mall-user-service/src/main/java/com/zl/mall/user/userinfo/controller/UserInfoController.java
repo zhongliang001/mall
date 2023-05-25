@@ -29,7 +29,7 @@ public class UserInfoController {
 	@PostMapping("/")
 	public ResultDto<List<UserInfoEntity>> queryList(QueryCondition queryCondition){
 		List<UserInfoEntity> list = userInfoService.queryList(queryCondition);
-		return  ResultUtil.generate(list, "查询成功");
+		return  ResultUtil.generate(list, TradeCodeDict.SUCCESS_QUERRY_CODE);
 	}
 	
 	@PostMapping("/add")

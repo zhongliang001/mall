@@ -11,7 +11,8 @@ import './assets/main.css'
 
 const app = createApp(App)
 
-const coms:any = import.meta.glob('./components/*.vue',{eager:true});
+const coms: any = import.meta.glob('./components/*.vue', { eager: true });
+debugger
 for (let objname in coms) {
     let myval = coms[objname]; 
     app.component(objname.substring(13).replace('.vue',''),myval.default)
