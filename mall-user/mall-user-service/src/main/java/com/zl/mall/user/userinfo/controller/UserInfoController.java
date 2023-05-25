@@ -35,7 +35,7 @@ public class UserInfoController {
 	@PostMapping("/add")
 	public ResultDto<Integer> add(@RequestBody UserInfoEntity userInfoEntity){
 		int num = userInfoService.add(userInfoEntity);
-		return ResultUtil.generate(num, "新增成功");
+		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_ADD_CODE);
 	}
 	@PostMapping("/update")
 	public ResultDto<Integer> update(@RequestBody UserInfoEntity userInfoEntity){

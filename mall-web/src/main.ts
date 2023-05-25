@@ -29,7 +29,7 @@ zlaxios.request({
   url: "/user/dict/queryAll",
   method: "get",
   success: function (data: any) {
-    app.config.globalProperties.dict = data.data
+    app.config.globalProperties.dict =  data
     app.mount('#app')
   },
 });
