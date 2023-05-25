@@ -11,7 +11,8 @@ import './assets/main.css'
 
 const app = createApp(App)
 
-const coms:any = import.meta.glob('./components/*.vue',{eager:true});
+const coms: any = import.meta.glob('./components/*.vue', { eager: true });
+debugger
 for (let objname in coms) {
     let myval = coms[objname]; 
     app.component(objname.substring(13).replace('.vue',''),myval.default)
@@ -29,7 +30,7 @@ zlaxios.request({
   url: "/user/dict/queryAll",
   method: "get",
   success: function (data: any) {
-    app.config.globalProperties.dict = data.data
+    app.config.globalProperties.dict =  data
     app.mount('#app')
   },
 });

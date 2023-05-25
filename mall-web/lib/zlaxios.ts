@@ -52,7 +52,7 @@ const zlaxios = {
         } else {
           const code = reseponse.data.code
           if (code === '000000') {
-            requestInfo.success(reseponse.data)
+            requestInfo.success(reseponse.data.data)
           } else if (code === '111111') {
             alert('登录失效，请重新登录');
             window.localStorage.setItem('token', '');
@@ -79,13 +79,17 @@ const zlaxios = {
         } else {
           if (url && url.indexOf('/oauth/token') !== -1) {
             window.localStorage.setItem('token', reseponse.data.access_token)
-            requestInfo.success(reseponse.data)
+            requestInfo.success(reseponse.data.data)
             return
           }
           const code = reseponse.data.code
           if (code.startsWith('000')) {
-            requestInfo.success(reseponse.data)
-          } else {
+            requestInfo.success(reseponse.data.data)
+          } else if (code === '111111') {
+            alert('登录失效，请重新登录');
+            window.localStorage.setItem('token', '');
+            location.reload();
+           } else {
             if (requestInfo.failed) {
               requestInfo.failed(reseponse.data)              
             } else {
