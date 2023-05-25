@@ -63,6 +63,14 @@
 		<dependency>
 			<groupId>com.zl</groupId>
 			<artifactId>mall-common</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>
+						spring-boot-starter-data-redis
+					</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 	<build>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.user.menu.mapper.MenuMapper">
+	<resultMap id="menu" type="com.zl.mall.user.menu.entity.MenuEntity">
+		<id column="menu_id" jdbcType="VARCHAR" property="menuId" />
+		<result column="menu_cn_name" jdbcType="VARCHAR" property="menuCnName" />
+		<result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+		<result column="path" jdbcType="VARCHAR" property="path" />
+		<result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+		<result column="state" jdbcType="VARCHAR" property="state" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="menu">
+		select * from menu
+		<where>
+			<if test="menuId != null and menuId != ''">
+				 and menu_id=#{menuId, jdbcType=VARCHAR}
+			</if>
+			<if test="menuCnName != null and menuCnName != ''">
+				 and menu_cn_name=#{menuCnName, jdbcType=VARCHAR}
+			</if>
+			<if test="menuName != null and menuName != ''">
+				 and menu_name=#{menuName, jdbcType=VARCHAR}
+			</if>
+			<if test="path != null and path != ''">
+				 and path=#{path, jdbcType=VARCHAR}
+			</if>
+			<if test="parentId != null and parentId != ''">
+				 and parent_id=#{parentId, jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state != ''">
+				 and state=#{state, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.user.menu.entity.MenuEntity">
+		insert into menu (
+		<trim suffixOverrides=",">
+			menu_id,
+			<if test="menuCnName != null and menuCnName != ''">
+				menu_cn_name,
+			</if>
+			<if test="menuName != null and menuName != ''">
+				menu_name,
+			</if>
+			<if test="path != null and path != ''">
+				path,
+			</if>
+			<if test="parentId != null and parentId != ''">
+				parent_id,
+			</if>
+			<if test="state != null and state != ''">
+				state,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="menuId != null and menuId != ''">
+				#{menuId, jdbcType=VARCHAR},
+			</if>
+			<if test="menuCnName != null and menuCnName != ''">
+				#{menuCnName, jdbcType=VARCHAR},
+			</if>
+			<if test="menuName != null and menuName != ''">
+				#{menuName, jdbcType=VARCHAR},
+			</if>
+			<if test="path != null and path != ''">
+				#{path, jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null and parentId != ''">
+				#{parentId, jdbcType=VARCHAR},
+			</if>
+			<if test="state != null and state != ''">
+				#{state, jdbcType=VARCHAR},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.user.menu.entity.MenuEntity">
+		update menu set 
+		<trim suffixOverrides=",">
+			<if test="menuCnName != null and menuCnName != ''">
+				menu_cn_name=#{menuCnName, jdbcType=VARCHAR},
+			</if>
+			<if test="menuName != null and menuName != ''">
+				menu_name=#{menuName, jdbcType=VARCHAR},
+			</if>
+			<if test="path != null and path != ''">
+				path=#{path, jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null and parentId != ''">
+				parent_id=#{parentId, jdbcType=VARCHAR},
+			</if>
+			<if test="state != null and state != ''">
+				state=#{state, jdbcType=VARCHAR},
+			</if>
+		</trim>
+		<where>
+			 and menu_id=#{menuId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from menu 
+			<where>
+			 and menu_id=#{menuId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+</mapper>
