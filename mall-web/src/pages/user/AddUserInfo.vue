@@ -76,7 +76,7 @@ const doSub = async (formEl: FormInstance | undefined) => {
         },
         failed: function (data: any) {
           ElMessage({
-            message: data.msg,
+            message: data.data.msg,
             grouping: true,
             type: 'error'
           })

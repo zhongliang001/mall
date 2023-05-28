@@ -1,5 +1,7 @@
 package com.zl.mall.common.utils;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.common.dto.TradeCodeEnum;
 
@@ -10,10 +12,15 @@ import com.zl.mall.common.dto.TradeCodeEnum;
  */
 public class ResultUtil {
 
+	@SuppressWarnings("unchecked")
 	public static <T> ResultDto<T> generate(T t, String tradeCode) {
 		ResultDto<T> resultDto = new ResultDto<>();
-
 		resultDto.setData(t);
+		if(t instanceof Page) {			
+			Page<T> page = (Page<T>)t;
+			long total = page.getTotal();
+			resultDto.setTotal(total);
+		}
 		formatResponseInfo(resultDto, tradeCode);
 		return resultDto;
 	}
