@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import useCurrentInstance from '../../lib/useCurrentInstance'
+import useCurrentInstance from 'lib/useCurrentInstance'
 const props = defineProps(['type'])
 const { proxy } = useCurrentInstance()
 const dict = proxy.dict

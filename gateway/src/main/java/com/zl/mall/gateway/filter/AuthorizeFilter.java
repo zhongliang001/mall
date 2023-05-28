@@ -89,12 +89,11 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 				serverHttpResponse.setStatusCode(HttpStatus.UNAUTHORIZED);
 				return getVoidMono(serverHttpResponse);
 			}
-			MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-			queryParams.add("token", token);
+			Map<String, String> queryParams = new HashMap<>();
+			queryParams.put("token", token);
 			try {
-				
-				String object = restTemplate.postForObject("http://localhost:"+port+"/uaa/oauth/check_token", queryParams,
-						String.class);
+				logger.info("请求的token为：{}",token);
+				String object = restTemplate.getForObject("http://localhost:"+port+"/uaa/oauth/check_token?token={token}", String.class, queryParams);
 				if (StringUtils.isBlank(object)) {
 					serverHttpResponse.setStatusCode(HttpStatus.UNAUTHORIZED);
 					return getVoidMono(serverHttpResponse);

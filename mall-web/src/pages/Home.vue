@@ -25,10 +25,10 @@
             <el-menu default-active="2" background-color="#545c64">
               <el-sub-menu index="1">
                 <template #title>
-                  <el-icon><location /></el-icon>
                   <span>菜单</span>
                 </template>
                 <el-menu-item index="2"><router-link to="welcome">首页</router-link></el-menu-item>
+                <el-menu-item index="2"><router-link to="menu">菜单管理</router-link></el-menu-item>
               </el-sub-menu>
             </el-menu>
           </el-col>
@@ -49,7 +49,7 @@ import { ElMessage } from 'element-plus'
 import router from '@/router'
 
 const route = useRoute()
-let username = ref<string>()
+let username = ''
 const token = localStorage.getItem('token')
 let logoutdata = { userId: '', token: token }
 

@@ -76,7 +76,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
 　　 -->
     <!-- hibernate logger -->
     <logger name="com.zl" level="debug" />
-
+	<logger name="org.springframework.web.client" level="dubug"/>
 
 
     <!--
