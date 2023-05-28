@@ -26,7 +26,7 @@ public class MenuController {
 	@Autowired
 	private MenuService menuService;
 	@PostMapping("/")
-	public ResultDto<List<MenuEntity>> queryList(QueryCondition queryCondition){
+	public ResultDto<List<MenuEntity>> queryList(@RequestBody QueryCondition queryCondition){
 		List<MenuEntity> list = menuService.queryList(queryCondition);
 		return  ResultUtil.generate(list, TradeCodeDict.SUCCESS_QUERRY_CODE);
 	}

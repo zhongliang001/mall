@@ -11,7 +11,12 @@ public class ResultDto<T> {
 	/**
 	 * 封装返回数据
 	 */
-	T data;
+	private T data;
+	
+	/**
+	 * 总记录数
+	 */
+	private Long total;
 	
 	/**
 	 * 返回请求结果码
@@ -45,5 +50,13 @@ public class ResultDto<T> {
 
 	public void setMsg(String msg) {
 		this.msg = msg;
+	}
+
+	public Long getTotal() {
+		return total;
+	}
+
+	public void setTotal(Long total) {
+		this.total = total;
 	}
 }

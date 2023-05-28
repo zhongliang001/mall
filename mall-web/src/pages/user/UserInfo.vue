@@ -42,7 +42,6 @@ let formdata = reactive({
 })
 
 onMounted(() => {
-  debugger
   const token = localStorage.getItem('token')
   const j = token?.split('.')[1]
   if (j) {
@@ -56,11 +55,11 @@ onMounted(() => {
       },
       method: 'get',
       success: function (data: any) {
-        Object.assign(formdata, data)
+        Object.assign(formdata, data.data)
       },
       failed: function (data: any) {
         ElMessage({
-          message: data.msg,
+          message: data.data.msg,
           grouping: true,
           type: 'error'
         })
