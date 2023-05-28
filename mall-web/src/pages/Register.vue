@@ -80,7 +80,7 @@ const regist = async (formEl: FormInstance | undefined) => {
         success: function (data: any) {
           router.push({
             name: 'addUserInfo',
-            query: { userId: data.userId, userName: data.userName }
+            query: { userId: data.userId, userName: data.data.userName }
           })
         },
         failed: function (data: any) {

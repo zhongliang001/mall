@@ -41,7 +41,7 @@ const login = async (formEl: FormInstance | undefined) => {
         },
         method: 'post',
         success: function (data: any) {
-          router.push({ name: 'home', query: { userinfo: data } })
+          router.push({ name: 'home', query: { userinfo: data.data } })
         },
         failed: function (data: any) {
           ElMessage({
