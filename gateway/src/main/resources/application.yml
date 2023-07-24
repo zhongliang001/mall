@@ -30,6 +30,12 @@ eureka:
     health-check-url-path: /actuator/health
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
     
+reactor:
+  netty:
+    http:
+      server:
+        accessLogEnabled: true
+    
 management:
   endpoints:
     web:

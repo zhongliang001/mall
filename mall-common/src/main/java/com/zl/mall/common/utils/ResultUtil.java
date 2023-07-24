@@ -1,7 +1,6 @@
 package com.zl.mall.common.utils;
 
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
 import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.common.dto.TradeCodeEnum;
 
