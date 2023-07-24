@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.zl.mall.common.dto.QueryCondition;
-import com.zl.mall.user.dict.dto.DictDto;
 import com.zl.mall.user.dict.entity.DictEntity;
 /*
  * 
