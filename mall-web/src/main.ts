@@ -26,7 +26,7 @@ zlaxios.request({
   url: "/user/dict/queryAll",
   method: "get",
   success: function (data: any) {
-    app.config.globalProperties.dict = data
+    app.config.globalProperties.dict = data.data
     app.config.globalProperties.zlaxios = zlaxios
     app.mount('#app')
   },
