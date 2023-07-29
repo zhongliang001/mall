@@ -1,5 +1,11 @@
 <template>
-  <el-table :data="tableData" :border="true" :url="url" :query-data="queryData">
+  <el-table
+    :data="tableData"
+    :border="true"
+    :url="url"
+    :query-data="queryData"
+    empty-text="查询数据不存在"
+  >
     <slot></slot>
   </el-table>
   <el-pagination

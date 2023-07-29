@@ -6,7 +6,7 @@ import Register from '@/pages/Register.vue'
 import Welcome from "@/pages/Welcome.vue"
 import UserInfo from "@/pages/user/UserInfo.vue"
 import AddUserInfo from '@/pages/user/AddUserInfo.vue'
-import Menu from '@/pages/mananger/Menu.vue'
+import Menu from '@/pages/mananger/menu/Menu.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [

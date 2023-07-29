@@ -91,7 +91,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 			queryParams.put("token", token);
 			try {
 				logger.info("请求的token为：{}",token);
-				String object = restTemplate.getForObject("http://localhost:"+port+"/uaa/oauth/check_token?token={token}", String.class, queryParams);
+				String object = restTemplate.getForObject("http://localhost:"+8093+"/oauth/check_token?token={token}", String.class, queryParams);
 				if (StringUtils.isBlank(object)) {
 					serverHttpResponse.setStatusCode(HttpStatus.UNAUTHORIZED);
 					return getVoidMono(serverHttpResponse);
