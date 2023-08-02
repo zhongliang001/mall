@@ -1,8 +1,10 @@
 package com.zl.mall.user.menu.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,9 +43,15 @@ public class MenuController {
 		int num = menuService.update(menuEntity);
 		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_UPDATE_CODE);
 	}
-	@PostMapping("/delete")
+	@GetMapping("/delete")
 	public ResultDto<Integer> delete(@RequestParam(value = "menuId") String menuId){
 		int num = menuService.delete(menuId);
 		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_DELETE_CODE);
+	}
+	
+	@GetMapping("/selectRoot")
+	public ResultDto<List<Map<String, String>>> selectRoot(){
+		List<Map<String, String>> selectRoot = menuService.selectRoot();
+		return ResultUtil.generate(selectRoot, TradeCodeDict.SUCCESS_QUERRY_CODE);
 	}
 }

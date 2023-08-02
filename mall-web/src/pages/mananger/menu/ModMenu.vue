@@ -1,5 +1,5 @@
 <template>
-  <el-header>新增页面</el-header>
+  <el-header>修改页面</el-header>
   <el-main>
     <el-form :rules="rules" ref="reqForm" :model="formdata">
       <el-row>
@@ -41,7 +41,7 @@
     </el-form>
     <el-row>
       <el-col :span="11" :offset="11">
-        <el-button type="primary" @click="add(reqForm)">保存</el-button>
+        <el-button type="primary" @click="save(reqForm)">返回</el-button>
         <el-button type="primary" @click="toBack(reqForm)">返回</el-button>
       </el-col>
     </el-row>
@@ -49,23 +49,12 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, defineEmits, onMounted, watch } from 'vue'
+import { reactive, ref, defineEmits, watch } from 'vue'
 import zlaxios from 'lib/zlaxios'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
-const props = defineProps(['page'])
-// emit 获取父组件传错来的方法
-const emit = defineEmits(['clickBack'])
 const reqForm = ref<FormInstance>()
-type pa = {
-  menuId: string | any
-  menuCnName: string | any
-  menuName: string | any
-  path: string | any
-  parentId: string | any
-  state: string | any
-}
-
+const props = defineProps(['page', 'modData'])
 const formdata = reactive({
   menuCnName: '',
   menuName: '',
@@ -80,6 +69,8 @@ const rules = reactive<FormRules>({
   state: [{ required: true, message: '请输入菜单状态', trigger: 'blur' }]
 })
 
+// emit 获取父组件传错来的方法
+const emit = defineEmits(['clickBack'])
 const toBack = (formEl: FormInstance | undefined) => {
   // 调用父组件的方法，emit('clickBack', params)
   emit('clickBack')
@@ -88,17 +79,26 @@ const toBack = (formEl: FormInstance | undefined) => {
   }
   formEl.resetFields()
 }
+type pa = {
+  menuId: string | any
+  menuCnName: string | any
+  menuName: string | any
+  path: string | any
+  parentId: string | any
+  state: string | any
+}
 
 const parents: pa[] = reactive([])
-
 watch(
   () => props.page,
   (newVal) => {
-    if (newVal === 'add') {
+    if (newVal === 'mod') {
+      Object.assign(formdata, props.modData)
       zlaxios.request({
         url: '/user/menu/selectRoot',
         method: 'get',
         success: function (data: any) {
+          parents.length = 0
           data.data.forEach((e: pa) => {
             parents.push(e)
           })
@@ -108,12 +108,12 @@ watch(
   }
 )
 
-const add = async (formEl: FormInstance | undefined) => {
+const save = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate((valid, fields) => {
     if (valid) {
       zlaxios.request({
-        url: '/user/menu/add',
+        url: '/user/menu/update',
         data: formdata,
         method: 'post',
         success: function (data: any) {
