@@ -1,10 +1,12 @@
 <template>
   <el-table
+    highlight-current-row
     :data="tableData"
     :border="true"
     :url="url"
     :query-data="queryData"
     empty-text="查询数据不存在"
+    @current-change="currentChange"
   >
     <slot></slot>
   </el-table>
@@ -31,6 +33,12 @@ const total = ref(0)
 const pageSize = ref(5)
 let tableData = ref([])
 
+const currentRow = ref()
+
+const currentChange = (val: undefined) => {
+  currentRow.value = val
+}
+
 const handleSizeChange = (value: number) => {
   pageSize.value = value
   if (pageSize.value * currentPage.value > total.value) {
@@ -39,7 +47,6 @@ const handleSizeChange = (value: number) => {
   query()
 }
 const handleCurrentChange = (value: number) => {
-  debugger
   currentPage.value = value
   query()
 }
@@ -54,7 +61,6 @@ const query = () => {
     },
     method: 'post',
     success: function (data: any) {
-      debugger
       tableData.value = data.data
       total.value = data.total
     },
@@ -68,6 +74,7 @@ const query = () => {
   })
 }
 defineExpose({
-  query
+  query,
+  currentRow
 })
 </script>
