@@ -1,6 +1,7 @@
 package com.zl.mall.user.menu.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -20,4 +21,6 @@ public interface MenuService{
 	public int update(MenuEntity menuEntity);
 	
 	public int delete(String menuId);
+	
+	public List<Map<String, String>> selectRoot();
 }
