@@ -20,8 +20,6 @@ import org.springframework.http.server.RequestPath;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ServerWebExchange;
 
@@ -93,7 +91,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 			queryParams.put("token", token);
 			try {
 				logger.info("请求的token为：{}",token);
-				String object = restTemplate.getForObject("http://localhost:"+port+"/uaa/oauth/check_token?token={token}", String.class, queryParams);
+				String object = restTemplate.getForObject("http://192.168.111.129:"+8093+"/oauth/check_token?token={token}", String.class, queryParams);
 				if (StringUtils.isBlank(object)) {
 					serverHttpResponse.setStatusCode(HttpStatus.UNAUTHORIZED);
 					return getVoidMono(serverHttpResponse);

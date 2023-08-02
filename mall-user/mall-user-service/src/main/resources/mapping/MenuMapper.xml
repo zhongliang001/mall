@@ -107,4 +107,8 @@
 			 and menu_id=#{menuId, jdbcType=VARCHAR}
 		</where>
 	</delete>
+	
+	<select id="selectRoot" resultMap="menu">
+		select menu_cn_name, menu_id from menu where path is null or path = ''
+	</select>
 </mapper>

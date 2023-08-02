@@ -1,6 +1,8 @@
 package com.zl.mall.user.menu.service.impl;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,7 @@ public class MenuServiceImpl implements MenuService {
 	}
 	
 	public int add(MenuEntity menuEntity){
+		menuEntity.setMenuId(UUID.randomUUID().toString().replace("-", ""));
 		return menuMapper.add(menuEntity);
 	}
 	public int update(MenuEntity menuEntity){
@@ -33,5 +36,10 @@ public class MenuServiceImpl implements MenuService {
 	}
 	public int delete(String menuId){
 		return menuMapper.delete(menuId);
+	}
+
+	@Override
+	public List<Map<String, String>> selectRoot() {
+		return menuMapper.selectRoot();
 	}
 }
