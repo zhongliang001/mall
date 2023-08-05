@@ -55,6 +55,8 @@ import AddMenu from './AddMenu.vue'
 import ModMenu from './ModMenu.vue'
 import ViewMenu from './ViewMenu.vue'
 import zlaxios from 'lib/zlaxios'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import type { Action } from 'element-plus'
 const ruleFormRef = ref<FormInstance>()
 const formdata = reactive({
   menuName: '',
@@ -99,15 +101,38 @@ const back = () => {
 
 const toDel = () => {
   if (zltable.value.currentRow) {
-    zlaxios.request({
-      url: '/user/menu/delete',
-      config: {
-        params: { menuId: zltable.value.currentRow.menuId }
-      },
-      method: 'post',
-      success: function (data: any) {
-        zltable.value.query()
-      }
+    ElMessageBox.confirm('请确认是否删除数据?', {
+      confirmButtonText: ' 确认',
+      cancelButtonText: '返回',
+      type: 'warning'
+    })
+      .then(() => {
+        zlaxios.request({
+          url: '/user/menu/delete',
+          params: { menuId: zltable.value.currentRow.menuId },
+          method: 'get',
+          success: function (data: any) {
+            debugger
+            zltable.value.query()
+            ElMessage({
+              message: '删除成功',
+              grouping: true,
+              type: 'success'
+            })
+          },
+          failed: function (data: any) {
+            ElMessage({
+              message: data.msg,
+              grouping: true,
+              type: 'error'
+            })
+          }
+        })
+      })
+      .catch((e) => {})
+  } else {
+    ElMessageBox.alert('请选择一笔数据', '错误信息', {
+      confirmButtonText: '确认'
     })
   }
 }

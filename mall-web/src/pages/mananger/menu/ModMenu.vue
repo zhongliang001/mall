@@ -41,7 +41,7 @@
     </el-form>
     <el-row>
       <el-col :span="11" :offset="11">
-        <el-button type="primary" @click="save(reqForm)">返回</el-button>
+        <el-button type="primary" @click="save(reqForm)">保存</el-button>
         <el-button type="primary" @click="toBack(reqForm)">返回</el-button>
       </el-col>
     </el-row>

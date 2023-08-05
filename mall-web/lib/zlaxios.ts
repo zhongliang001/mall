@@ -41,6 +41,7 @@ const zlaxios = {
     const method = requestInfo.method
     if (method === undefined || method === 'get') {
       request.get(url, { params: requestInfo.params }).then(reseponse => {
+        debugger
         if (reseponse.request.status !== 200) {
           if (reseponse.request.status === 401) {
             alert('登录失效，请重新登录');
@@ -51,7 +52,7 @@ const zlaxios = {
           }
         } else {
           const code = reseponse.data.code
-          if (code === '000000') {
+          if (code.startsWith('000')) {
             requestInfo.success(reseponse.data)
           } else if (code === '111111') {
             alert('登录失效，请重新登录');
