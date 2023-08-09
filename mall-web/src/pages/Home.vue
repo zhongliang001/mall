@@ -29,6 +29,7 @@
                 </template>
                 <el-menu-item index="2"><router-link to="welcome">首页</router-link></el-menu-item>
                 <el-menu-item index="2"><router-link to="menu">菜单管理</router-link></el-menu-item>
+                <el-menu-item index="2"><router-link to="role">角色管理</router-link></el-menu-item>
               </el-sub-menu>
             </el-menu>
           </el-col>

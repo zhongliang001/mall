@@ -7,6 +7,8 @@ import Welcome from "@/pages/Welcome.vue"
 import UserInfo from "@/pages/user/UserInfo.vue"
 import AddUserInfo from '@/pages/user/AddUserInfo.vue'
 import Menu from '@/pages/mananger/menu/Menu.vue'
+import Role from '@/pages/mananger/role/Role.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -33,6 +35,11 @@ const router = createRouter({
         name: 'menu',
         path: '/menu',
         component: Menu
+      },
+      {
+        name: 'role',
+        path: '/role',
+        component: Role
       }]
     },{
       name: 'register',

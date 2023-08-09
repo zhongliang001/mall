@@ -1,18 +1,13 @@
 <template>
   <div>
     <el-container v-show="page === 'query'">
-      <el-header>菜单查询</el-header>
+      <el-header>角色查询</el-header>
       <el-main>
         <el-form ref="ruleFormRef" :model="formdata">
           <el-row>
             <el-col :span="11">
-              <el-form-item label="菜单名" prop="menuName">
-                <el-input v-model="formdata.menuName"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="菜单中文名" prop="menuCnName">
-                <el-input v-model="formdata.menuCnName"></el-input>
+              <el-form-item label="角色名" prop="menuName">
+                <el-input v-model="formdata.roleName"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -30,47 +25,49 @@
             <el-button type="primary" @click="toDel">删除</el-button>
           </el-col>
         </el-row>
-        <zl-table ref="zltable" url="/user/menu/" :query-data="formdata">
-          <el-table-column label="菜单名" prop="menuName" />
-          <el-table-column label="菜单中文名" prop="menuCnName" />
-          <el-table-column label="菜单路由" prop="path" />
+        <zl-table ref="zltable" url="/user/role/" :query-data="formdata">
+          <zl-table-column label="角色id" prop="roleId" />
+          <zl-table-column label="角色名" prop="roleName" />
+          <zl-table-column label="角色描述" prop="remark" />
+          <zl-table-column label="角色状态" prop="state" type="ONLINE_STATE"></zl-table-column>
         </zl-table>
       </el-main>
     </el-container>
     <el-container v-show="page === 'add'">
-      <add-menu :page="page" @clickBack="back" />
+      <add-role :page="page" @clickBack="back"></add-role>
     </el-container>
     <el-container v-show="page === 'mod'">
-      <mod-menu :page="page" :mod-data="zltable.value.currentRow" @clickBack="back" />
+      <mod-role :page="page" :mod-data="modData" @clickBack="back"></mod-role>
     </el-container>
     <el-container v-show="page === 'view'">
-      <view-menu :page="page" :mod-data="modData" @clickBack="back" />
+      <view-role :page="page" :mod-data="modData" @clickBack="back"></view-role>
     </el-container>
   </div>
 </template>
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { ref, reactive } from 'vue'
 import type { FormInstance } from 'element-plus'
-import AddMenu from './AddMenu.vue'
-import ModMenu from './ModMenu.vue'
-import ViewMenu from './ViewMenu.vue'
+import { ElMessageBox, ElMessage } from 'element-plus'
 import zlaxios from 'lib/zlaxios'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import AddRole from './AddRole.vue'
+import ModRole from './ModRole.vue'
+import ViewRole from './ViewRole.vue'
 const ruleFormRef = ref<FormInstance>()
-const formdata = reactive({
-  menuName: '',
-  menuCnName: ''
-})
 let page = ref('query')
-
 const zltable: any = ref(null)
+const formdata = reactive({
+  roleName: ''
+})
 
+const back = () => {
+  page.value = 'query'
+  zltable.value.query()
+}
 const toAdd = () => {
   page.value = 'add'
 }
 
 const modData = {}
-
 const toMod = () => {
   page.value = 'mod'
   if (zltable.value.currentRow) {
@@ -82,7 +79,6 @@ const toMod = () => {
     })
   }
 }
-
 const toView = () => {
   page.value = 'view'
   if (zltable.value.currentRow) {
@@ -94,12 +90,6 @@ const toView = () => {
     })
   }
 }
-
-const back = () => {
-  page.value = 'query'
-  zltable.value.query()
-}
-
 const toDel = () => {
   if (zltable.value.currentRow) {
     ElMessageBox.confirm('请确认是否删除数据?', {
@@ -109,8 +99,8 @@ const toDel = () => {
     })
       .then(() => {
         zlaxios.request({
-          url: '/user/menu/delete',
-          params: { menuId: zltable.value.currentRow.menuId },
+          url: '/user/role/delete',
+          params: { roleId: zltable.value.currentRow.roleId },
           method: 'get',
           success: function (data: any) {
             debugger

@@ -9,7 +9,6 @@ import zlaxios from "../lib/zlaxios";
 import './assets/main.css'
 
 const app = createApp(App)
-
 const coms: any = import.meta.glob('./components/*.vue', { eager: true });
 for (let objname in coms) {
     let myval = coms[objname]; 
