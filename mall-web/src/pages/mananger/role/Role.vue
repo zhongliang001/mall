@@ -103,7 +103,6 @@ const toDel = () => {
           params: { roleId: zltable.value.currentRow.roleId },
           method: 'get',
           success: function (data: any) {
-            debugger
             zltable.value.query()
             ElMessage({
               message: '删除成功',

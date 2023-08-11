@@ -41,7 +41,6 @@ const zlaxios = {
     const method = requestInfo.method
     if (method === undefined || method === 'get') {
       request.get(url, { params: requestInfo.params }).then(reseponse => {
-        debugger
         if (reseponse.request.status !== 200) {
           if (reseponse.request.status === 401) {
             alert('登录失效，请重新登录');

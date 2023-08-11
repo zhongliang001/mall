@@ -62,7 +62,6 @@ const toBack = (formEl: FormInstance | undefined) => {
 watch(
   () => props.page,
   (newVal) => {
-    debugger
     if (newVal === 'mod') {
       Object.assign(formdata, props.modData)
     }
