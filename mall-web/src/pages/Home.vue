@@ -36,23 +36,39 @@
         </el-row>
       </el-aside>
       <el-main style="background-color: #1e1e1e; height: 700px">
-        <router-view></router-view>
+        <el-tabs v-model="rs.showRouter" type="card" class="demo-tabs" @tab-remove="removeTab">
+          <el-tab-pane
+            v-for="(item, index) in rs.routerList"
+            :label="item.name"
+            :name="item.name"
+            :closable="index !== 0"
+          >
+            {{ index !== 0 }}
+            <component :is="item.component"></component>
+          </el-tab-pane>
+        </el-tabs>
       </el-main>
     </el-container>
   </el-container>
 </template>
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { ref, onMounted, getCurrentInstance } from 'vue'
+import { onMounted } from 'vue'
 import { ArrowDown } from '@element-plus/icons-vue'
 import zlaxios from '../../lib/zlaxios'
 import { ElMessage } from 'element-plus'
 import router from '@/router'
+import { routerStore } from '@/stores/routerStore'
 
+const rs = routerStore()
 const route = useRoute()
 let username = ''
 const token = localStorage.getItem('token')
 let logoutdata = { userId: '', token: token }
+
+const removeTab = (targetName: string) => {
+  rs.splice(targetName)
+}
 
 onMounted(() => {
   const j = token?.split('.')[1]

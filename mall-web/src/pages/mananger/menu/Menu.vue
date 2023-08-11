@@ -41,7 +41,7 @@
       <add-menu :page="page" @clickBack="back" />
     </el-container>
     <el-container v-show="page === 'mod'">
-      <mod-menu :page="page" :mod-data="zltable.value.currentRow" @clickBack="back" />
+      <mod-menu :page="page" :mod-data="modData" @clickBack="back" />
     </el-container>
     <el-container v-show="page === 'view'">
       <view-menu :page="page" :mod-data="modData" @clickBack="back" />
@@ -113,7 +113,6 @@ const toDel = () => {
           params: { menuId: zltable.value.currentRow.menuId },
           method: 'get',
           success: function (data: any) {
-            debugger
             zltable.value.query()
             ElMessage({
               message: '删除成功',

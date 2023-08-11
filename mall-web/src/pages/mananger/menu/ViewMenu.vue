@@ -86,7 +86,6 @@ watch(
   () => props.page,
   (newVal) => {
     if (newVal === 'view') {
-      debugger
       Object.assign(formdata, props.modData)
       zlaxios.request({
         url: '/user/menu/selectRoot',
