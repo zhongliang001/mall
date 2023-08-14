@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, defineEmits } from 'vue'
+import { reactive, ref } from 'vue'
 import zlaxios from 'lib/zlaxios'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'

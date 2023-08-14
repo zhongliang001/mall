@@ -43,7 +43,6 @@
             :name="item.name"
             :closable="index !== 0"
           >
-            {{ index !== 0 }}
             <component :is="item.component"></component>
           </el-tab-pane>
         </el-tabs>
