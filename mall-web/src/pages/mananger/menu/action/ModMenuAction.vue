@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header>修改菜单操作{{ modData }}</el-header>
+    <el-header>修改菜单操作</el-header>
     <el-main>
       <el-form ref="reqForm" :rules="rules" :model="formdata">
         <el-row>

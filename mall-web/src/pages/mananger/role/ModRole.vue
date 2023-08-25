@@ -1,34 +1,36 @@
 <template>
-  <el-header>修改页面</el-header>
-  <el-main>
-    <el-form :rules="rules" ref="reqForm" :model="formdata">
+  <el-container>
+    <el-header>修改页面</el-header>
+    <el-main>
+      <el-form :rules="rules" ref="reqForm" :model="formdata">
+        <el-row>
+          <el-col :span="11">
+            <el-form-item label="角色名" prop="roleName">
+              <el-input type="text" v-model="formdata.roleName"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label="角色描述" prop="remark">
+              <el-input v-model="formdata.remark"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="11">
+            <el-form-item label="角色状态" prop="state">
+              <zl-select v-model="formdata.state" type="ONLINE_STATE"></zl-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
       <el-row>
-        <el-col :span="11">
-          <el-form-item label="角色名" prop="roleName">
-            <el-input type="text" v-model="formdata.roleName"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="11">
-          <el-form-item label="角色描述" prop="remark">
-            <el-input v-model="formdata.remark"></el-input>
-          </el-form-item>
+        <el-col :span="11" :offset="11">
+          <el-button type="primary" @click="save(reqForm)">保存</el-button>
+          <el-button type="primary" @click="toBack(reqForm)">返回</el-button>
         </el-col>
       </el-row>
-      <el-row>
-        <el-col :span="11">
-          <el-form-item label="角色状态" prop="state">
-            <zl-select v-model="formdata.state" type="ONLINE_STATE"></zl-select>
-          </el-form-item>
-        </el-col>
-      </el-row>
-    </el-form>
-    <el-row>
-      <el-col :span="11" :offset="11">
-        <el-button type="primary" @click="save(reqForm)">保存</el-button>
-        <el-button type="primary" @click="toBack(reqForm)">返回</el-button>
-      </el-col>
-    </el-row>
-  </el-main>
+    </el-main>
+  </el-container>
 </template>
 
 <script lang="ts" setup>

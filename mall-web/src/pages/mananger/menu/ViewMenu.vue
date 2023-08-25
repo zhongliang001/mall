@@ -1,54 +1,56 @@
 <template>
-  <el-header>查看页面</el-header>
-  <el-main>
-    <el-form ref="reqForm" :model="formdata">
+  <el-container>
+    <el-header>查看页面</el-header>
+    <el-main>
+      <el-form ref="reqForm" :model="formdata">
+        <el-row>
+          <el-col :span="11">
+            <el-form-item label="菜单中文名" prop="menuCnName">
+              <el-input type="text" v-model="formdata.menuCnName" :readonly="true"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label="菜单名" prop="menuName">
+              <el-input v-model="formdata.menuName" :readonly="true"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="11">
+            <el-form-item label="菜单路由" prop="path">
+              <el-input v-model="formdata.path" :readonly="true"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label="菜单状态" prop="state">
+              <zl-select v-model="formdata.state" type="ONLINE_STATE" :readonly="true"></zl-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-form-item label="父菜单" prop="parentId">
+            <el-select filterable v-model="formdata.parentId" :disabled="true">
+              <el-option
+                v-for="item in parents"
+                :key="item.menuId"
+                :label="item.menuCnName"
+                :value="item.menuId"
+              />
+            </el-select>
+          </el-form-item>
+        </el-row>
+      </el-form>
       <el-row>
-        <el-col :span="11">
-          <el-form-item label="菜单中文名" prop="menuCnName">
-            <el-input type="text" v-model="formdata.menuCnName" :readonly="true"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="11">
-          <el-form-item label="菜单名" prop="menuName">
-            <el-input v-model="formdata.menuName" :readonly="true"></el-input>
-          </el-form-item>
+        <el-col :span="11" :offset="11">
+          <el-button type="primary" @click="toBack(reqForm)">返回</el-button>
         </el-col>
       </el-row>
-      <el-row>
-        <el-col :span="11">
-          <el-form-item label="菜单路由" prop="path">
-            <el-input v-model="formdata.path" :readonly="true"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="11">
-          <el-form-item label="菜单状态" prop="state">
-            <zl-select v-model="formdata.state" type="ONLINE_STATE" :readonly="true"></zl-select>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-form-item label="父菜单" prop="parentId">
-          <el-select filterable v-model="formdata.parentId" :disabled="true">
-            <el-option
-              v-for="item in parents"
-              :key="item.menuId"
-              :label="item.menuCnName"
-              :value="item.menuId"
-            />
-          </el-select>
-        </el-form-item>
-      </el-row>
-    </el-form>
-    <el-row>
-      <el-col :span="11" :offset="11">
-        <el-button type="primary" @click="toBack(reqForm)">返回</el-button>
-      </el-col>
-    </el-row>
-  </el-main>
+    </el-main>
+  </el-container>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, defineEmits, watch } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import zlaxios from 'lib/zlaxios'
 import type { FormInstance } from 'element-plus'
 

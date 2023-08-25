@@ -15,3 +15,10 @@ export type MenuAction = {
   menuName: string,
   menuCnName: string
 }
+
+export type MenuActionList = {
+  menuId: string,
+  menuCnName: string,
+  list: Array<MenuAction>,
+  children: Array<MenuActionList>
+}

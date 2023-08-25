@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.zl.mall.common.dto.QueryCondition;
+import com.zl.mall.user.menuaction.dto.MenuActionDto;
 import com.zl.mall.user.menuaction.entity.MenuActionEntity;
 /*
  * 
@@ -20,4 +21,6 @@ public interface MenuActionService{
 	public int update(MenuActionEntity menuActionEntity);
 	
 	public int delete(String actionId);
+	
+	public List<MenuActionDto> queryAll();
 }

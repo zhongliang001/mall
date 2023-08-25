@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, type RouteComponent } from 'vue-router'
 
 import Login from '@/pages/Login.vue'
 import Home from "@/pages/Home.vue"
@@ -11,12 +11,11 @@ import Role from '@/pages/mananger/role/Role.vue'
 
 import { routerStore } from '@/stores/routerStore'
 import type {routeType} from  '@/stores/routerStore'
-import { computed, reactive } from 'vue'
+import { computed, reactive, type Component, type ComputedOptions, type ComputedRef, type MethodOptions } from 'vue'
 
-const routerMap: any = {
-  menu: Menu,
-  role: Role
-}
+const routerMap: Map<string, Component> = new Map()
+routerMap.set('menu', Menu)
+routerMap.set('role', Role)
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,14 +63,15 @@ const router = createRouter({
 })
 router.beforeEach((to, from) => {
   const rs = routerStore()
-  const cu = computed(() => {
+  const cu: ComputedRef  = computed(() => {
     if (to.name) {
-      return routerMap[to.name]      
+      const rg = routerMap.get(to.name.toString()) 
+      return rg
     }
   })
-  if (routerMap.hasOwnProperty(to.name)) {
+  if (to.name && routerMap.has(to.name?.toString())) {
     let r: routeType = reactive({
-      name: to.name,
+      name: to.name.toString(),
       component: cu
     })
     rs.push(r)

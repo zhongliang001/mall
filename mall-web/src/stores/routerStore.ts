@@ -1,17 +1,17 @@
 import { defineStore } from 'pinia'
-import { computed, reactive, ref } from 'vue'
-import type { RouteComponent, RouteRecordName } from 'vue-router'
+import { computed, reactive, ref, type ComputedRef } from 'vue'
+import type { RouteRecordName } from 'vue-router'
 import Welcome from "@/pages/Welcome.vue"
 export type routeType =  {
   name: RouteRecordName | null | undefined
-  component: Record<string, RouteComponent> | null | undefined
+  component: ComputedRef 
 }
 export const routerStore = defineStore('routerList', () => {
   
   const routerList: Array<routeType> = reactive([])
 
   let showRouter = ref('');
-  const cu = computed(() => {
+  const cu:ComputedRef  = computed(() => {
     return Welcome
   })
   let r: routeType = reactive({

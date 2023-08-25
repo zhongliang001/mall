@@ -51,7 +51,6 @@
   </el-container>
 </template>
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
 import { onMounted } from 'vue'
 import { ArrowDown } from '@element-plus/icons-vue'
 import zlaxios from '../../lib/zlaxios'
@@ -60,7 +59,7 @@ import router from '@/router'
 import { routerStore } from '@/stores/routerStore'
 
 const rs = routerStore()
-const route = useRoute()
+
 let username = ''
 const token = localStorage.getItem('token')
 let logoutdata = { userId: '', token: token }
