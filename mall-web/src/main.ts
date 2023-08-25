@@ -7,12 +7,17 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import zlaxios from "../lib/zlaxios";
 import './assets/main.css'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 const app = createApp(App)
 const coms: any = import.meta.glob('./components/*.vue', { eager: true });
 for (let objname in coms) {
     let myval = coms[objname]; 
     app.component(objname.substring(13).replace('.vue',''),myval.default)
+}
+
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
 }
 
 app.use(ElementPlus, { size: 'small', zIndex: 3000 })

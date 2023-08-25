@@ -23,4 +23,6 @@ public interface MenuMapper{
 	public int delete(@Param("menuId") String menuId );
 	
 	public List<Map<String, String>> selectRoot();
+	
+	public List<MenuEntity> queryRoot();
 }

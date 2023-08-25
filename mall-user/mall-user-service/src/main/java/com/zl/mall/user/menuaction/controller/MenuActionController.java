@@ -14,6 +14,7 @@ import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
+import com.zl.mall.user.menuaction.dto.MenuActionDto;
 import com.zl.mall.user.menuaction.entity.MenuActionEntity;
 import com.zl.mall.user.menuaction.service.MenuActionService;
 /*
@@ -46,5 +47,10 @@ public class MenuActionController {
 	public ResultDto<Integer> delete(@RequestParam(value = "actionId") String actionId){
 		int num = menuActionService.delete(actionId);
 		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_DELETE_CODE);
+	}
+	@PostMapping("/queryAll")
+	public ResultDto<List<MenuActionDto>> queryAll(){
+		List<MenuActionDto> queryAll = menuActionService.queryAll();
+		return ResultUtil.generate(queryAll, TradeCodeDict.SUCCESS_QUERRY_CODE);
 	}
 }

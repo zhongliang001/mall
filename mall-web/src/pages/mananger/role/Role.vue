@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-container v-show="page === 'query'">
+  <div v-show="page === 'query'">
+    <el-container>
       <el-header>角色查询</el-header>
       <el-main>
         <el-form ref="ruleFormRef" :model="formdata">
@@ -23,6 +23,7 @@
             <el-button type="primary" @click="toMod">修改</el-button>
             <el-button type="primary" @click="toView">查看</el-button>
             <el-button type="primary" @click="toDel">删除</el-button>
+            <el-button type="primary" @click="toEditRight">角色权限配置</el-button>
           </el-col>
         </el-row>
         <zl-table ref="zltable" url="/user/role/" :query-data="formdata">
@@ -33,15 +34,18 @@
         </zl-table>
       </el-main>
     </el-container>
-    <el-container v-show="page === 'add'">
-      <add-role :page="page" @clickBack="back"></add-role>
-    </el-container>
-    <el-container v-show="page === 'mod'">
-      <mod-role :page="page" :mod-data="modData" @clickBack="back"></mod-role>
-    </el-container>
-    <el-container v-show="page === 'view'">
-      <view-role :page="page" :mod-data="modData" @clickBack="back"></view-role>
-    </el-container>
+  </div>
+  <div v-show="page === 'add'">
+    <add-role :page="page" @clickBack="back"></add-role>
+  </div>
+  <div v-show="page === 'mod'">
+    <mod-role :page="page" :mod-data="modData" @clickBack="back"></mod-role>
+  </div>
+  <div v-show="page === 'view'">
+    <view-role :page="page" :mod-data="modData" @clickBack="back"></view-role>
+  </div>
+  <div v-show="page === 'editRight'">
+    <role-right :page="page" :mod-data="modData" @clickBack="back"></role-right>
   </div>
 </template>
 <script lang="ts" setup>
@@ -52,6 +56,7 @@ import zlaxios from 'lib/zlaxios'
 import AddRole from './AddRole.vue'
 import ModRole from './ModRole.vue'
 import ViewRole from './ViewRole.vue'
+import RoleRight from './right/RoleRight.vue'
 const ruleFormRef = ref<FormInstance>()
 let page = ref('query')
 const zltable: any = ref(null)
@@ -69,8 +74,8 @@ const toAdd = () => {
 
 const modData = {}
 const toMod = () => {
-  page.value = 'mod'
   if (zltable.value.currentRow) {
+    page.value = 'mod'
     console.log(zltable.value.currentRow)
     Object.assign(modData, zltable.value.currentRow)
   } else {
@@ -80,8 +85,8 @@ const toMod = () => {
   }
 }
 const toView = () => {
-  page.value = 'view'
   if (zltable.value.currentRow) {
+    page.value = 'view'
     console.log(zltable.value.currentRow)
     Object.assign(modData, zltable.value.currentRow)
   } else {
@@ -120,6 +125,19 @@ const toDel = () => {
         })
       })
       .catch((e) => {})
+  } else {
+    ElMessageBox.alert('请选择一笔数据', '错误信息', {
+      confirmButtonText: '确认'
+    })
+  }
+}
+
+const toEditRight = () => {
+  if (zltable.value.currentRow) {
+    console.log(zltable.value.currentRow)
+    Object.assign(modData, zltable.value.currentRow)
+    console.log(modData)
+    page.value = 'editRight'
   } else {
     ElMessageBox.alert('请选择一笔数据', '错误信息', {
       confirmButtonText: '确认'
