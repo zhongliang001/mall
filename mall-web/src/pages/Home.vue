@@ -9,7 +9,7 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item class="el-dropdown-link">
-              <router-link to="userInfo">用户个人信息</router-link>
+              <router-link to="ViewUserInfo">用户个人信息</router-link>
             </el-dropdown-item>
             <el-dropdown-item class="el-dropdown-link">
               <a @click="logout">退出</a>
@@ -30,6 +30,9 @@
                 <el-menu-item index="2"><router-link to="welcome">首页</router-link></el-menu-item>
                 <el-menu-item index="2"><router-link to="menu">菜单管理</router-link></el-menu-item>
                 <el-menu-item index="2"><router-link to="role">角色管理</router-link></el-menu-item>
+                <el-menu-item index="2">
+                  <router-link to="userInfo">用户信息管理</router-link>
+                </el-menu-item>
               </el-sub-menu>
             </el-menu>
           </el-col>

@@ -1,6 +1,7 @@
 package com.zl.mall.user.roleright.service.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,4 +68,5 @@ public class RoleRightServiceImpl implements RoleRightService {
 	public List<String> queryRights(String roleId) {
 		return roleRightMapper.queryRights(roleId);
 	}
+
 }
