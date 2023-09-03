@@ -4,8 +4,9 @@ import Login from '@/pages/Login.vue'
 import Home from "@/pages/Home.vue"
 import Register from '@/pages/Register.vue'
 import Welcome from "@/pages/Welcome.vue"
-import UserInfo from "@/pages/user/UserInfo.vue"
+import ViewUserInfo from "@/pages/user/ViewUserInfo.vue"
 import AddUserInfo from '@/pages/user/AddUserInfo.vue'
+import UserInfo from '@/pages/user/UserInfo.vue'
 import Menu from '@/pages/mananger/menu/Menu.vue'
 import Role from '@/pages/mananger/role/Role.vue'
 
@@ -16,6 +17,7 @@ import { computed, reactive, type Component, type ComputedOptions, type Computed
 const routerMap: Map<string, Component> = new Map()
 routerMap.set('menu', Menu)
 routerMap.set('role', Role)
+routerMap.set('userInfo', UserInfo)
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,8 +37,13 @@ const router = createRouter({
         component: Welcome
       },
       {
+        name: 'ViewUserInfo',
+        path: '/ViewUserInfo',
+        component: ViewUserInfo
+      },
+      {
         name: 'userInfo',
-        path: '/userInfo',
+        path: '/UserInfo',
         component: UserInfo
       },
       {

@@ -1,6 +1,7 @@
 package com.zl.mall.user.roleright.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,5 +71,6 @@ public class RoleRightController {
 	public ResultDto<List<String>> queryRights(@RequestParam(value = "roleId") String roleId) {
 		List<String> queryRights = roleRightService.queryRights(roleId);
 		return ResultUtil.generate(queryRights, TradeCodeDict.SUCCESS_QUERRY_CODE);
-	}
+	}	
+
 }

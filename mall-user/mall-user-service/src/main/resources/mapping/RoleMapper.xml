@@ -81,4 +81,12 @@
 			 and role_id=#{roleId, jdbcType=VARCHAR}
 		</where>
 	</delete>
+	
+	<select id="queryOwnedRole"  parameterType="java.lang.String" resultType="java.util.Map" >
+		select role_id value,role_name name from role where role_id in (select role_id from user_role where user_id = #{userId, jdbcType=VARCHAR})
+	</select>
+	
+	<select id="queryNotOwnedRole"  parameterType="java.lang.String" resultType="java.util.Map" >
+		select role_id value,role_name name from role where role_id not in (select role_id from user_role where user_id = #{userId, jdbcType=VARCHAR})
+	</select>
 </mapper>
