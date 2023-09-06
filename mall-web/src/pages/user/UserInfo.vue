@@ -24,7 +24,9 @@
         </el-row>
         <el-row>
           <el-col :span="10" :offset="0">
-            <el-button type="primary" @click="conf()">配置角色</el-button>
+            <zl-button type="primary" page-name="userinfo" action="config" @click="conf()">
+              配置角色
+            </zl-button>
           </el-col>
         </el-row>
         <zl-table ref="zltable" url="/user/userInfo/" :query-data="formdata">

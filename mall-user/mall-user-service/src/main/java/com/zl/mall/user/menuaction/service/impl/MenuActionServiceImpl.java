@@ -86,7 +86,6 @@ public class MenuActionServiceImpl implements MenuActionService {
 				MenuActionDto generMenuActionDto = generMenuActionDto(menuEntitys.get(i));
 				list.add(generMenuActionDto);
 			}
-
 		}
 		menuActionDto.setChildren(list);
 		return menuActionDto;

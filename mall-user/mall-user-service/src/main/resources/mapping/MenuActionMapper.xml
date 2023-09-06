@@ -94,4 +94,9 @@
 			 and action_id=#{actionId, jdbcType=VARCHAR}
 		</where>
 	</delete>
+	
+	<select id="selectByUserId" parameterType="java.util.Map" resultMap="menuAction">
+		select * from menu_action where menu_id = #{menuId, jdbcType=VARCHAR} and  action_id in 
+		 (select action_id from role_right where role_id in (select role_id from user_role where user_id = #{userId, jdbcType=VARCHAR}))
+	</select>
 </mapper>

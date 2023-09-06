@@ -25,4 +25,6 @@ public interface MenuMapper{
 	public List<Map<String, String>> selectRoot();
 	
 	public List<MenuEntity> queryRoot();
+	
+	public List<MenuEntity> selectMenuByUserId(Map<String, String> map);
 }

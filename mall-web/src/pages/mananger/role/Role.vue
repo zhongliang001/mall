@@ -19,11 +19,15 @@
         </el-row>
         <el-row>
           <el-col :span="10" :offset="0">
-            <el-button type="primary" @click="toAdd">新增</el-button>
-            <el-button type="primary" @click="toMod">修改</el-button>
-            <el-button type="primary" @click="toView">查看</el-button>
-            <el-button type="primary" @click="toDel">删除</el-button>
-            <el-button type="primary" @click="toEditRight">角色权限配置</el-button>
+            <zl-button type="primary" page-name="role" action="add" @click="toAdd">新增</zl-button>
+            <zl-button type="primary" page-name="role" action="mod" @click="toMod">修改</zl-button>
+            <zl-button type="primary" page-name="role" action="view" @click="toView">
+              查看
+            </zl-button>
+            <zl-button type="primary" page-name="role" action="del" @click="toDel">删除</zl-button>
+            <zl-button type="primary" page-name="role" action="config" @click="toEditRight">
+              角色权限配置
+            </zl-button>
           </el-col>
         </el-row>
         <zl-table ref="zltable" url="/user/role/" :query-data="formdata">

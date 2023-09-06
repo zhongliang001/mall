@@ -35,7 +35,6 @@ watch(
       method: 'get',
       params: { userId: props.modData.userId },
       success: function (data: any) {
-        debugger
         choosedData.splice(0, choosedData.length)
         choosedData.push(...data.data)
       },
