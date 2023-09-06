@@ -1,40 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zl.mall.user.menu.mapper.MenuMapper">
-	<resultMap id="menu" type="com.zl.mall.user.menu.entity.MenuEntity">
+	<resultMap id="menu"
+		type="com.zl.mall.user.menu.entity.MenuEntity">
 		<id column="menu_id" jdbcType="VARCHAR" property="menuId" />
-		<result column="menu_cn_name" jdbcType="VARCHAR" property="menuCnName" />
-		<result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+		<result column="menu_cn_name" jdbcType="VARCHAR"
+			property="menuCnName" />
+		<result column="menu_name" jdbcType="VARCHAR"
+			property="menuName" />
 		<result column="path" jdbcType="VARCHAR" property="path" />
-		<result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+		<result column="parent_id" jdbcType="VARCHAR"
+			property="parentId" />
 		<result column="state" jdbcType="VARCHAR" property="state" />
+		<result column="order_id" jdbcType="INTEGER" property="orderId" />
+		<result column="comp" jdbcType="VARCHAR" property="comp" />
 	</resultMap>
 
-	<select id="queryList" parameterType="java.util.Map" resultMap="menu">
+	<select id="queryList" parameterType="java.util.Map"
+		resultMap="menu">
 		select * from menu
 		<where>
 			<if test="menuId != null and menuId != ''">
-				 and menu_id=#{menuId, jdbcType=VARCHAR}
+				and menu_id=#{menuId, jdbcType=VARCHAR}
 			</if>
 			<if test="menuCnName != null and menuCnName != ''">
-				 and menu_cn_name=#{menuCnName, jdbcType=VARCHAR}
+				and menu_cn_name=#{menuCnName, jdbcType=VARCHAR}
 			</if>
 			<if test="menuName != null and menuName != ''">
-				 and menu_name=#{menuName, jdbcType=VARCHAR}
+				and menu_name=#{menuName, jdbcType=VARCHAR}
 			</if>
 			<if test="path != null and path != ''">
-				 and path=#{path, jdbcType=VARCHAR}
+				and path=#{path, jdbcType=VARCHAR}
 			</if>
 			<if test="parentId != null and parentId != ''">
-				 and parent_id=#{parentId, jdbcType=VARCHAR}
+				and parent_id=#{parentId, jdbcType=VARCHAR}
 			</if>
 			<if test="state != null and state != ''">
-				 and state=#{state, jdbcType=VARCHAR}
+				and state=#{state, jdbcType=VARCHAR}
+			</if>
+			<if test="orderId != null and orderId != ''">
+				and order_id=#{state, jdbcType=INTEGER}
+			</if>
+			<if test="comp != null and comp != ''">
+				and comp=#{comp, jdbcType=INTEGER}
 			</if>
 		</where>
 	</select>
 
-	<insert id="add" parameterType="com.zl.mall.user.menu.entity.MenuEntity">
+	<insert id="add"
+		parameterType="com.zl.mall.user.menu.entity.MenuEntity">
 		insert into menu (
 		<trim suffixOverrides=",">
 			menu_id,
@@ -52,6 +66,12 @@
 			</if>
 			<if test="state != null and state != ''">
 				state,
+			</if>
+			<if test="orderId != null and orderId != ''">
+				order_id
+			</if>
+			<if test="comp != null and comp != ''">
+				comp
 			</if>
 		</trim>
 		) values (
@@ -74,11 +94,18 @@
 			<if test="state != null and state != ''">
 				#{state, jdbcType=VARCHAR},
 			</if>
+			<if test="orderId != null and orderId != ''">
+				#{state, jdbcType=INTEGER},
+			</if>
+			<if test="comp != null and comp != ''">
+				#{comp, jdbcType=VARCHAR},
+			</if>
 		</trim>
-)
+		)
 	</insert>
-	<update id="update" parameterType="com.zl.mall.user.menu.entity.MenuEntity">
-		update menu set 
+	<update id="update"
+		parameterType="com.zl.mall.user.menu.entity.MenuEntity">
+		update menu set
 		<trim suffixOverrides=",">
 			<if test="menuCnName != null and menuCnName != ''">
 				menu_cn_name=#{menuCnName, jdbcType=VARCHAR},
@@ -95,24 +122,55 @@
 			<if test="state != null and state != ''">
 				state=#{state, jdbcType=VARCHAR},
 			</if>
+			<if test="orderId != null and orderId != ''">
+				order_id = #{state, jdbcType=INTEGER},
+			</if>
+			<if test="comp != null and comp != ''">
+				comp = #{comp, jdbcType=VARCHAR},
+			</if>
 		</trim>
 		<where>
-			 and menu_id=#{menuId, jdbcType=VARCHAR}
+			and menu_id=#{menuId, jdbcType=VARCHAR}
 		</where>
 	</update>
 
 	<delete id="delete" parameterType="java.lang.String">
-		delete from menu 
-			<where>
-			 and menu_id=#{menuId, jdbcType=VARCHAR}
+		delete from menu
+		<where>
+			and menu_id=#{menuId, jdbcType=VARCHAR}
 		</where>
 	</delete>
-	
+
 	<select id="selectRoot" resultMap="menu">
-		select menu_cn_name, menu_id from menu where path is null or path = ''
+		select menu_cn_name, menu_id
+		from menu where path is null or path = ''
 	</select>
-	
+
 	<select id="queryRoot" resultMap="menu">
-		select * from menu where parent_id is null or parent_id =''
-		</select>
+		select * from menu where
+		parent_id is null or parent_id =''
+	</select>
+
+	<select id="selectMenuByUserId" parameterType="java.util.Map"
+		resultMap="menu">
+		select * from menu
+		<where>
+			<if test="parentId == null or parentId == ''">
+				(parent_id is null or parent_id ='')
+			</if>
+			<if test="parentId != null and parentId != ''">
+				menu_id in (select menu_id from menu_action where
+				action_id in
+				(select action_id from role_right where role_id in
+				(select role_id from
+				user_role where user_id = #{userId,
+				jdbcType=VARCHAR})))
+				and
+				parent_id=#{parentId, jdbcType=VARCHAR}
+			</if>
+			order by order_id
+		</where>
+	</select>
+
+
 </mapper>

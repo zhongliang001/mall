@@ -26,6 +26,11 @@
               <zl-select v-model="formdata.state" type="ONLINE_STATE"></zl-select>
             </el-form-item>
           </el-col>
+          <el-col :span="11">
+            <el-form-item label="菜单组件" prop="state">
+              <el-input v-model="formdata.comp"></el-input>
+            </el-form-item>
+          </el-col>
         </el-row>
         <el-row>
           <el-form-item label="父菜单" prop="parentId">
@@ -62,7 +67,8 @@ const formdata = reactive({
   menuName: '',
   path: '',
   state: '',
-  parentId: ''
+  parentId: '',
+  comp: ''
 })
 
 const rules = reactive<FormRules>({

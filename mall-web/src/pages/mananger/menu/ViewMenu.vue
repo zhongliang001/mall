@@ -38,6 +38,11 @@
               />
             </el-select>
           </el-form-item>
+          <el-col :span="11">
+            <el-form-item label="菜单组件" prop="state">
+              <el-input v-model="formdata.comp"></el-input>
+            </el-form-item>
+          </el-col>
         </el-row>
       </el-form>
       <el-row>
@@ -61,7 +66,8 @@ const formdata = reactive({
   menuName: '',
   path: '',
   state: '',
-  parentId: ''
+  parentId: '',
+  comp: ''
 })
 
 // emit 获取父组件传错来的方法

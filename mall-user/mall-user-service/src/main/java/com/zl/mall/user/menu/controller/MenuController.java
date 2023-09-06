@@ -1,5 +1,6 @@
 package com.zl.mall.user.menu.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
 import com.zl.mall.user.menu.entity.MenuEntity;
 import com.zl.mall.user.menu.service.MenuService;
+import com.zl.mall.user.menuaction.dto.MenuActionDto;
 /*
  * 
  * @author coolz
@@ -53,5 +55,14 @@ public class MenuController {
 	public ResultDto<List<Map<String, String>>> selectRoot(){
 		List<Map<String, String>> selectRoot = menuService.selectRoot();
 		return ResultUtil.generate(selectRoot, TradeCodeDict.SUCCESS_QUERRY_CODE);
+	}
+	
+	@GetMapping("/selectMenuByUserId")
+	public ResultDto<List<MenuActionDto>> selectMenuByUserId(@RequestParam(value = "userId") String userId){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		List<MenuActionDto> list = menuService.selectMenuByUserId(map);
+		return  ResultUtil.generate(list, TradeCodeDict.SUCCESS_QUERRY_CODE);
+		
 	}
 }

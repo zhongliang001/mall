@@ -21,4 +21,6 @@ public interface MenuActionMapper{
 	public int update(MenuActionEntity menuActionEntity);
 	
 	public int delete(@Param("actionId") String actionId );
+	
+	public List<MenuActionEntity> selectByUserId(Map<String, String> map);
 }

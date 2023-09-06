@@ -1,40 +1,55 @@
-import { defineStore } from 'pinia'
-import { computed, reactive, ref, type ComputedRef } from 'vue'
-import type { RouteRecordName } from 'vue-router'
-import Welcome from "@/pages/Welcome.vue"
-export type routeType =  {
-  name: RouteRecordName | null | undefined
-  component: ComputedRef
+import type { Action, Menu } from "@/components/menu";
+import { defineStore } from "pinia";
+import { defineAsyncComponent, reactive, ref, shallowRef } from "vue";
+type ZlRoute = {
+  name: string
+  cnName: string
+  actions: Array<Action>
+  component: any
 }
-export const routerStore = defineStore('routerList', () => {
+export const routerStore = defineStore('routerStore', () => {   
   
-  const routerList: Array<routeType> = reactive([])
-
-  const showRouter = ref('');
-  const cu:ComputedRef = computed(() => {
-    return Welcome
+  const routerList: Array<ZlRoute> = reactive<Array<ZlRoute>>([])
+  const showRouter = ref('welcome');
+  const welComp = defineAsyncComponent(() =>
+        import(/* @vite-ignore */ '../pages/Welcome.vue')
+      )
+  const zr: ZlRoute = reactive<ZlRoute>({
+    name: 'welcome',
+    cnName: '首页',
+    component: shallowRef(welComp),
+    actions:[]
   })
-  const r: routeType = reactive({
-    name: 'Welcome',
-    component: cu
-  })
-  routerList.push(r)
 
-  function push(r: routeType) {
+  routerList.push(zr) 
+
+  function push(r: Menu) {
     let isContain = false
     routerList.forEach((t) => {
-      if (r.name === t.name) {
+      if (r.menuName === t.name) {
         isContain = true
       }
     })
     if (!isContain) {
-      routerList.push(r)      
+      const comp = r.comp
+      const asyncComp = defineAsyncComponent(() =>
+        import(/* @vite-ignore */ '..' +comp)
+      )
+      const zr: ZlRoute = reactive<ZlRoute>({
+        name: r.menuName,
+        cnName: r.menuCnName,
+        actions: r.list, 
+        component: shallowRef(asyncComp)
+      })
+
+        routerList.push(zr)      
     }
-    if (r.name?.toString()) {
-      showRouter.value = r.name?.toString()
+    if (r.menuName?.toString()) {
+      showRouter.value = r.menuName?.toString()
       
     }
   }
+
   function splice(name: string) {
     let index = -1;
     routerList.forEach((t, i) => {
@@ -56,5 +71,27 @@ export const routerStore = defineStore('routerList', () => {
       }
     }
   }
-  return {routerList,showRouter, push, splice}
+
+  function getActions(name: string) {
+    for (let i = 0; i < routerList.length; i++){
+      const menu = routerList[i]
+      if (name === menu.name) {
+        return menu.actions
+      }
+    }
+  }
+
+  function isHasRight(name: string, actionCode: string) {
+    const actions = getActions(name)
+    if (!actions) {
+      return false;
+    }
+    for (let i = 0; i < actions?.length; i++){
+      if (actionCode === actions[i].actionCode) {
+        return true;
+      }
+    }
+    return false;
+  }
+  return {routerList,showRouter, push,splice,isHasRight}
 })
