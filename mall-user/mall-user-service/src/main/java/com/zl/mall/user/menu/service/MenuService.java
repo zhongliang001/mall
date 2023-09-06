@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.user.menu.entity.MenuEntity;
+import com.zl.mall.user.menuaction.dto.MenuActionDto;
 /*
  * 
  * @author coolz
@@ -23,4 +24,11 @@ public interface MenuService{
 	public int delete(String menuId);
 	
 	public List<Map<String, String>> selectRoot();
+	
+	/**
+	 * 根据用户id查询菜单及权限
+	 * @param userMap {userId:'', menuId: ''} userId 不许为空
+	 * @return
+	 */
+	public List<MenuActionDto> selectMenuByUserId(Map<String, String> userMap);
 }

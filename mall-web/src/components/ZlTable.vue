@@ -53,7 +53,7 @@ const handleCurrentChange = (value: number) => {
 
 const query = () => {
   zlaxios.request({
-    url: '/user/menu/',
+    url: props.url,
     data: {
       condition: props.queryData,
       pageNum: currentPage.value,

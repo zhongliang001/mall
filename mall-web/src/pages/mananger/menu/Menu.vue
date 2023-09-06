@@ -24,10 +24,15 @@
         </el-row>
         <el-row>
           <el-col :span="10" :offset="0">
-            <el-button type="primary" @click="toAdd">新增</el-button>
-            <el-button type="primary" @click="toMod">修改</el-button>
-            <el-button type="primary" @click="toView">查看</el-button>
-            <el-button type="primary" @click="toDel">删除</el-button>
+            <zl-button type="primary" page-name="menu" action="add" @click="toAdd">新增</zl-button>
+            <zl-button type="primary" page-name="menu" action="mod" @click="toMod">修改</zl-button>
+            <zl-button type="primary" page-name="menu" action="view" @click="toView">
+              查看
+            </zl-button>
+            <zl-button type="primary" page-name="menu" action="del" @click="toDel">删除</zl-button>
+            <zl-button type="primary" page-name="menu" action="config" @click="toEditAction">
+              菜单操作配置
+            </zl-button>
           </el-col>
         </el-row>
         <zl-table ref="zltable" url="/user/menu/" :query-data="formdata">
@@ -37,15 +42,18 @@
         </zl-table>
       </el-main>
     </el-container>
-    <el-container v-show="page === 'add'">
-      <add-menu :page="page" @clickBack="back" />
-    </el-container>
-    <el-container v-show="page === 'mod'">
-      <mod-menu :page="page" :mod-data="modData" @clickBack="back" />
-    </el-container>
-    <el-container v-show="page === 'view'">
-      <view-menu :page="page" :mod-data="modData" @clickBack="back" />
-    </el-container>
+  </div>
+  <div v-show="page === 'add'">
+    <add-menu :page="page" @clickBack="back" />
+  </div>
+  <div v-show="page === 'mod'">
+    <mod-menu :page="page" :mod-data="modData" @clickBack="back" />
+  </div>
+  <div v-show="page === 'view'">
+    <view-menu :page="page" :mod-data="modData" @clickBack="back" />
+  </div>
+  <div v-show="page === 'editAction'">
+    <menu-action :page="page" :mod-data="modData" @clickBack="back"></menu-action>
   </div>
 </template>
 <script lang="ts" setup>
@@ -54,7 +62,9 @@ import type { FormInstance } from 'element-plus'
 import AddMenu from './AddMenu.vue'
 import ModMenu from './ModMenu.vue'
 import ViewMenu from './ViewMenu.vue'
+import MenuAction from './action/MenuAction.vue'
 import zlaxios from 'lib/zlaxios'
+import { ElMessage, ElMessageBox } from 'element-plus'
 const ruleFormRef = ref<FormInstance>()
 const formdata = reactive({
   menuName: '',
@@ -67,28 +77,30 @@ const zltable: any = ref(null)
 const toAdd = () => {
   page.value = 'add'
 }
-const modData = reactive({
-  menuId: '',
-  menuCnName: '',
-  menuName: '',
-  path: '',
-  parentId: '',
-  state: ''
-})
+
+const modData = {}
 
 const toMod = () => {
-  page.value = 'mod'
   if (zltable.value.currentRow) {
+    page.value = 'mod'
     console.log(zltable.value.currentRow)
     Object.assign(modData, zltable.value.currentRow)
+  } else {
+    ElMessageBox.alert('请选择一笔数据', '错误信息', {
+      confirmButtonText: '确认'
+    })
   }
 }
 
 const toView = () => {
-  page.value = 'view'
   if (zltable.value.currentRow) {
+    page.value = 'view'
     console.log(zltable.value.currentRow)
     Object.assign(modData, zltable.value.currentRow)
+  } else {
+    ElMessageBox.alert('请选择一笔数据', '错误信息', {
+      confirmButtonText: '确认'
+    })
   }
 }
 
@@ -99,15 +111,48 @@ const back = () => {
 
 const toDel = () => {
   if (zltable.value.currentRow) {
-    zlaxios.request({
-      url: '/user/menu/delete',
-      config: {
-        params: { menuId: zltable.value.currentRow.menuId }
-      },
-      method: 'post',
-      success: function (data: any) {
-        zltable.value.query()
-      }
+    ElMessageBox.confirm('请确认是否删除数据?', {
+      confirmButtonText: ' 确认',
+      cancelButtonText: '返回',
+      type: 'warning'
+    })
+      .then(() => {
+        zlaxios.request({
+          url: '/user/menu/delete',
+          params: { menuId: zltable.value.currentRow.menuId },
+          method: 'get',
+          success: function (data: any) {
+            zltable.value.query()
+            ElMessage({
+              message: '删除成功',
+              grouping: true,
+              type: 'success'
+            })
+          },
+          failed: function (data: any) {
+            ElMessage({
+              message: data.msg,
+              grouping: true,
+              type: 'error'
+            })
+          }
+        })
+      })
+      .catch((e) => {})
+  } else {
+    ElMessageBox.alert('请选择一笔数据', '错误信息', {
+      confirmButtonText: '确认'
+    })
+  }
+}
+
+const toEditAction = () => {
+  if (zltable.value.currentRow) {
+    page.value = 'editAction'
+    Object.assign(modData, zltable.value.currentRow)
+  } else {
+    ElMessageBox.alert('请选择一笔数据', '错误信息', {
+      confirmButtonText: '确认'
     })
   }
 }

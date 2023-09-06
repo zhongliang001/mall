@@ -51,7 +51,7 @@ const zlaxios = {
           }
         } else {
           const code = reseponse.data.code
-          if (code === '000000') {
+          if (code.startsWith('000')) {
             requestInfo.success(reseponse.data)
           } else if (code === '111111') {
             alert('登录失效，请重新登录');
