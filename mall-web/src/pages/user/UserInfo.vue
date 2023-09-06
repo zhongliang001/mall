@@ -1,80 +1,78 @@
 <template>
-  <el-container>
-    <el-header>用户详细信息</el-header>
-    <el-main>
-      <el-form ref="reqForm" :model="formdata">
-        <el-form-item label="用户名" prop="userName">
-          <el-input v-model="formdata.userName" :readonly="true"></el-input>
-        </el-form-item>
-        <el-form-item label="昵称" prop="nickName">
-          <el-input v-model="formdata.nickName" :readonly="true"></el-input>
-        </el-form-item>
-        <el-form-item label="证件类型" prop="certType">
-          <zl-select v-model="formdata.certType" type="CERT_TYPE" :disabled="true"></zl-select>
-        </el-form-item>
-        <el-form-item label="证件号" prop="certCode">
-          <el-input v-model="formdata.certCode" :readonly="true"></el-input>
-        </el-form-item>
-        <el-form-item label="手机号" prop="phone">
-          <el-input v-model="formdata.phone" :readonly="true"></el-input>
-        </el-form-item>
-        <el-form-item label="性别" prop="sex">
-          <zl-select v-model="formdata.sex" type="SEX" :disabled="true"></zl-select>
-        </el-form-item>
-      </el-form>
-      <el-button type="primary" @click="goback">返回</el-button>
-    </el-main>
-  </el-container>
+  <div v-show="page === 'query'">
+    <el-container>
+      <el-header>用户列表查询</el-header>
+      <el-main>
+        <el-form ref="reqForm" :model="formdata">
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="用户id" prop="userId">
+                <el-input v-model="formdata.userId"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="用户名" prop="userName">
+                <el-input v-model="formdata.userName"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <el-row>
+          <el-col :span="11" :offset="11">
+            <zl-query :zltable="zltable" :formRef="reqForm"></zl-query>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="10" :offset="0">
+            <zl-button type="primary" page-name="userinfo" action="config" @click="conf()">
+              配置角色
+            </zl-button>
+          </el-col>
+        </el-row>
+        <zl-table ref="zltable" url="/user/userInfo/" :query-data="formdata">
+          <el-table-column label="用户id" prop="userId" />
+          <el-table-column label="用户名" prop="userName" />
+          <el-table-column label="昵称" prop="nickName" />
+        </zl-table>
+      </el-main>
+    </el-container>
+  </div>
+  <div v-show="page === 'config'">
+    <right-config :page="page" :mod-data="modData" @clickBack="back"></right-config>
+  </div>
 </template>
-<script lang="ts" setup>
-import { reactive, onMounted, ref } from 'vue'
-import router from '@/router'
-import zlaxios from '../../../lib/zlaxios'
-import { ElMessage } from 'element-plus'
-let formdata = reactive({
-  userName: '',
-  nickName: '',
-  certType: '',
-  certCode: '',
-  sex: '',
-  sex1: '',
-  phone: ''
+<script setup lang="ts">
+import { ElMessageBox, type FormInstance } from 'element-plus'
+import { reactive, ref } from 'vue'
+import type { UserInfo } from './UserInfo'
+import RightConfig from './right/RightConfig.vue'
+
+const formdata: UserInfo = reactive({
+  userId: '',
+  userName: ''
 })
 
-onMounted(() => {
-  const token = localStorage.getItem('token')
-  const j = token?.split('.')[1]
-  if (j) {
-    const a = window.atob(j)
-    const jsa = JSON.parse(a)
-    const userId = jsa.userId
-    zlaxios.request({
-      url: '/user/userInfo/queryByUserId',
-      params: {
-        userId: '1'
-      },
-      method: 'get',
-      success: function (data: any) {
-        Object.assign(formdata, data.data)
-      },
-      failed: function (data: any) {
-        ElMessage({
-          message: data.data.msg,
-          grouping: true,
-          type: 'error'
-        })
-      }
-    })
+let page = ref('query')
+
+const zltable: any = ref(null)
+
+const reqForm = ref<FormInstance>()
+
+const modData = {}
+
+const back = () => {
+  page.value = 'query'
+  zltable.value.query()
+}
+
+const conf = () => {
+  if (zltable.value.currentRow) {
+    page.value = 'config'
+    Object.assign(modData, zltable.value.currentRow)
   } else {
-    ElMessage({
-      message: '请重新登录',
-      grouping: true,
-      type: 'error'
+    ElMessageBox.alert('请选择一笔数据', '错误信息', {
+      confirmButtonText: '确认'
     })
-    router.push({ name: 'login' })
   }
-})
-const goback = function () {
-  router.back()
 }
 </script>

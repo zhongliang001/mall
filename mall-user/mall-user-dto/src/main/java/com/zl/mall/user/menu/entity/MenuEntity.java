@@ -1,13 +1,13 @@
 package com.zl.mall.user.menu.entity;
 
-
 import java.io.Serializable;
+
 /**
  * 
  * @author coolz
  *
-*/
-public class MenuEntity implements Serializable{
+ */
+public class MenuEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/**
 	 *
@@ -50,41 +50,78 @@ public class MenuEntity implements Serializable{
 	 *
 	 */
 	private String state;
+	
+	/**
+	 * 菜单组件
+	 */
+	private String comp;
 
-	public  void setMenuId(String menuId){
+	/**
+	 * 菜单顺序编号
+	 */
+	private Integer orderId;
+
+	public void setMenuId(String menuId) {
 		this.menuId = menuId;
 	}
-	public String getMenuId(){
+
+	public String getMenuId() {
 		return this.menuId;
 	}
-	public  void setMenuCnName(String menuCnName){
+
+	public void setMenuCnName(String menuCnName) {
 		this.menuCnName = menuCnName;
 	}
-	public String getMenuCnName(){
+
+	public String getMenuCnName() {
 		return this.menuCnName;
 	}
-	public  void setMenuName(String menuName){
+
+	public void setMenuName(String menuName) {
 		this.menuName = menuName;
 	}
-	public String getMenuName(){
+
+	public String getMenuName() {
 		return this.menuName;
 	}
-	public  void setPath(String path){
+
+	public void setPath(String path) {
 		this.path = path;
 	}
-	public String getPath(){
+
+	public String getPath() {
 		return this.path;
 	}
-	public  void setParentId(String parentId){
+
+	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
-	public String getParentId(){
+
+	public String getParentId() {
 		return this.parentId;
 	}
-	public  void setState(String state){
+
+	public void setState(String state) {
 		this.state = state;
 	}
-	public String getState(){
+
+	public String getState() {
 		return this.state;
+	}
+
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+
+	public String getComp() {
+		return comp;
+	}
+
+	public void setComp(String comp) {
+		this.comp = comp;
 	}
 }

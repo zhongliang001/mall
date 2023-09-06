@@ -68,7 +68,7 @@ const doSub = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       zlaxios.request({
-        url: '/user/userInfo/add',
+        url: '/user/ViewUserInfo/add',
         data: formdata,
         method: 'post',
         success: function (data: any) {
