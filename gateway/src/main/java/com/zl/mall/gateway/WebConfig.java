@@ -29,6 +29,8 @@ public class WebConfig implements WebFluxConfigurer {
         list.add("http://localhost:5173");
         list.add("http://192.168.31.194");
         list.add("http://195966hp14.iok.la");
+        list.add("http://192.168.111.129:8011");
+        list.add("http://192.168.111.130:4173");
         //1,允许任何来源
         corsConfiguration.setAllowedOrigins(list);
         //2,允许任何请求头
