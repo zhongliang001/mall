@@ -46,7 +46,7 @@
 </template>
 <script setup lang="ts">
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
-import zlaxios from 'lib/zlaxios'
+import { zlaxios, server } from 'lib/zlaxios'
 import { reactive, ref, watch } from 'vue'
 import type { Action } from './MenuAction'
 
@@ -93,7 +93,7 @@ const update = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       zlaxios.request({
-        url: '/user/menuAction/update',
+        url: server.base + '/menuAction/update',
         data: formdata,
         method: 'post',
         success: function (data: any) {

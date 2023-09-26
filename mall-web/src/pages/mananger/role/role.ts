@@ -1,4 +1,4 @@
 export type Role = {
-  roleId: string,
+  roleId: string
   roleName: string
 }

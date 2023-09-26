@@ -7,7 +7,7 @@ export type Right = {
 export type RoleRight = {
   rightId: string
   roleId: string
-  roleName:string
+  roleName: string
   actionId: string
   actionName: string
 }

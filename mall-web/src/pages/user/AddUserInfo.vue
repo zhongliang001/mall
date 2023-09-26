@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { reactive, onMounted, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
-import zlaxios from '../../../lib/zlaxios'
+import { zlaxios, server } from 'lib/zlaxios'
 import router from '@/router'
 import { ElMessage } from 'element-plus'
 
@@ -68,7 +68,7 @@ const doSub = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       zlaxios.request({
-        url: '/user/ViewUserInfo/add',
+        url: server.user + '/ViewUserInfo/add',
         data: formdata,
         method: 'post',
         success: function (data: any) {

@@ -13,7 +13,7 @@ request.interceptors.request.use(function (config: any) {
   config.headers.common.token = window.localStorage.getItem('token')
   return new Promise(resolve => {
     // 模拟等待refresh_token
-    setTimeout(function (configParam:any) {
+    setTimeout(function (configParam: any) {
       resolve(configParam)
     }, 2000, config)
   })
@@ -29,9 +29,9 @@ request.interceptors.response.use(function (response) {
 interface requestInfo {
   url: string,
   method: string,
-  failed?: Function|any,
-  success?: Function|any,
-  data?: Object|any,
+  failed?: Function | any,
+  success?: Function | any,
+  data?: Object | any,
   config?: Object | any,
   params?: Object | any
 }
@@ -57,7 +57,7 @@ const zlaxios = {
             alert('登录失效，请重新登录');
             window.localStorage.setItem('token', '');
             location.reload();
-           }else {
+          } else {
             requestInfo.failed(reseponse.data)
           }
         }
@@ -75,7 +75,7 @@ const zlaxios = {
             location.reload();
           } else {
             requestInfo.failed(reseponse)
-          }          
+          }
         } else {
           if (url && url.indexOf('/oauth/token') !== -1) {
             window.localStorage.setItem('token', reseponse.data.access_token)
@@ -89,9 +89,9 @@ const zlaxios = {
             alert('登录失效，请重新登录');
             window.localStorage.setItem('token', '');
             location.reload();
-           } else {
+          } else {
             if (requestInfo.failed) {
-              requestInfo.failed(reseponse.data)              
+              requestInfo.failed(reseponse.data)
             } else {
               alert(reseponse.data.msg)
             }
@@ -102,4 +102,9 @@ const zlaxios = {
   }
 }
 
-export default zlaxios
+const server = {
+  base: '/base',
+  user: '/user',
+  uaa: '/uaa'
+}
+export { zlaxios, server }

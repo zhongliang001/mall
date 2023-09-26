@@ -29,7 +29,7 @@
 <script lang="ts" setup>
 import { reactive, onMounted, ref } from 'vue'
 import router from '@/router'
-import zlaxios from '../../../lib/zlaxios'
+import { zlaxios, server } from 'lib/zlaxios'
 import { ElMessage } from 'element-plus'
 let formdata = reactive({
   userName: '',
@@ -49,7 +49,7 @@ onMounted(() => {
     const jsa = JSON.parse(a)
     const userId = jsa.userId
     zlaxios.request({
-      url: '/user/userInfo/queryByUserId',
+      url: server.user + '/userInfo/queryByUserId',
       params: {
         userId: '1'
       },

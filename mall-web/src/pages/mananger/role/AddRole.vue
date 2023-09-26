@@ -35,11 +35,11 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import zlaxios from 'lib/zlaxios'
+import { zlaxios, server } from 'lib/zlaxios'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 const props = defineProps(['page'])
-// emit 获取父组件传错来的方法
+// emit 获取父组件传来的方法
 const emit = defineEmits(['clickBack'])
 const reqForm = ref<FormInstance>()
 
@@ -68,7 +68,7 @@ const add = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       zlaxios.request({
-        url: '/user/role/add',
+        url: server.base + '/role/add',
         data: formdata,
         method: 'post',
         success: function (data: any) {

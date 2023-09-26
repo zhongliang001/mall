@@ -44,8 +44,6 @@
   </el-container>
 </template>
 <script lang="ts" setup>
-import type { FormInstance } from 'element-plus'
-
 const props = defineProps(['modData', 'page'])
 const emit = defineEmits(['clickBackAction'])
 

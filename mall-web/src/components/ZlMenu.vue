@@ -30,3 +30,9 @@ const toPath = (menu: Menu) => {
   rs.push(menu)
 }
 </script>
+
+<style scoped>
+li a {
+  width: 100%;
+}
+</style>

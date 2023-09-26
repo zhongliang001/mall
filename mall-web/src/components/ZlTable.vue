@@ -1,4 +1,12 @@
 <template>
+  <el-row :gutter="20" justify="end" v-show="addAble">
+    <el-col :span="2">
+      <zl-button type="primary" page-name="dict" action="add" @click="addRow">新增一行</zl-button>
+    </el-col>
+    <el-col :span="2">
+      <zl-button type="primary" page-name="dict" action="add" @click="delRow">删除一行</zl-button>
+    </el-col>
+  </el-row>
   <el-table
     highlight-current-row
     :data="tableData"
@@ -11,6 +19,7 @@
     <slot></slot>
   </el-table>
   <el-pagination
+    v-show="showPage"
     layout="prev, pager, next,sizes"
     :page-sizes="[5, 10, 20, 50]"
     :current-page="currentPage"
@@ -27,11 +36,25 @@ import { ElMessage } from 'element-plus'
 
 const { proxy } = useCurrentInstance()
 const zlaxios = proxy.zlaxios
-const props = defineProps(['data', 'query', 'url', 'queryData'])
+const props = defineProps({
+  showPage: {
+    default: true
+  },
+  url: {
+    type: String
+  },
+  queryData: {
+    type: Object
+  },
+  addAble: {
+    type: Boolean,
+    default: false
+  }
+})
 const currentPage = ref(1)
 const total = ref(0)
 const pageSize = ref(5)
-let tableData = ref([])
+let tableData = ref<any>([])
 
 const currentRow = ref()
 
@@ -73,8 +96,51 @@ const query = () => {
     }
   })
 }
+
+const addRow = () => {
+  tableData.value.push({})
+}
+
+const dRow = ref<any>([])
+
+const delRow = async () => {
+  if (currentRow.value) {
+    const index = tableData.value.indexOf(currentRow.value)
+    if (index != -1) {
+      dRow.value.push(...tableData.value.splice(index, 1))
+    }
+  } else {
+    ElMessage({
+      message: '请选择一笔数据',
+      grouping: true,
+      type: 'error'
+    })
+  }
+}
+
+const getTableData = () => {
+  return tableData.value
+}
+
+const getDelData = () => {
+  return dRow.value
+}
+
+const clearData = () => {
+  tableData.value.length = 0
+}
+
 defineExpose({
   query,
-  currentRow
+  currentRow,
+  getTableData,
+  clearData,
+  getDelData
 })
 </script>
+
+<style>
+.right {
+  align-content: right !important;
+}
+</style>

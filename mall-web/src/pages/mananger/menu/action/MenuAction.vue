@@ -29,7 +29,7 @@
           <el-button type="primary" @click="toView">查看</el-button>
         </el-col>
       </el-row>
-      <zl-table ref="zltable" url="/user/menuAction/" :query-data="formdata">
+      <zl-table ref="zltable" :url="server.base + '/menuAction/'" :query-data="formdata">
         <el-table-column label="操作id" prop="actionId" />
         <el-table-column label="菜单id" prop="menuId" />
         <el-table-column label="操作编码" prop="actionCode" />
@@ -71,9 +71,9 @@ import AddMenuAction from './AddMenuAction.vue'
 import ModMenuAction from './ModMenuAction.vue'
 import ViewMenuAction from './ViewMenuAction.vue'
 import type { Action, MenuAction } from './MenuAction'
-import zlaxios from 'lib/zlaxios'
+import { zlaxios, server } from 'lib/zlaxios'
 const reqForm = ref<FormInstance>()
-// emit 获取父组件传错来的方法
+// emit 获取父组件传来的方法
 const emit = defineEmits(['clickBack'])
 const props = defineProps(['page', 'modData'])
 let addActionData = reactive({
@@ -180,7 +180,7 @@ const toDel = () => {
     })
       .then(() => {
         zlaxios.request({
-          url: '/user/menuAction/delete',
+          url: server.base + '/menuAction/delete',
           params: { actionId: zltable.value.currentRow.actionId },
           method: 'get',
           success: function (data: any) {

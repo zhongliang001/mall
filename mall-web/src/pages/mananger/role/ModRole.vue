@@ -35,7 +35,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
-import zlaxios from 'lib/zlaxios'
+import { zlaxios, server } from 'lib/zlaxios'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 const reqForm = ref<FormInstance>()
@@ -51,7 +51,7 @@ const rules = reactive<FormRules>({
   state: [{ required: true, message: '请输入角色状态', trigger: 'blur' }]
 })
 
-// emit 获取父组件传错来的方法
+// emit 获取父组件传来的方法
 const emit = defineEmits(['clickBack'])
 const toBack = (formEl: FormInstance | undefined) => {
   // 调用父组件的方法，emit('clickBack', params)
@@ -75,7 +75,7 @@ const save = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       zlaxios.request({
-        url: '/user/role/update',
+        url: server.base + '/role/update',
         data: formdata,
         method: 'post',
         success: function (data: any) {

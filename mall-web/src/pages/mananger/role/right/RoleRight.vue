@@ -27,7 +27,11 @@
             <el-button type="primary" @click="toConfig">配置权限</el-button>
           </el-col>
         </el-row>
-        <zl-table ref="zltable" url="/user/roleRight/queryDetailList" :query-data="formdata">
+        <zl-table
+          ref="zltable"
+          :url="server.base + '/roleRight/queryDetailList'"
+          :query-data="formdata"
+        >
           <el-table-column label="权限id" prop="rightId" />
           <el-table-column label="角色id" prop="roleId" />
           <el-table-column label="角色名" prop="roleName" />
@@ -56,6 +60,7 @@ import type { Role } from '../role'
 import type { Right } from './right'
 import ConfigRoleRight from './ConfigRoleRight.vue'
 import type { FormInstance } from 'element-plus'
+import { server } from 'lib/zlaxios'
 
 const rightPage = ref('query')
 
@@ -79,7 +84,7 @@ const back = () => {
   zltable.value.query()
 }
 
-// emit 获取父组件传错来的方法
+// emit 获取父组件传来的方法
 const emit = defineEmits(['clickBack'])
 const toBack = (formEl: FormInstance | undefined) => {
   // 调用父组件的方法，emit('clickBack', params)
