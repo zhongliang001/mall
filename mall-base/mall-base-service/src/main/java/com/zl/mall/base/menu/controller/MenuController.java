@@ -19,11 +19,11 @@ import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
-/*
+/**
  * 
  * @author coolz
  *
-*/
+ */
 @RestController
 @RequestMapping("/menu")
 public class MenuController {
@@ -59,7 +59,7 @@ public class MenuController {
 	
 	@GetMapping("/selectMenuByUserId")
 	public ResultDto<List<MenuActionDto>> selectMenuByUserId(@RequestParam(value = "userId") String userId){
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<String, String>(16);
 		map.put("userId", userId);
 		List<MenuActionDto> list = menuService.selectMenuByUserId(map);
 		return  ResultUtil.generate(list, TradeCodeDict.SUCCESS_QUERRY_CODE);

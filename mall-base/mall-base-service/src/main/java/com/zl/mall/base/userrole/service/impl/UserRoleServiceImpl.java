@@ -13,27 +13,34 @@ import com.zl.mall.base.userrole.entity.UserRoleEntity;
 import com.zl.mall.base.userrole.mapper.UserRoleMapper;
 import com.zl.mall.base.userrole.service.UserRoleService;
 import com.zl.mall.common.dto.QueryCondition;
-/*
+/**
  * 
  * @author coolz
  *
-*/
+ */
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
 	@Autowired
 	private UserRoleMapper userRoleMapper;
+	
+	@Override
 	public List<UserRoleEntity> queryList(QueryCondition queryCondition){
 		PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
 		List<UserRoleEntity> list = userRoleMapper.queryList(queryCondition.getCondition());
 		return list;
 	}
 	
+	@Override	
 	public int add(UserRoleEntity userRoleEntity){
 		return userRoleMapper.add(userRoleEntity);
 	}
+	
+	@Override
 	public int update(UserRoleEntity userRoleEntity){
 		return userRoleMapper.update(userRoleEntity);
 	}
+	
+	@Override
 	public int delete(String userRoleId){
 		return userRoleMapper.delete(userRoleId);
 	}

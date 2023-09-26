@@ -13,11 +13,11 @@ import com.zl.mall.base.roleright.entity.RoleRightEntity;
 import com.zl.mall.base.roleright.mapper.RoleRightMapper;
 import com.zl.mall.base.roleright.service.RoleRightService;
 import com.zl.mall.common.dto.QueryCondition;
-/*
+/**
  * 
  * @author coolz
  *
-*/
+ */
 @Service
 public class RoleRightServiceImpl implements RoleRightService {
 	@Autowired
@@ -28,12 +28,17 @@ public class RoleRightServiceImpl implements RoleRightService {
 		return list;
 	}
 	
+	@Override
 	public int add(RoleRightEntity roleRightEntity){
 		return roleRightMapper.add(roleRightEntity);
 	}
+	
+	@Override
 	public int update(RoleRightEntity roleRightEntity){
 		return roleRightMapper.update(roleRightEntity);
 	}
+	
+	@Override
 	public int delete(String rightId){
 		return roleRightMapper.delete(rightId);
 	}

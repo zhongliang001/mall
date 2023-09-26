@@ -18,11 +18,11 @@ import com.zl.mall.base.menuaction.mapper.MenuActionMapper;
 import com.zl.mall.base.menuaction.service.MenuActionService;
 import com.zl.mall.common.dto.QueryCondition;
 
-/*
+/**
  * 
  * @author coolz
  *
-*/
+ */
 @Service
 public class MenuActionServiceImpl implements MenuActionService {
 	@Autowired
@@ -73,11 +73,11 @@ public class MenuActionServiceImpl implements MenuActionService {
 		MenuActionDto menuActionDto = new MenuActionDto();
 		menuActionDto.setMenuId(menuEntity.getMenuId());
 		menuActionDto.setMenuCnName(menuEntity.getMenuCnName());
-		Map<String, Object> condition = new HashMap<>();
+		Map<String, Object> condition = new HashMap<>(16);
 		condition.put("menuId", menuEntity.getMenuId());
 		List<MenuActionEntity> queryList = menuActionMapper.queryList(condition);
 		menuActionDto.setList(queryList);
-		Map<String, Object> childCondition = new HashMap<>();
+		Map<String, Object> childCondition = new HashMap<>(16);
 		childCondition.put("parentId", menuEntity.getMenuId());
 		List<MenuActionDto> list = new ArrayList<>();
 		List<MenuEntity> menuEntitys = menuMapper.queryList(childCondition);

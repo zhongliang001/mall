@@ -13,31 +13,35 @@ import com.zl.mall.base.role.mapper.RoleMapper;
 import com.zl.mall.base.role.service.RoleService;
 import com.zl.mall.common.dto.QueryCondition;
 
-/*
+/**
  * 
  * @author coolz
  *
-*/
+ */
 @Service
 public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private RoleMapper roleMapper;
 
+	@Override
 	public List<RoleEntity> queryList(QueryCondition queryCondition) {
 		PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
 		List<RoleEntity> list = roleMapper.queryList(queryCondition.getCondition());
 		return list;
 	}
 
+	@Override
 	public int add(RoleEntity roleEntity) {
 		roleEntity.setRoleId(UUID.randomUUID().toString().replaceAll("-", ""));
 		return roleMapper.add(roleEntity);
 	}
 
+	@Override
 	public int update(RoleEntity roleEntity) {
 		return roleMapper.update(roleEntity);
 	}
 
+	@Override
 	public int delete(String roleId) {
 		return roleMapper.delete(roleId);
 	}

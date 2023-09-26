@@ -87,7 +87,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 				serverHttpResponse.setStatusCode(HttpStatus.UNAUTHORIZED);
 				return getVoidMono(serverHttpResponse);
 			}
-			Map<String, String> queryParams = new HashMap<>();
+			Map<String, String> queryParams = new HashMap<>(16);
 			queryParams.put("token", token);
 			try {
 				logger.info("请求的token为：{}",token);

@@ -18,30 +18,34 @@ import com.zl.mall.base.dict.mapper.DictMapper;
 import com.zl.mall.base.dict.service.DictService;
 import com.zl.mall.common.dto.QueryCondition;
 
-/*
+/** 
  * 
  * @author coolz
  *
-*/
+ */
 @Service
 public class DictServiceImpl implements DictService {
 	@Autowired
 	private DictMapper dictMapper;
-
+	
+	@Override
 	public List<DictEntity> queryList(QueryCondition queryCondition) {
 		PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
 		List<DictEntity> list = dictMapper.queryList(queryCondition.getCondition());
 		return list;
 	}
-
+	
+	@Override
 	public int add(DictEntity dictEntity) {
 		return dictMapper.add(dictEntity);
 	}
-
+	
+	@Override
 	public int update(DictEntity dictEntity) {
 		return dictMapper.update(dictEntity);
 	}
-
+	
+	@Override
 	public int delete(String dictId) {
 		return dictMapper.delete(dictId);
 	}
@@ -49,7 +53,7 @@ public class DictServiceImpl implements DictService {
 	@Cacheable(value = "dictMap")
 	@Override
 	public Map<String, List<Map<String, String>>> queryAll() {
-		Map<String, List<Map<String, String>>> result = new HashMap<>();
+		Map<String, List<Map<String, String>>> result = new HashMap<>(16);
 		List<String> selectTypes = dictMapper.selectTypes();
 		Iterator<String> it = selectTypes.iterator();
 		while (it.hasNext()) {

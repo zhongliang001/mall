@@ -16,11 +16,11 @@ import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
-/*
+/**
  * 
  * @author coolz
  *
-*/
+ */
 @RestController
 @RequestMapping("/userRole")
 public class UserRoleController {

@@ -20,7 +20,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 @Configuration
-//@Conditional(RedisCondtion.class)
 @ConditionalOnClass(RedisTemplate.class)
 public class RedisConfig {
 	

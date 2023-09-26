@@ -7,14 +7,15 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.zl.mall.base.dict.entity.DictEntity;
-/*
+/**
  * 
  * @author coolz
  *
-*/
+ */
 @Mapper
 public interface DictMapper{
 	/**
+	 * 查询数据字典
 	 * @param condtion 查询条件
 	 * @return 
 	 */
@@ -55,6 +56,7 @@ public interface DictMapper{
 	public List<Map<String, String>> queryByType(String type);
 	
 	/**
+	 * 查询数据字典类型
 	 * @param condtion 查询条件
 	 * @return 
 	 */

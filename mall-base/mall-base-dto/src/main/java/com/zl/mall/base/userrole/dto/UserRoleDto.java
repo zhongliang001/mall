@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 public class UserRoleDto implements Serializable{
 
 	/**

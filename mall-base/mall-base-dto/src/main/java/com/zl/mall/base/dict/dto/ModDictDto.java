@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.zl.mall.base.dict.entity.DictEntity;
-
+/**
+ * 
+ * @author coolz
+ *
+ */
 public class ModDictDto implements Serializable{
 	
 	/**

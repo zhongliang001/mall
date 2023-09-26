@@ -24,6 +24,9 @@ public class HttpRequestUtil {
 
 	private static Logger logger = LoggerFactory.getLogger(HttpRequestUtil.class);
 
+	private static final String TOKEN_STR = "token";
+	
+	private static final String NULL_STR = "null";
 	/**
 	 * 从请求中获取当前请求中获取用户信息
 	 * 
@@ -35,10 +38,10 @@ public class HttpRequestUtil {
 		if (requestAttributes != null) {
 			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 					.getRequest();
-			if (request.getHeaders("token").hasMoreElements()) {
-				String token = request.getHeaders("token").nextElement();
+			if (request.getHeaders(TOKEN_STR).hasMoreElements()) {
+				String token = request.getHeaders(TOKEN_STR).nextElement();
 				logger.debug("获取到token: {}", token);
-				if (StringUtils.isEmpty(token) || "null".equals(token)) {
+				if (StringUtils.isEmpty(token) || NULL_STR.equals(token)) {
 					return null;
 				}
 				Map<String, Claim> parse = JwtUtil.parse(token);

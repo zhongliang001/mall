@@ -33,7 +33,7 @@ import com.zl.mall.uaa.service.UserServiceImpl;
 public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     @Bean
-    public BCryptPasswordEncoder getBCryptPasswordEncoder() {
+    public BCryptPasswordEncoder getBcryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

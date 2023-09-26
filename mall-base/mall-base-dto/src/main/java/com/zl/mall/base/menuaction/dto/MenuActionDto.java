@@ -5,6 +5,11 @@ import java.util.List;
 
 import com.zl.mall.base.menuaction.entity.MenuActionEntity;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 public class MenuActionDto implements Serializable {
 
 	/**

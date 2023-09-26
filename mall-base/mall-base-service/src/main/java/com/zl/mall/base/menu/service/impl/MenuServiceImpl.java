@@ -19,11 +19,11 @@ import com.zl.mall.base.menuaction.dto.MenuActionDto;
 import com.zl.mall.base.menuaction.entity.MenuActionEntity;
 import com.zl.mall.base.menuaction.mapper.MenuActionMapper;
 import com.zl.mall.common.dto.QueryCondition;
-/*
+/**
  * 
  * @author coolz
  *
-*/
+ */
 @Service
 public class MenuServiceImpl implements MenuService {
 	@Autowired
@@ -32,19 +32,25 @@ public class MenuServiceImpl implements MenuService {
 	@Autowired
 	private MenuActionMapper menuActionMapper;
 	
+	@Override
 	public List<MenuEntity> queryList(QueryCondition queryCondition){
 		PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
 		List<MenuEntity> list = menuMapper.queryList(queryCondition.getCondition());
 		return list;
 	}
 	
+	@Override
 	public int add(MenuEntity menuEntity){
 		menuEntity.setMenuId(UUID.randomUUID().toString().replace("-", ""));
 		return menuMapper.add(menuEntity);
 	}
+	
+	@Override
 	public int update(MenuEntity menuEntity){
 		return menuMapper.update(menuEntity);
 	}
+	
+	@Override
 	public int delete(String menuId){
 		return menuMapper.delete(menuId);
 	}
@@ -74,7 +80,7 @@ public class MenuServiceImpl implements MenuService {
 			// 如果是页面查询权限
 			String path = next.getPath();
 			if(StringUtils.isNotEmpty(path)) {
-				Map<String, String> map = new HashMap<String, String>();
+				Map<String, String> map = new HashMap<String, String>(16);
 				map.put("userId", userId);
 				map.put("menuId", next.getMenuId());
 				List<MenuActionEntity> actions = menuActionMapper.selectByUserId(map);
@@ -85,7 +91,7 @@ public class MenuServiceImpl implements MenuService {
 					list.add(dto);
 				}
 			}else {
-				Map<String, String> childMap = new HashMap<String,String>();
+				Map<String, String> childMap = new HashMap<String,String>(16);
 				childMap.put("userId", userId);
 				childMap.put("parentId", next.getMenuId());
 				List<MenuActionDto> children = selectMenuByUserId(childMap);

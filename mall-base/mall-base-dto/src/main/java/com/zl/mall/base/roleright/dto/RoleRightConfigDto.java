@@ -3,6 +3,11 @@ package com.zl.mall.base.roleright.dto;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 public class RoleRightConfigDto implements Serializable{
 	
 	/**
