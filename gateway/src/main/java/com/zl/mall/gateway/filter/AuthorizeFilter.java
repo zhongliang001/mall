@@ -71,7 +71,10 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 		logger.info("请求路由是:{}", path.value());
 
 		List<String> whiteList = applicationProperties.getWhiteList();
-		if (whiteList.contains(path.value())) {
+		String pathStr = path.value();
+		String serverName = pathStr.substring(0, pathStr.indexOf("/", 1));
+		String p = pathStr.replace(serverName, "");
+		if (whiteList.contains(p)) {
 			return chain.filter(exchange);
 		}
 		if (StringUtils.isBlank(token)) {

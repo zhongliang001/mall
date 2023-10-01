@@ -1,0 +1,7 @@
+{
+  "devServer": {
+    "base": "/base-dev",
+    "user": "/user",
+    "uaa": "/uaa"
+  }
+}

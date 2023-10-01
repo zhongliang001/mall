@@ -28,11 +28,11 @@ export default defineConfig({
   },
   build: {
     minify: 'terser',
-    sourcemap: false,
+    sourcemap: true,
     chunkSizeWarningLimit: 1500,
     terserOptions: {
       compress: {
-        drop_console: true,
+        drop_console: false,
         drop_debugger: true
       }
     },

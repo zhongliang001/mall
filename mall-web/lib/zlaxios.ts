@@ -101,10 +101,23 @@ const zlaxios = {
     }
   }
 }
-
-const server = {
-  base: '/base',
-  user: '/user',
-  uaa: '/uaa'
+type serverKey = {
+  "base": string,
+  "user": string,
+  "uaa": string
 }
+let server: serverKey
+import { devServer } from './server.dev.json'
+import { prodServer } from './server.prod.json'
+console.log(import.meta.env.MODE)
+if (import.meta.env.MODE === 'dev') {
+  server = devServer
+} else {
+  server = prodServer
+}
+
+
+
+//import.meta.env.VITE_SERVER
+//console.log(server);
 export { zlaxios, server }
