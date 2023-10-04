@@ -45,4 +45,7 @@ declare module 'vue' {
     ZlTable: typeof import('./src/components/ZlTable.vue')['default']
     ZlTableColumn: typeof import('./src/components/ZlTableColumn.vue')['default']
   }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }

@@ -1,9 +1,10 @@
+;`use strict`
 import { createApp, ref, computed } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-import ElementPlus from 'element-plus'
+//import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import { zlaxios, server } from '../lib/zlaxios'
 import './assets/main.css'

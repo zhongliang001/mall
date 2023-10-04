@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.base.template.mapper.TemplateMapper">
+	<resultMap id="template" type="com.zl.mall.base.template.entity.TemplateEntity">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="temp" jdbcType="VARCHAR" property="temp" />
+		<result column="length" jdbcType="VARCHAR" property="length" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="template">
+		select * from template
+		<where>
+			<if test="id != null and id != ''">
+				 and id=#{id, jdbcType=VARCHAR}
+			</if>
+			<if test="name != null and name != ''">
+				 and name=#{name, jdbcType=VARCHAR}
+			</if>
+			<if test="temp != null and temp != ''">
+				 and temp=#{temp, jdbcType=VARCHAR}
+			</if>
+			<if test="length != null and length != ''">
+				 and length=#{length, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.base.template.entity.TemplateEntity">
+		insert into template (
+		<trim suffixOverrides=",">
+			id,
+			<if test="name != null and name != ''">
+				name,
+			</if>
+			<if test="temp != null and temp != ''">
+				temp,
+			</if>
+			<if test="length != null and length != ''">
+				length,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id, jdbcType=VARCHAR},
+			</if>
+			<if test="name != null and name != ''">
+				#{name, jdbcType=VARCHAR},
+			</if>
+			<if test="temp != null and temp != ''">
+				#{temp, jdbcType=VARCHAR},
+			</if>
+			<if test="length != null and length != ''">
+				#{length, jdbcType=VARCHAR},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.base.template.entity.TemplateEntity">
+		update template set 
+		<trim suffixOverrides=",">
+			<if test="name != null and name != ''">
+				name=#{name, jdbcType=VARCHAR},
+			</if>
+			<if test="temp != null and temp != ''">
+				temp=#{temp, jdbcType=VARCHAR},
+			</if>
+			<if test="length != null and length != ''">
+				length=#{length, jdbcType=VARCHAR},
+			</if>
+		</trim>
+		<where>
+			 and id=#{id, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from template 
+			<where>
+			 and id=#{id, jdbcType=VARCHAR}
+		</where>
+	</delete>
+</mapper>

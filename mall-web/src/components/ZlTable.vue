@@ -9,6 +9,7 @@
   </el-row>
   <el-table
     highlight-current-row
+    v-loading="loading"
     :data="tableData"
     :border="true"
     :url="url"
@@ -35,6 +36,8 @@ import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 
 const { proxy } = useCurrentInstance()
+
+const loading = ref(false)
 const zlaxios = proxy.zlaxios
 const props = defineProps({
   showPage: {
@@ -75,6 +78,7 @@ const handleCurrentChange = (value: number) => {
 }
 
 const query = () => {
+  loading.value = true
   zlaxios.request({
     url: props.url,
     data: {
@@ -86,8 +90,10 @@ const query = () => {
     success: function (data: any) {
       tableData.value = data.data
       total.value = data.total
+      loading.value = false
     },
     failed: function (data: any) {
+      loading.value = false
       ElMessage({
         message: data.data.msg,
         grouping: true,

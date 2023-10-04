@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -41,10 +40,10 @@ public class ValidExceptionHandler {
 				if (i != 0) {
 					msg += ",";
 				}
-				Object[] arguments = f.getArguments();
-				DefaultMessageSourceResolvable de = (DefaultMessageSourceResolvable) arguments[0];
+//				Object[] arguments = f.getArguments();
+//				DefaultMessageSourceResolvable de = (DefaultMessageSourceResolvable) arguments[0];
 				String defaultMessage = f.getDefaultMessage();
-				msg += de.getDefaultMessage() + ":" + defaultMessage;
+				msg += defaultMessage;
 				i++;
 			}
 			logger.info("错误信息{}", msg);

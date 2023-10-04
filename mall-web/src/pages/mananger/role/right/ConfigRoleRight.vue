@@ -31,7 +31,7 @@ watch(
         success: function (data: any) {
           menuActionList.value = data.data
           zlaxios.request({
-            url: '/user/roleRight/queryRights',
+            url: server.base + '/roleRight/queryRights',
             params: { roleId: props.data.roleId },
             method: 'get',
             success: function (data: any) {
