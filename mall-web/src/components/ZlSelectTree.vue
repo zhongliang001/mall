@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul>
-      <li v-for="(item, index) in data">
+      <li v-for="(item, index) in data" :key="index">
         <span @click.stop="showSel(index)">
           {{ item?.menuCnName }}
           <el-icon :size="10">
@@ -18,7 +18,7 @@
         ></zl-select-tree>
         <ul v-show="isshow[index]">
           <el-checkbox-group v-model="datas">
-            <li v-for="i in item?.list">
+            <li v-for="i in item?.list" :key="i">
               <el-checkbox :label="i.actionId">{{ i.actionName }}</el-checkbox>
             </li>
           </el-checkbox-group>

@@ -12,6 +12,9 @@
           <el-col :span="11">
             <el-form-item label="模板" prop="temp">
               <el-input v-model="formdata.temp"></el-input>
+              <span class="notice">
+                提示：模板格式为：X{D(日期格式)|S(序列号名称，最小值，最大值,步长)},X为任意值
+              </span>
             </el-form-item>
           </el-col>
         </el-row>
@@ -47,13 +50,13 @@ const rules = reactive<FormRules>({
 
 const save = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  await formEl.validate((valid, fields) => {
+  await formEl.validate((valid) => {
     if (valid) {
       zlaxios.request({
         url: server.base + '/template/add',
         data: formdata,
         method: 'post',
-        success: function (data: any) {
+        success: function () {
           toBack(formEl)
           ElMessage({
             message: '新增成功',
@@ -83,3 +86,9 @@ const toBack = (formEl: FormInstance | undefined) => {
   formEl.resetFields()
 }
 </script>
+<style scoped>
+.notice {
+  color: rgb(234, 104, 104);
+  font-size: 0.05rem;
+}
+</style>

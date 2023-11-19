@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.base.sequnce.mapper.SequnceMapper">
+	<resultMap id="sequnce" type="com.zl.mall.base.sequnce.entity.SequnceEntity">
+		<id column="seq_id" jdbcType="VARCHAR" property="seqId" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="seq_no" jdbcType="INTEGER" property="seqNo" />
+		<result column="step" jdbcType="INTEGER" property="step" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="sequnce">
+		select * from sequnce
+		<where>
+			<if test="seqId != null and seqId != ''">
+				 and seq_id=#{seqId, jdbcType=VARCHAR}
+			</if>
+			<if test="name != null and name != ''">
+				 and name=#{name, jdbcType=VARCHAR}
+			</if>
+			<if test="seqNo != null and seqNo != ''">
+				 and seq_no=#{seqNo, jdbcType=INTEGER}
+			</if>
+			<if test="step != null and step != ''">
+				 and step=#{step, jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.base.sequnce.entity.SequnceEntity">
+		insert into sequnce (
+		<trim suffixOverrides=",">
+			seq_id,
+			<if test="name != null and name != ''">
+				name,
+			</if>
+			<if test="seqNo != null and seqNo != ''">
+				seq_no,
+			</if>
+			<if test="step != null and step != ''">
+				step,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="seqId != null and seqId != ''">
+				#{seqId, jdbcType=VARCHAR},
+			</if>
+			<if test="name != null and name != ''">
+				#{name, jdbcType=VARCHAR},
+			</if>
+			<if test="seqNo != null and seqNo != ''">
+				#{seqNo, jdbcType=INTEGER},
+			</if>
+			<if test="step != null and step != ''">
+				#{step, jdbcType=INTEGER},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.base.sequnce.entity.SequnceEntity">
+		update sequnce set 
+		<trim suffixOverrides=",">
+			<if test="name != null and name != ''">
+				name=#{name, jdbcType=VARCHAR},
+			</if>
+			<if test="seqNo != null and seqNo != ''">
+				seq_no=#{seqNo, jdbcType=INTEGER},
+			</if>
+			<if test="step != null and step != ''">
+				step=#{step, jdbcType=INTEGER},
+			</if>
+		</trim>
+		<where>
+			 and seq_id=#{seqId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from sequnce 
+			<where>
+			 and seq_id=#{seqId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+</mapper>

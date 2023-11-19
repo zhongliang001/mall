@@ -1,7 +1,7 @@
 {
   "devServer": {
     "base": "/base-dev",
-    "user": "/user",
+    "user": "/user-dev",
     "uaa": "/uaa"
   }
 }

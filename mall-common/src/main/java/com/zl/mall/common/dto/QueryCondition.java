@@ -1,5 +1,6 @@
 package com.zl.mall.common.dto;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -23,6 +24,12 @@ public class QueryCondition {
 	 * 每页条数
 	 */
 	private Integer pageSize;
+	
+	public QueryCondition() {
+		this.condition = new HashMap<>();
+	}
+	
+	
 
 	public Map<String, Object> getCondition() {
 		return condition;

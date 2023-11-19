@@ -62,7 +62,7 @@ const rules = reactive<FormRules>({
   email: [
     { required: true, message: '请输入邮箱', trigger: 'blur' },
     {
-      pattern: '^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$',
+      pattern: '^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$',
       message: '请输入正确的邮箱',
       trigger: 'blur'
     }

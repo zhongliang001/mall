@@ -10,7 +10,7 @@
           <el-dropdown-menu>
             <el-dropdown-item class="el-dropdown-link">
               <!-- TODO 此处需要修改点击时不需要通过router-link -->
-              <router-link to="ViewUserInfo">用户个人信息</router-link>
+              <router-link to="viewUserInfo">用户个人信息</router-link>
             </el-dropdown-item>
             <el-dropdown-item class="el-dropdown-link">
               <a @click="logout">退出</a>
@@ -34,6 +34,7 @@
             :label="item.cnName"
             :name="item.name"
             :closable="index !== 0"
+            :key="index"
           >
             <component :is="item.component"></component>
           </el-tab-pane>

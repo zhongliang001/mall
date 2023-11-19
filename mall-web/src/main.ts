@@ -1,4 +1,4 @@
-;`use strict`
+; `use strict`
 import { createApp, ref, computed } from 'vue'
 import { createPinia } from 'pinia'
 
@@ -12,8 +12,8 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 const app = createApp(App)
 const coms: any = import.meta.glob('./components/*.vue', { eager: true })
-for (let objname in coms) {
-  let myval = coms[objname]
+for (const objname in coms) {
+  const myval = coms[objname]
   app.component(objname.substring(13).replace('.vue', ''), myval.default)
 }
 

@@ -73,7 +73,8 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 		List<String> whiteList = applicationProperties.getWhiteList();
 		String pathStr = path.value();
 		String serverName = pathStr.substring(0, pathStr.indexOf("/", 1));
-		String p = pathStr.replace(serverName, "");
+		
+		String p = pathStr.replaceFirst(serverName, "");
 		if (whiteList.contains(p)) {
 			return chain.filter(exchange);
 		}
@@ -94,7 +95,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 			queryParams.put("token", token);
 			try {
 				logger.info("请求的token为：{}",token);
-				String object = restTemplate.getForObject("http://192.168.111.129:"+8093+"/oauth/check_token?token={token}", String.class, queryParams);
+				String object = restTemplate.getForObject("http://localhost:"+8093+"/oauth/check_token?token={token}", String.class, queryParams);
 				if (StringUtils.isBlank(object)) {
 					serverHttpResponse.setStatusCode(HttpStatus.UNAUTHORIZED);
 					return getVoidMono(serverHttpResponse);

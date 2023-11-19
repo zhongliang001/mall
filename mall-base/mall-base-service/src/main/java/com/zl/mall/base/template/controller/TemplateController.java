@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.zl.mall.base.template.dto.TemplateDto;
 import com.zl.mall.base.template.entity.TemplateEntity;
 import com.zl.mall.base.template.service.TemplateService;
 import com.zl.mall.common.dto.QueryCondition;
@@ -47,5 +48,11 @@ public class TemplateController {
 	public ResultDto<Integer> delete(@RequestParam(value = "id") String id){
 		int num = templateService.delete(id);
 		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_DELETE_CODE);
+	}
+	
+	@GetMapping("/getSeqno")
+	public ResultDto<String> getSeqno(@Validated @RequestBody TemplateDto templateDto  ){
+		
+		return ResultUtil.generate("", TradeCodeDict.SUCCESS_DELETE_CODE);
 	}
 }

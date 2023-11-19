@@ -6,12 +6,12 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="菜单名" prop="menuName">
-              <el-input v-model="addData.menuName" :readonly="true"></el-input>
+              <el-input v-model="menu.menuName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11">
             <el-form-item label="菜单中文名" prop="menuCnName">
-              <el-input v-model="addData.menuCnName" :readonly="true"></el-input>
+              <el-input v-model="menu.menuCnName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -45,6 +45,7 @@
   </el-container>
 </template>
 <script lang="ts" setup>
+import type { Menu } from '@/components/menu'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { zlaxios, server } from 'lib/zlaxios'
 import { reactive, ref, watch } from 'vue'
@@ -69,12 +70,23 @@ const formdata: Action = reactive({
   state: ''
 })
 
+const menu: Menu = reactive({
+  menuId: '',
+  menuCnName: '',
+  path: '',
+  menuName: '',
+  list: [],
+  children: [],
+  comp: ''
+})
+
 watch(
-  () => props.page,
+  () => [props.page, props.addData],
   (newVal) => {
-    if (newVal === 'add') {
+    if (newVal[0] === 'add') {
       formdata.menuId = props.addData.menuId
     }
+    Object.assign(menu, props.addData)
   }
 )
 
