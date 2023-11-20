@@ -35,7 +35,7 @@
             </zl-button>
           </el-col>
         </el-row>
-        <zl-table ref="zltable" url="/user/menu/" :query-data="formdata">
+        <zl-table ref="zltable" :url="server.base + '/menu/'" :query-data="formdata">
           <el-table-column label="菜单名" prop="menuName" />
           <el-table-column label="菜单中文名" prop="menuCnName" />
           <el-table-column label="菜单路由" prop="path" />
@@ -63,7 +63,7 @@ import AddMenu from './AddMenu.vue'
 import ModMenu from './ModMenu.vue'
 import ViewMenu from './ViewMenu.vue'
 import MenuAction from './action/MenuAction.vue'
-import zlaxios from 'lib/zlaxios'
+import { zlaxios, server } from 'lib/zlaxios'
 import { ElMessage, ElMessageBox } from 'element-plus'
 const ruleFormRef = ref<FormInstance>()
 const formdata = reactive({
@@ -118,7 +118,7 @@ const toDel = () => {
     })
       .then(() => {
         zlaxios.request({
-          url: '/user/menu/delete',
+          url: server.base + '/menu/delete',
           params: { menuId: zltable.value.currentRow.menuId },
           method: 'get',
           success: function (data: any) {

@@ -2,14 +2,14 @@
   <div>
     <el-menu default-active="2" background-color="#545c64">
       <template v-for="(menu, index) in menus">
-        <el-sub-menu v-if="menu.children?.length > 0" :index="level + '-' + index">
+        <el-sub-menu v-if="menu.children?.length > 0" :index="level + '-' + index" :key="index">
           <template #title>
             <span>{{ menu.menuCnName }}</span>
           </template>
           <zl-menu :menus="menu.children" :level="level + 1"></zl-menu>
         </el-sub-menu>
         <template v-else>
-          <el-menu-item :index="level + '-' + index">
+          <el-menu-item :index="level + '-' + index" :key="index">
             <a @click="toPath(menu)">{{ menu.menuCnName }}</a>
           </el-menu-item>
         </template>
@@ -30,3 +30,9 @@ const toPath = (menu: Menu) => {
   rs.push(menu)
 }
 </script>
+
+<style scoped>
+li a {
+  width: 100%;
+}
+</style>

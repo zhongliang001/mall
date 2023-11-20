@@ -44,7 +44,7 @@ const formdata = reactive({
   state: ''
 })
 
-// emit 获取父组件传错来的方法
+// emit 获取父组件传来的方法
 const emit = defineEmits(['clickBack'])
 const toBack = (formEl: FormInstance | undefined) => {
   // 调用父组件的方法，emit('clickBack', params)

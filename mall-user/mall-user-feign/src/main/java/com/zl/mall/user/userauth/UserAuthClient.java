@@ -13,7 +13,7 @@ import com.zl.mall.user.userauth.entity.UserAuthEntity;
  * @author coolz
  *
  */
-@FeignClient(name = "user")
+@FeignClient(name = "user-dev")
 @RequestMapping("/userAuth")
 public interface UserAuthClient {
 	/**

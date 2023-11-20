@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.base.roleright.mapper.RoleRightMapper">
+	<resultMap id="roleRight" type="com.zl.mall.base.roleright.entity.RoleRightEntity">
+		<id column="right_id" jdbcType="VARCHAR" property="rightId" />
+		<result column="role_id" jdbcType="VARCHAR" property="roleId" />
+		<result column="action_id" jdbcType="VARCHAR" property="actionId" />
+	</resultMap>
+	
+	<resultMap type="com.zl.mall.base.roleright.dto.RoleRightDto" id="roleRightDto">
+		<id column="right_id" jdbcType="VARCHAR" property="rightId" />
+		<result column="role_id" jdbcType="VARCHAR" property="roleId" />
+		<result column="role_name" jdbcType="VARCHAR" property="roleName" />
+		<result column="action_id" jdbcType="VARCHAR" property="actionId" />
+		<result column="action_name" jdbcType="VARCHAR" property="actionName" />
+		<result column="menu_id" jdbcType="VARCHAR" property="menuId" />
+		<result column="menu_cn_name" jdbcType="VARCHAR" property="menuCnName" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="roleRight">
+		select * from role_right
+		<where>
+			<if test="rightId != null and rightId != ''">
+				 and right_id=#{rightId, jdbcType=VARCHAR}
+			</if>
+			<if test="roleId != null and roleId != ''">
+				 and role_id=#{roleId, jdbcType=VARCHAR}
+			</if>
+			<if test="actionId != null and actionId != ''">
+				 and action_id=#{actionId, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.base.roleright.entity.RoleRightEntity">
+		insert into role_right (
+		<trim suffixOverrides=",">
+			right_id,
+			<if test="roleId != null and roleId != ''">
+				role_id,
+			</if>
+			<if test="actionId != null and actionId != ''">
+				action_id,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="rightId != null and rightId != ''">
+				#{rightId, jdbcType=VARCHAR},
+			</if>
+			<if test="roleId != null and roleId != ''">
+				#{roleId, jdbcType=VARCHAR},
+			</if>
+			<if test="actionId != null and actionId != ''">
+				#{actionId, jdbcType=VARCHAR},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.base.roleright.entity.RoleRightEntity">
+		update role_right set 
+		<trim suffixOverrides=",">
+			<if test="roleId != null and roleId != ''">
+				role_id=#{roleId, jdbcType=VARCHAR},
+			</if>
+			<if test="actionId != null and actionId != ''">
+				action_id=#{actionId, jdbcType=VARCHAR},
+			</if>
+		</trim>
+		<where>
+			 and right_id=#{rightId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from role_right 
+			<where>
+			 and right_id=#{rightId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+	
+	<delete id="deleteByRoleId" parameterType="java.lang.String">
+		delete from role_right 
+			<where>
+			 and role_id=#{roleId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+	
+	<select id="queryDetailList"  parameterType="java.util.Map" resultMap="roleRightDto">
+		select a.right_id, a.role_id, d.role_name, b.action_id, b.action_name,c.menu_id, c.menu_cn_name 
+		from role_right a left join menu_action b on a.action_id = b.action_id left join menu c on b.menu_id= c.menu_id left join role d on a.role_id = d.role_id
+		<where>
+			<if test="rightId != null and rightId != ''">
+				 and a.right_id=#{rightId, jdbcType=VARCHAR}
+			</if>
+			<if test="roleId != null and roleId != ''">
+				 and a.role_id=#{roleId, jdbcType=VARCHAR}
+			</if>
+			<if test="actionId != null and actionId != ''">
+				 and a.action_id=#{actionId, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryRights" parameterType="java.lang.String" resultType="java.lang.String">
+		select action_id from role_right where role_id =#{roleId, jdbcType=VARCHAR}
+	</select>	
+</mapper>

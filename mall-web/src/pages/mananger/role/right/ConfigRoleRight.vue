@@ -10,7 +10,7 @@
 </template>
 <script lang="ts" setup>
 import { ElMessage } from 'element-plus'
-import zlaxios from 'lib/zlaxios'
+import { zlaxios, server } from 'lib/zlaxios'
 import { ref, watch } from 'vue'
 import type { MenuActionList } from '@/pages/mananger/menu/action/MenuAction'
 const emit = defineEmits(['clickBackAction'])
@@ -26,12 +26,12 @@ watch(
     if (newVal === 'config') {
       menuActionList = ref([])
       zlaxios.request({
-        url: '/user/menuAction/queryAll',
+        url: server.base + '/menuAction/queryAll',
         method: 'post',
         success: function (data: any) {
           menuActionList.value = data.data
           zlaxios.request({
-            url: '/user/roleRight/queryRights',
+            url: server.base + '/roleRight/queryRights',
             params: { roleId: props.data.roleId },
             method: 'get',
             success: function (data: any) {
@@ -61,7 +61,7 @@ watch(
 const save = () => {
   const a = tree.value.getData()
   zlaxios.request({
-    url: '/user/roleRight/config',
+    url: server.base + '/roleRight/config',
     method: 'post',
     data: {
       roleId: props.data.roleId,

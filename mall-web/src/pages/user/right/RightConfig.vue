@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import type { Item } from '@/components/Item'
 import { ElMessage } from 'element-plus'
-import zlaxios from 'lib/zlaxios'
+import { zlaxios, server } from 'lib/zlaxios'
 import { reactive, ref, watch } from 'vue'
 const emit = defineEmits(['clickBack'])
 const props = defineProps(['page', 'modData'])
@@ -31,7 +31,7 @@ watch(
   (newVal) => {
     console.log(newVal)
     zlaxios.request({
-      url: '/user/role/queryOwnedRole',
+      url: server.base + '/role/queryOwnedRole',
       method: 'get',
       params: { userId: props.modData.userId },
       success: function (data: any) {
@@ -47,7 +47,7 @@ watch(
       }
     })
     zlaxios.request({
-      url: '/user/role/queryNotOwnedRole',
+      url: server.base + '/role/queryNotOwnedRole',
       method: 'get',
       params: { userId: props.modData.userId },
       success: function (data: any) {
@@ -70,7 +70,7 @@ const zlCh: any = ref(null)
 const add = () => {
   const reqData = zlCh.value.getData()
   zlaxios.request({
-    url: '/user/userRole/config',
+    url: server.base + '/userRole/config',
     method: 'post',
     data: { userId: props.modData.userId, list: reqData },
     success: function (data: any) {

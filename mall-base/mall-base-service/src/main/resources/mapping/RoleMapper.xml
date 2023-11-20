@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.base.role.mapper.RoleMapper">
+	<resultMap id="role" type="com.zl.mall.base.role.entity.RoleEntity">
+		<id column="role_id" jdbcType="VARCHAR" property="roleId" />
+		<result column="role_name" jdbcType="VARCHAR" property="roleName" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="state" jdbcType="VARCHAR" property="state" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="role">
+		select * from role
+		<where>
+			<if test="roleId != null and roleId != ''">
+				 and role_id=#{roleId, jdbcType=VARCHAR}
+			</if>
+			<if test="roleName != null and roleName != ''">
+				 and role_name=#{roleName, jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				 and remark=#{remark, jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state != ''">
+				 and state=#{state, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.base.role.entity.RoleEntity">
+		insert into role (
+		<trim suffixOverrides=",">
+			role_id,
+			<if test="roleName != null and roleName != ''">
+				role_name,
+			</if>
+			<if test="remark != null and remark != ''">
+				remark,
+			</if>
+			<if test="state != null and state != ''">
+				state,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="roleId != null and roleId != ''">
+				#{roleId, jdbcType=VARCHAR},
+			</if>
+			<if test="roleName != null and roleName != ''">
+				#{roleName, jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null and remark != ''">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="state != null and state != ''">
+				#{state, jdbcType=VARCHAR},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.base.role.entity.RoleEntity">
+		update role set 
+		<trim suffixOverrides=",">
+			<if test="roleName != null and roleName != ''">
+				role_name=#{roleName, jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null and remark != ''">
+				remark=#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="state != null and state != ''">
+				state=#{state, jdbcType=VARCHAR},
+			</if>
+		</trim>
+		<where>
+			 and role_id=#{roleId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from role 
+			<where>
+			 and role_id=#{roleId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+	
+	<select id="queryOwnedRole"  parameterType="java.lang.String" resultType="java.util.Map" >
+		select role_id value,role_name name from role where role_id in (select role_id from user_role where user_id = #{userId, jdbcType=VARCHAR})
+	</select>
+	
+	<select id="queryNotOwnedRole"  parameterType="java.lang.String" resultType="java.util.Map" >
+		select role_id value,role_name name from role where role_id not in (select role_id from user_role where user_id = #{userId, jdbcType=VARCHAR})
+	</select>
+</mapper>

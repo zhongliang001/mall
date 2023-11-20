@@ -30,7 +30,7 @@
             </zl-button>
           </el-col>
         </el-row>
-        <zl-table ref="zltable" url="/user/role/" :query-data="formdata">
+        <zl-table ref="zltable" :url="server.base + '/role/'" :query-data="formdata">
           <zl-table-column label="角色id" prop="roleId" />
           <zl-table-column label="角色名" prop="roleName" />
           <zl-table-column label="角色描述" prop="remark" />
@@ -56,7 +56,7 @@
 import { ref, reactive } from 'vue'
 import type { FormInstance } from 'element-plus'
 import { ElMessageBox, ElMessage } from 'element-plus'
-import zlaxios from 'lib/zlaxios'
+import { zlaxios, server } from 'lib/zlaxios'
 import AddRole from './AddRole.vue'
 import ModRole from './ModRole.vue'
 import ViewRole from './ViewRole.vue'
@@ -108,7 +108,7 @@ const toDel = () => {
     })
       .then(() => {
         zlaxios.request({
-          url: '/user/role/delete',
+          url: server.base + '/role/delete',
           params: { roleId: zltable.value.currentRow.roleId },
           method: 'get',
           success: function (data: any) {

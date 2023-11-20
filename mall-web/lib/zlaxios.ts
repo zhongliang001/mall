@@ -13,7 +13,7 @@ request.interceptors.request.use(function (config: any) {
   config.headers.common.token = window.localStorage.getItem('token')
   return new Promise(resolve => {
     // 模拟等待refresh_token
-    setTimeout(function (configParam:any) {
+    setTimeout(function (configParam: any) {
       resolve(configParam)
     }, 2000, config)
   })
@@ -29,9 +29,9 @@ request.interceptors.response.use(function (response) {
 interface requestInfo {
   url: string,
   method: string,
-  failed?: Function|any,
-  success?: Function|any,
-  data?: Object|any,
+  failed?: Function | any,
+  success?: Function | any,
+  data?: Object | any,
   config?: Object | any,
   params?: Object | any
 }
@@ -57,7 +57,7 @@ const zlaxios = {
             alert('登录失效，请重新登录');
             window.localStorage.setItem('token', '');
             location.reload();
-           }else {
+          } else {
             requestInfo.failed(reseponse.data)
           }
         }
@@ -75,7 +75,7 @@ const zlaxios = {
             location.reload();
           } else {
             requestInfo.failed(reseponse)
-          }          
+          }
         } else {
           if (url && url.indexOf('/oauth/token') !== -1) {
             window.localStorage.setItem('token', reseponse.data.access_token)
@@ -89,9 +89,9 @@ const zlaxios = {
             alert('登录失效，请重新登录');
             window.localStorage.setItem('token', '');
             location.reload();
-           } else {
+          } else {
             if (requestInfo.failed) {
-              requestInfo.failed(reseponse.data)              
+              requestInfo.failed(reseponse.data)
             } else {
               alert(reseponse.data.msg)
             }
@@ -101,5 +101,23 @@ const zlaxios = {
     }
   }
 }
+type serverKey = {
+  "base": string,
+  "user": string,
+  "uaa": string
+}
+let server: serverKey
+import { devServer } from './server.dev.json'
+import { prodServer } from './server.prod.json'
+console.log(import.meta.env.MODE)
+if (import.meta.env.MODE === 'dev') {
+  server = devServer
+} else {
+  server = prodServer
+}
 
-export default zlaxios
+
+
+//import.meta.env.VITE_SERVER
+//console.log(server);
+export { zlaxios, server }

@@ -9,7 +9,8 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item class="el-dropdown-link">
-              <router-link to="ViewUserInfo">用户个人信息</router-link>
+              <!-- TODO 此处需要修改点击时不需要通过router-link -->
+              <router-link to="viewUserInfo">用户个人信息</router-link>
             </el-dropdown-item>
             <el-dropdown-item class="el-dropdown-link">
               <a @click="logout">退出</a>
@@ -21,7 +22,7 @@
     <el-container>
       <el-aside width="200px">
         <el-row class="tac">
-          <el-col :span="12">
+          <el-col :span="24">
             <zl-menu :menus="menus"></zl-menu>
           </el-col>
         </el-row>
@@ -33,6 +34,7 @@
             :label="item.cnName"
             :name="item.name"
             :closable="index !== 0"
+            :key="index"
           >
             <component :is="item.component"></component>
           </el-tab-pane>
@@ -44,7 +46,7 @@
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue'
 import { ArrowDown } from '@element-plus/icons-vue'
-import zlaxios from '../../lib/zlaxios'
+import { zlaxios, server } from 'lib/zlaxios'
 import { ElMessage } from 'element-plus'
 import { routerStore } from '@/stores/routerStore'
 import type { Menu } from '@/components/menu'
@@ -68,7 +70,7 @@ onMounted(() => {
     const jsa = JSON.parse(a)
     logoutdata.userId = jsa.userId
     zlaxios.request({
-      url: '/user/menu/selectMenuByUserId',
+      url: server.base + '/menu/selectMenuByUserId',
       method: 'get',
       params: { userId: jsa.userId },
       success: function (data: any) {
@@ -88,7 +90,7 @@ onMounted(() => {
 
 const logout = function () {
   zlaxios.request({
-    url: '/user/userAuth/logout',
+    url: server.user + '/userAuth/logout',
     method: 'post',
     data: logoutdata,
     success: function (data: any) {

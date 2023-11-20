@@ -6,18 +6,25 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.zl.mall.base.template.TemplateClient;
+import com.zl.mall.base.template.dto.TemplateDto;
+import com.zl.mall.common.constant.TempConstant;
 import com.zl.mall.common.dto.QueryCondition;
+import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.user.userauth.dto.UserAuthDto;
 import com.zl.mall.user.userauth.dto.UserAuthLogOutDto;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
 import com.zl.mall.user.userauth.mapper.UserAuthMapper;
 import com.zl.mall.user.userauth.service.UserAuthService;
+
+import feign.template.Template;
 /**
  * 
  * @author coolz
@@ -29,6 +36,10 @@ public class UserAuthServiceImpl implements UserAuthService {
 	@SuppressWarnings("rawtypes")
 	@Autowired
 	private RedisTemplate redisTemplate;
+	
+	@Autowired
+	private TemplateClient templateClient;
+	
 	
 	@Autowired
 	private UserAuthMapper userAuthMapper;
@@ -71,7 +82,15 @@ public class UserAuthServiceImpl implements UserAuthService {
 			throw new RuntimeException("两次输入的密码不一致");
 		}
 		UserAuthEntity userAuthEntity = new UserAuthEntity();
-		userAuthEntity.setUserId(UUID.randomUUID().toString().replaceAll("-", ""));
+		TemplateDto templateDto = new TemplateDto();
+		templateDto.setName(TempConstant.USER_TEMP);
+		ResultDto<String> result = templateClient.getSeqno(templateDto);
+		if(StringUtils.isNotEmpty(result.getData())) {
+			userAuthEntity.setUserId(result.getData());
+		}else {
+			userAuthEntity.setUserId(UUID.randomUUID().toString().replaceAll("-", ""));
+			
+		}
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		
 		userAuthEntity.setPassword(bCryptPasswordEncoder.encode(password));

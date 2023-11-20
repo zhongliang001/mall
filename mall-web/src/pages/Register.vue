@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import zlaxios from '../../lib/zlaxios'
+import { zlaxios, server } from 'lib/zlaxios'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import router from '@/router'
@@ -62,7 +62,7 @@ const rules = reactive<FormRules>({
   email: [
     { required: true, message: '请输入邮箱', trigger: 'blur' },
     {
-      pattern: '^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$',
+      pattern: '^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$',
       message: '请输入正确的邮箱',
       trigger: 'blur'
     }
@@ -74,13 +74,13 @@ const regist = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       zlaxios.request({
-        url: '/user/userAuth/regist',
+        url: server.user + '/userAuth/regist',
         data: reqdata,
         method: 'post',
         success: function (data: any) {
           router.push({
-            name: 'addViewUserInfo',
-            query: { userId: data.userId, userName: data.data.userName }
+            name: 'addUserInfo',
+            query: { userId: data.data.userId, userName: data.data.userName }
           })
         },
         failed: function (data: any) {

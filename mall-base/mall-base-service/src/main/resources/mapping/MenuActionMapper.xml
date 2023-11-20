@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.base.menuaction.mapper.MenuActionMapper">
+	<resultMap id="menuAction" type="com.zl.mall.base.menuaction.entity.MenuActionEntity">
+		<id column="action_id" jdbcType="VARCHAR" property="actionId" />
+		<result column="menu_id" jdbcType="VARCHAR" property="menuId" />
+		<result column="action_code" jdbcType="VARCHAR" property="actionCode" />
+		<result column="action_name" jdbcType="VARCHAR" property="actionName" />
+		<result column="state" jdbcType="VARCHAR" property="state" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="menuAction">
+		select * from menu_action
+		<where>
+			<if test="actionId != null and actionId != ''">
+				 and action_id=#{actionId, jdbcType=VARCHAR}
+			</if>
+			<if test="menuId != null and menuId != ''">
+				 and menu_id=#{menuId, jdbcType=VARCHAR}
+			</if>
+			<if test="actionCode != null and actionCode != ''">
+				 and action_code=#{actionCode, jdbcType=VARCHAR}
+			</if>
+			<if test="actionName != null and actionName != ''">
+				 and action_name=#{actionName, jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state != ''">
+				 and state=#{state, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.base.menuaction.entity.MenuActionEntity">
+		insert into menu_action (
+		<trim suffixOverrides=",">
+			action_id,
+			<if test="menuId != null and menuId != ''">
+				menu_id,
+			</if>
+			<if test="actionCode != null and actionCode != ''">
+				action_code,
+			</if>
+			<if test="actionName != null and actionName != ''">
+				action_name,
+			</if>
+			<if test="state != null and state != ''">
+				state,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="actionId != null and actionId != ''">
+				#{actionId, jdbcType=VARCHAR},
+			</if>
+			<if test="menuId != null and menuId != ''">
+				#{menuId, jdbcType=VARCHAR},
+			</if>
+			<if test="actionCode != null and actionCode != ''">
+				#{actionCode, jdbcType=VARCHAR},
+			</if>
+			<if test="actionName != null and actionName != ''">
+				#{actionName, jdbcType=VARCHAR},
+			</if>
+			<if test="state != null and state != ''">
+				#{state, jdbcType=VARCHAR},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.base.menuaction.entity.MenuActionEntity">
+		update menu_action set 
+		<trim suffixOverrides=",">
+			<if test="menuId != null and menuId != ''">
+				menu_id=#{menuId, jdbcType=VARCHAR},
+			</if>
+			<if test="actionCode != null and actionCode != ''">
+				action_code=#{actionCode, jdbcType=VARCHAR},
+			</if>
+			<if test="actionName != null and actionName != ''">
+				action_name=#{actionName, jdbcType=VARCHAR},
+			</if>
+			<if test="state != null and state != ''">
+				state=#{state, jdbcType=VARCHAR},
+			</if>
+		</trim>
+		<where>
+			 and action_id=#{actionId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from menu_action 
+			<where>
+			 and action_id=#{actionId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+	
+	<select id="selectByUserId" parameterType="java.util.Map" resultMap="menuAction">
+		select * from menu_action where menu_id = #{menuId, jdbcType=VARCHAR} and  action_id in 
+		 (select action_id from role_right where role_id in (select role_id from user_role where user_id = #{userId, jdbcType=VARCHAR}))
+	</select>
+</mapper>

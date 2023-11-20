@@ -6,12 +6,12 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="菜单名" prop="menuName">
-              <el-input v-model="modData.menuName" :readonly="true"></el-input>
+              <el-input v-model="menu.menuName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11">
             <el-form-item label="菜单中文名" prop="menuCnName">
-              <el-input v-model="modData.menuCnName" :readonly="true"></el-input>
+              <el-input v-model="menu.menuCnName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -45,8 +45,9 @@
   </el-container>
 </template>
 <script setup lang="ts">
+import type { Menu } from '@/components/menu'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
-import zlaxios from 'lib/zlaxios'
+import { zlaxios, server } from 'lib/zlaxios'
 import { reactive, ref, watch } from 'vue'
 import type { Action } from './MenuAction'
 
@@ -67,17 +68,28 @@ const formdata: Action = reactive({
 })
 
 watch(
-  () => props.page,
+  () => [props.page, props.modData],
   (newVal) => {
-    if (newVal === 'mod') {
+    if (newVal[0] === 'mod') {
       formdata.menuId = props.modData.menuId
       formdata.actionId = props.modData.actionId
       formdata.actionName = props.modData.actionName
       formdata.actionCode = props.modData.actionCode
       formdata.state = props.modData.state
     }
+    Object.assign(menu, props.modData)
   }
 )
+const menu: Menu = reactive({
+  menuId: '',
+  menuCnName: '',
+  path: '',
+  menuName: '',
+  list: [],
+  children: [],
+  comp: ''
+})
+
 const emit = defineEmits(['clickBackAction'])
 const toBack = (formEl: FormInstance | undefined) => {
   // 调用父组件的方法，emit('clickBack', params)
@@ -93,7 +105,7 @@ const update = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       zlaxios.request({
-        url: '/user/menuAction/update',
+        url: server.base + '/menuAction/update',
         data: formdata,
         method: 'post',
         success: function (data: any) {

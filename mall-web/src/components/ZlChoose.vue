@@ -3,7 +3,12 @@
     <div style="margin-left: 30%">
       <span>待选择数据</span>
       <ul class="chDiv">
-        <li :class="{ sel: index === selIndex }" v-for="(item, index) in unCh" @click="cli(index)">
+        <li
+          :class="{ sel: index === selIndex }"
+          v-for="(item, index) in unCh"
+          :key="index"
+          @click="cli(index)"
+        >
           {{ item?.name }}
         </li>
       </ul>
@@ -37,6 +42,7 @@
           :class="{ sel: index === unSelIndex }"
           v-for="(item, index) in ch"
           @click="cliUnChoose(index)"
+          :key="index"
         >
           {{ item?.name }}
         </li>
@@ -63,7 +69,6 @@ const cliUnChoose = (index: number) => {
 watch(
   [() => props.unChoosedData, () => props.choosedData],
   (newVal) => {
-    debugger
     unCh.splice(0, unCh.length)
     newVal[0]?.forEach((t: any) => {
       unCh.push(t)

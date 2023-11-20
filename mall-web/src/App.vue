@@ -15,7 +15,7 @@ const locale = computed(() => (language.value === 'zh-cn' ? zhCn : en))
 </script>
 
 <template>
-  <el-config-provider :locale="locale" :button="{ autoInsertSpace: true }">
+  <el-config-provider :locale="locale" :button="{ autoInsertSpace: true }" size="small">
     <router-view></router-view>
   </el-config-provider>
 </template>

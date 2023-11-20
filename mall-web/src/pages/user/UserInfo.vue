@@ -29,7 +29,7 @@
             </zl-button>
           </el-col>
         </el-row>
-        <zl-table ref="zltable" url="/user/userInfo/" :query-data="formdata">
+        <zl-table ref="zltable" :url="server.user + '/userInfo/'" :query-data="formdata">
           <el-table-column label="用户id" prop="userId" />
           <el-table-column label="用户名" prop="userName" />
           <el-table-column label="昵称" prop="nickName" />
@@ -46,6 +46,7 @@ import { ElMessageBox, type FormInstance } from 'element-plus'
 import { reactive, ref } from 'vue'
 import type { UserInfo } from './UserInfo'
 import RightConfig from './right/RightConfig.vue'
+import { server } from 'lib/zlaxios'
 
 const formdata: UserInfo = reactive({
   userId: '',

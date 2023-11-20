@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
-import zlaxios from '../../lib/zlaxios'
 import { ElMessage } from 'element-plus'
 import router from '@/router'
+import { zlaxios, server } from 'lib/zlaxios'
 
 const reqForm = ref<FormInstance>()
 const reqdata = reactive({
@@ -28,7 +28,7 @@ const login = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       zlaxios.request({
-        url: '/uaa/oauth/token',
+        url: server.uaa + '/oauth/token',
         config: {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'

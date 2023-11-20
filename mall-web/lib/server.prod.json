@@ -1,0 +1,7 @@
+{
+  "prodServer": {
+    "base": "/base",
+    "user": "/user",
+    "uaa": "/uaa"
+  }
+}

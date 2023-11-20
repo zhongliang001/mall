@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.base.sequence.mapper.SequenceMapper">
+	<resultMap id="sequence" type="com.zl.mall.base.sequence.entity.SequenceEntity">
+		<id column="seq_id" jdbcType="VARCHAR" property="seqId" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="seq_no" jdbcType="INTEGER" property="seqNo" />
+		<result column="min_no" jdbcType="INTEGER" property="minNo" />
+		<result column="max_no" jdbcType="INTEGER" property="maxNo" />
+		<result column="len" jdbcType="INTEGER" property="len" />
+		<result column="step" jdbcType="INTEGER" property="step" />
+		<result column="version" jdbcType="INTEGER" property="version" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="sequence">
+		select * from sequence
+		<where>
+			<if test="seqId != null and seqId != ''">
+				 and seq_id=#{seqId, jdbcType=VARCHAR}
+			</if>
+			<if test="name != null and name != ''">
+				 and name=#{name, jdbcType=VARCHAR}
+			</if>
+			<if test="seqNo != null and seqNo != ''">
+				 and seq_no=#{seqNo, jdbcType=INTEGER}
+			</if>
+			<if test="minNo != null and minNo != ''">
+				 and min_no=#{minNo, jdbcType=INTEGER}
+			</if>
+			<if test="maxNo != null and maxNo != ''">
+				 and max_no=#{maxNo, jdbcType=INTEGER}
+			</if>
+			<if test="len != null and len != ''">
+				 and len=#{len, jdbcType=INTEGER}
+			</if>
+			<if test="step != null and step != ''">
+				 and step=#{step, jdbcType=INTEGER}
+			</if>
+			<if test="version != null and version != ''">
+				 and version=#{version, jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.base.sequence.entity.SequenceEntity">
+		insert into sequence (
+		<trim suffixOverrides=",">
+			seq_id,
+			<if test="name != null and name != ''">
+				name,
+			</if>
+			<if test="seqNo != null and seqNo != ''  or seqNo== 0">
+				seq_no,
+			</if>
+			<if test="minNo != null and minNo != '' or minNo== 0">
+				min_no,
+			</if>
+			<if test="maxNo != null and maxNo != ''  or maxNo==0">
+				max_no,
+			</if>
+			<if test="len != null and len != ''">
+				len,
+			</if>
+			<if test="step != null and step != ''">
+				step,
+			</if>
+			<if test="version != null and version != ''">
+				version,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="seqId != null and seqId != ''">
+				#{seqId, jdbcType=VARCHAR},
+			</if>
+			<if test="name != null and name != ''">
+				#{name, jdbcType=VARCHAR},
+			</if>
+			<if test="seqNo != null and seqNo != '' or seqNo== 0">
+				#{seqNo, jdbcType=INTEGER},
+			</if>
+			<if test="minNo != null and minNo != '' or minNo== 0">
+				#{minNo, jdbcType=INTEGER},
+			</if>
+			<if test="maxNo != null and maxNo != '' or maxNo==0">
+				#{maxNo, jdbcType=INTEGER},
+			</if>
+			<if test="len != null and len != ''">
+				#{len, jdbcType=INTEGER},
+			</if>
+			<if test="step != null and step != ''">
+				#{step, jdbcType=INTEGER},
+			</if>
+			<if test="version != null and version != ''">
+				#{version, jdbcType=INTEGER},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.base.sequence.entity.SequenceEntity">
+		update sequence set 
+		<trim suffixOverrides=",">
+			<if test="name != null and name != ''">
+				name=#{name, jdbcType=VARCHAR},
+			</if>
+			<if test="seqNo != null and seqNo != ''">
+				seq_no=#{seqNo, jdbcType=INTEGER},
+			</if>
+			<if test="minNo != null and minNo != ''">
+				min_no=#{minNo, jdbcType=INTEGER},
+			</if>
+			<if test="maxNo != null and maxNo != ''">
+				max_no=#{maxNo, jdbcType=INTEGER},
+			</if>
+			<if test="len != null and len != ''">
+				len=#{len, jdbcType=INTEGER},
+			</if>
+			<if test="step != null and step != ''">
+				step=#{step, jdbcType=INTEGER},
+			</if>
+				version=#{version, jdbcType=INTEGER} + 1,
+		</trim>
+		<where>
+			 and seq_id=#{seqId, jdbcType=VARCHAR} and version=#{version, jdbcType=INTEGER}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from sequence 
+			<where>
+			 and seq_id=#{seqId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+</mapper>
