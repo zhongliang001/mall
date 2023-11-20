@@ -5,7 +5,7 @@
 		<id column="id" jdbcType="VARCHAR" property="id" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
 		<result column="temp" jdbcType="VARCHAR" property="temp" />
-		<result column="length" jdbcType="VARCHAR" property="length" />
+		<result column="cn_name" jdbcType="VARCHAR" property="cnName" />
 	</resultMap>
 
 	<select id="queryList" parameterType="java.util.Map" resultMap="template">
@@ -20,8 +20,8 @@
 			<if test="temp != null and temp != ''">
 				 and temp=#{temp, jdbcType=VARCHAR}
 			</if>
-			<if test="length != null and length != ''">
-				 and length=#{length, jdbcType=VARCHAR}
+			<if test="cnName != null and cnName != ''">
+				 and cn_name=#{cnName, jdbcType=VARCHAR}
 			</if>
 		</where>
 	</select>
@@ -36,8 +36,8 @@
 			<if test="temp != null and temp != ''">
 				temp,
 			</if>
-			<if test="length != null and length != ''">
-				length,
+			<if test="cnName != null and cnName != ''">
+				cn_name,
 			</if>
 		</trim>
 		) values (
@@ -51,8 +51,8 @@
 			<if test="temp != null and temp != ''">
 				#{temp, jdbcType=VARCHAR},
 			</if>
-			<if test="length != null and length != ''">
-				#{length, jdbcType=VARCHAR},
+			<if test="cnName != null and cnName != ''">
+				#{cnName, jdbcType=VARCHAR},
 			</if>
 		</trim>
 )
@@ -66,8 +66,8 @@
 			<if test="temp != null and temp != ''">
 				temp=#{temp, jdbcType=VARCHAR},
 			</if>
-			<if test="length != null and length != ''">
-				length=#{length, jdbcType=VARCHAR},
+			<if test="cnName != null and cnName != ''">
+				cn_name=#{cnName, jdbcType=VARCHAR},
 			</if>
 		</trim>
 		<where>

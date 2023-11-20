@@ -11,5 +11,6 @@
   <modules>
   	<module>mall-base-service</module>
   	<module>mall-base-dto</module>
+  	<module>mall-base-feign</module>
   </modules>
 </project>

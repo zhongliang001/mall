@@ -39,7 +39,7 @@
             </el-select>
           </el-form-item>
           <el-col :span="11">
-            <el-form-item label="菜单组件" prop="state">
+            <el-form-item label="菜单组件" prop="comp">
               <el-input v-model="formdata.comp"></el-input>
             </el-form-item>
           </el-col>

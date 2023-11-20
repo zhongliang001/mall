@@ -42,7 +42,7 @@
           <el-table-column label="模板id" prop="id" />
           <el-table-column label="模板名" prop="name" />
           <el-table-column label="模板" prop="temp" />
-          <el-table-column label="流水号长度" prop="length" />
+          <el-table-column label="模板中文名" prop="cnName" />
         </zl-table>
       </el-main>
     </el-container>

@@ -16,7 +16,7 @@
           <el-input v-model="formdata.certCode"></el-input>
         </el-form-item>
         <el-form-item label="手机号" prop="phone">
-          <el-input v-model="formdata.phone" :readonly="true"></el-input>
+          <el-input v-model="formdata.phone"></el-input>
         </el-form-item>
         <el-form-item label="性别" prop="sex">
           <zl-select v-model="formdata.sex" type="SEX"></zl-select>
@@ -46,6 +46,7 @@ let formdata = reactive({
 })
 
 onMounted(() => {
+  debugger
   if (router.currentRoute.value.query.userId) {
     formdata.userId = router.currentRoute.value.query.userId as any
   }
@@ -68,7 +69,7 @@ const doSub = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       zlaxios.request({
-        url: server.user + '/ViewUserInfo/add',
+        url: server.user + '/userInfo/add',
         data: formdata,
         method: 'post',
         success: function (data: any) {

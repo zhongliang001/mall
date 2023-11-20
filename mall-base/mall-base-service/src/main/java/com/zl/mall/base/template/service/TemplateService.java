@@ -22,5 +22,5 @@ public interface TemplateService{
 	
 	public int delete(String id);
 	
-	public String getSeqno(TemplateDto templateDto);
+	public String getSeqno(String name);
 }

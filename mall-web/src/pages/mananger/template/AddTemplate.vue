@@ -20,8 +20,8 @@
         </el-row>
         <el-row>
           <el-col :span="11">
-            <el-form-item label="模板长度" prop="length">
-              <el-input type="number" v-model="formdata.length"></el-input>
+            <el-form-item label="模板中文名" prop="cnName">
+              <el-input type="text" v-model="formdata.cnName"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

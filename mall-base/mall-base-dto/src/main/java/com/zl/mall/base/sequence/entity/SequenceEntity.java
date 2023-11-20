@@ -1,4 +1,4 @@
-package com.zl.mall.base.sequnce.entity;
+package com.zl.mall.base.sequence.entity;
 
 
 import java.io.Serializable;
@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author coolz
  *
 */
-public class SequnceEntity implements Serializable{
+public class SequenceEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	/**
 	 *
@@ -32,10 +32,36 @@ public class SequnceEntity implements Serializable{
 
 	/**
 	 *
+	 * 最小编号
+	 *
+	 */
+	private Integer minNo;
+
+	/**
+	 *
+	 * 最大编号
+	 *
+	 */
+	private Integer maxNo;
+
+	/**
+	 *
+	 * 长度
+	 *
+	 */
+	private Integer len;
+
+	/**
+	 *
 	 * 步长
 	 *
 	 */
 	private Integer step;
+	
+	/**
+	 * 版本号
+	 */
+	private Integer version;
 
 	public  void setSeqId(String seqId){
 		this.seqId = seqId;
@@ -55,10 +81,34 @@ public class SequnceEntity implements Serializable{
 	public Integer getSeqNo(){
 		return this.seqNo;
 	}
+	public  void setMinNo(Integer minNo){
+		this.minNo = minNo;
+	}
+	public Integer getMinNo(){
+		return this.minNo;
+	}
+	public  void setMaxNo(Integer maxNo){
+		this.maxNo = maxNo;
+	}
+	public Integer getMaxNo(){
+		return this.maxNo;
+	}
+	public  void setLen(Integer len){
+		this.len = len;
+	}
+	public Integer getLen(){
+		return this.len;
+	}
 	public  void setStep(Integer step){
 		this.step = step;
 	}
 	public Integer getStep(){
 		return this.step;
+	}
+	public Integer getVersion() {
+		return version;
+	}
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 }

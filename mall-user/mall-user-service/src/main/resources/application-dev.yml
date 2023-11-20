@@ -29,7 +29,10 @@ management:
     health:
       enable: true
       show-details: ALWAYS
-
+    
+base:
+  service: base-dev
+  
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
     

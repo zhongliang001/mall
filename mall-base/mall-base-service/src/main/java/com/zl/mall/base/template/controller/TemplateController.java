@@ -50,9 +50,9 @@ public class TemplateController {
 		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_DELETE_CODE);
 	}
 	
-	@GetMapping("/getSeqno")
-	public ResultDto<String> getSeqno(@Validated @RequestBody TemplateDto templateDto  ){
-		
-		return ResultUtil.generate("", TradeCodeDict.SUCCESS_DELETE_CODE);
+	@PostMapping("/getSeqno")
+	public ResultDto<String> getSeqno(@RequestBody TemplateDto templateDto  ){
+		String seqno = templateService.getSeqno(templateDto.getName());
+		return ResultUtil.generate(seqno, TradeCodeDict.SUCCESS_DELETE_CODE);
 	}
 }

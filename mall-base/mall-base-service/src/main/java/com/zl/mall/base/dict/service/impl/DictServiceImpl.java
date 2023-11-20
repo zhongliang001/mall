@@ -6,16 +6,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import com.github.pagehelper.PageHelper;
 import com.zl.mall.base.dict.dto.ModDictDto;
 import com.zl.mall.base.dict.entity.DictEntity;
 import com.zl.mall.base.dict.mapper.DictMapper;
 import com.zl.mall.base.dict.service.DictService;
+import com.zl.mall.base.template.service.TemplateService;
+import com.zl.mall.common.constant.TempConstant;
 import com.zl.mall.common.dto.QueryCondition;
 
 /** 
@@ -28,6 +30,9 @@ public class DictServiceImpl implements DictService {
 	@Autowired
 	private DictMapper dictMapper;
 	
+	@Autowired
+	private TemplateService templateService;
+	
 	@Override
 	public List<DictEntity> queryList(QueryCondition queryCondition) {
 		PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
@@ -37,6 +42,10 @@ public class DictServiceImpl implements DictService {
 	
 	@Override
 	public int add(DictEntity dictEntity) {
+		String seqno = templateService.getSeqno(TempConstant.ROLE_TEMP);
+		if(StringUtils.isNotEmpty(seqno)) {
+			dictEntity.setDictId(seqno);
+		}
 		return dictMapper.add(dictEntity);
 	}
 	
@@ -85,7 +94,12 @@ public class DictServiceImpl implements DictService {
 				if (StringUtils.isEmpty(entity.getEnName()) || StringUtils.isEmpty(entity.getCnName())) {
 					continue;
 				}
-				entity.setDictId(UUID.randomUUID().toString().replaceAll("-", ""));
+				String seqno = templateService.getSeqno(TempConstant.ROLE_TEMP);
+				if(StringUtils.isNotEmpty(seqno)) {
+					entity.setDictId(seqno);
+				}else {
+					entity.setDictId(UUID.randomUUID().toString().replaceAll("-", ""));					
+				}
 				entity.setDictType(dictType);
 				entity.setDictTypeName(dictTypeName);
 				num += dictMapper.add(entity);

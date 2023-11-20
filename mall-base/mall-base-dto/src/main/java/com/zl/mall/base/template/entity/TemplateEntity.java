@@ -36,10 +36,10 @@ public class TemplateEntity implements Serializable{
 
 	/**
 	 *
-	 * 长度
+	 * 模板中文名
 	 *
 	 */
-	private String length;
+	private String cnName;
 
 	public  void setId(String id){
 		this.id = id;
@@ -59,10 +59,10 @@ public class TemplateEntity implements Serializable{
 	public String getTemp(){
 		return this.temp;
 	}
-	public  void setLength(String length){
-		this.length = length;
+	public String getCnName() {
+		return cnName;
 	}
-	public String getLength(){
-		return this.length;
+	public void setCnName(String cnName) {
+		this.cnName = cnName;
 	}
 }

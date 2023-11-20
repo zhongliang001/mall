@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,8 @@ import com.github.pagehelper.PageHelper;
 import com.zl.mall.base.role.entity.RoleEntity;
 import com.zl.mall.base.role.mapper.RoleMapper;
 import com.zl.mall.base.role.service.RoleService;
+import com.zl.mall.base.template.service.TemplateService;
+import com.zl.mall.common.constant.TempConstant;
 import com.zl.mall.common.dto.QueryCondition;
 
 /**
@@ -22,6 +25,9 @@ import com.zl.mall.common.dto.QueryCondition;
 public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private RoleMapper roleMapper;
+	
+	@Autowired
+	private TemplateService templateService;
 
 	@Override
 	public List<RoleEntity> queryList(QueryCondition queryCondition) {
@@ -32,7 +38,12 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public int add(RoleEntity roleEntity) {
-		roleEntity.setRoleId(UUID.randomUUID().toString().replaceAll("-", ""));
+		String seqno = templateService.getSeqno(TempConstant.ROLE_TEMP);
+		if(StringUtils.isNotEmpty(seqno)) {
+			roleEntity.setRoleId(seqno);
+		}else {
+			roleEntity.setRoleId(UUID.randomUUID().toString().replaceAll("-", ""));			
+		}
 		return roleMapper.add(roleEntity);
 	}
 

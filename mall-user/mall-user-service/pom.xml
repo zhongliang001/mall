@@ -54,6 +54,10 @@
 			<groupId>com.zl</groupId>
 			<artifactId>mall-user-dto</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.zl</groupId>
+			<artifactId>mall-base-feign</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

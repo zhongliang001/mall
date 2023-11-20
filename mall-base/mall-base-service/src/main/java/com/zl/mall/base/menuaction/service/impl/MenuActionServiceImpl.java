@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ import com.zl.mall.base.menuaction.dto.MenuActionDto;
 import com.zl.mall.base.menuaction.entity.MenuActionEntity;
 import com.zl.mall.base.menuaction.mapper.MenuActionMapper;
 import com.zl.mall.base.menuaction.service.MenuActionService;
+import com.zl.mall.base.template.service.TemplateService;
+import com.zl.mall.common.constant.TempConstant;
 import com.zl.mall.common.dto.QueryCondition;
 
 /**
@@ -29,6 +32,9 @@ public class MenuActionServiceImpl implements MenuActionService {
 	private MenuActionMapper menuActionMapper;
 
 	@Autowired
+	private TemplateService templateService;
+
+	@Autowired
 	private MenuMapper menuMapper;
 
 	@Override
@@ -40,7 +46,12 @@ public class MenuActionServiceImpl implements MenuActionService {
 
 	@Override
 	public int add(MenuActionEntity menuActionEntity) {
-		menuActionEntity.setActionId(UUID.randomUUID().toString().replaceAll("-", ""));
+		String seqno = templateService.getSeqno(TempConstant.MENU_ACTION_TEMP);
+		if (StringUtils.isNotEmpty(seqno)) {
+			menuActionEntity.setActionId(seqno);
+		} else {
+			menuActionEntity.setActionId(UUID.randomUUID().toString().replaceAll("-", ""));
+		}
 		return menuActionMapper.add(menuActionEntity);
 	}
 

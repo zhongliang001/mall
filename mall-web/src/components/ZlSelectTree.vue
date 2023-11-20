@@ -43,6 +43,7 @@ const isshow: boolean[] = reactive([])
 watch(
   () => props.selData,
   (newVal, oldVal) => {
+    debugger
     if (newVal.length > 0) {
       newVal.forEach((element: any) => {
         if (props.data.length > 0) {
@@ -72,9 +73,13 @@ watch(
 
 const getData = () => {
   const tv = tree?.value
+  console.log('被输出值{ datas }的输出结果是：', datas.value)
+  if (datas.value[0]) {
+    debugger
+  }
   if (tv?.length) {
     for (let i = 0; i < tv?.length; i++) {
-      selected.value = datas.value.concat(tv[i].getData().value)
+      selected.value = selected.value.concat(tv[i].getData().value)
     }
     return selected
   } else {
