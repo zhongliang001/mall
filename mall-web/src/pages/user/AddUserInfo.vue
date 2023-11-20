@@ -46,7 +46,6 @@ let formdata = reactive({
 })
 
 onMounted(() => {
-  debugger
   if (router.currentRoute.value.query.userId) {
     formdata.userId = router.currentRoute.value.query.userId as any
   }

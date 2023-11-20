@@ -28,7 +28,8 @@ const router = createRouter({
       name: 'addUserInfo',
       path: '/addUserInfo',
       component: AddUserInfo
-    }, {
+    },
+    {
       name: 'viewUserInfo',
       path: '/ViewUserInfo',
       component: ViewUserInfo
