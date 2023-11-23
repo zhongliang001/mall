@@ -52,3 +52,5 @@ auth:
     - /dict/queryAll
     - /userAuth/regist
     - /userInfo/add
+  url: 
+  	http://localhost:8093

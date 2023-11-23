@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.zl</groupId>
-    <artifactId>mall-base</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>mall-base-feign</artifactId>
-  <name>base-feign</name>
-  <description>base对外提供feign-client</description>
-  <properties>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.zl</groupId>
+		<artifactId>mall-base</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>mall-base-feign</artifactId>
+	<name>base-feign</name>
+	<description>base对外提供feign-client</description>
+	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
@@ -24,6 +24,16 @@
 			<groupId>com.zl</groupId>
 			<artifactId>mall-common</artifactId>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.cloud</groupId>
+					<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.thoughtworks.xstream</groupId>
+					<artifactId>xstream</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 </project>

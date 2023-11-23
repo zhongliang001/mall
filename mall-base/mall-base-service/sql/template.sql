@@ -2,7 +2,7 @@ create table template
 (
     id              varchar(32) not null primary key comment '主键id',
     name            varchar(32) comment '模板名',
-    cn_name			varchar(64) comment '模板中文名'
+    cn_name			varchar(64) comment '模板中文名',
     temp            varchar(64) comment '模板'
    
 ) ENGINE = InnoDB
