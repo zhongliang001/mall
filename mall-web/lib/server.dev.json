@@ -2,6 +2,7 @@
   "devServer": {
     "base": "/base-dev",
     "user": "/user-dev",
+    "shop": "/shop-dev",
     "uaa": "/uaa"
   }
 }

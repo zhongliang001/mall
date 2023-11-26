@@ -53,4 +53,4 @@ auth:
     - /userAuth/regist
     - /userInfo/add
   url: 
-  	http://localhost:8093
+    http://localhost:8093

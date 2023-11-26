@@ -42,7 +42,7 @@ public class DictServiceImpl implements DictService {
 	
 	@Override
 	public int add(DictEntity dictEntity) {
-		String seqno = templateService.getSeqno(TempConstant.ROLE_TEMP);
+		String seqno = templateService.getSeqno(TempConstant.DICT_TEMP);
 		if(StringUtils.isNotEmpty(seqno)) {
 			dictEntity.setDictId(seqno);
 		}
@@ -94,7 +94,7 @@ public class DictServiceImpl implements DictService {
 				if (StringUtils.isEmpty(entity.getEnName()) || StringUtils.isEmpty(entity.getCnName())) {
 					continue;
 				}
-				String seqno = templateService.getSeqno(TempConstant.ROLE_TEMP);
+				String seqno = templateService.getSeqno(TempConstant.DICT_TEMP);
 				if(StringUtils.isNotEmpty(seqno)) {
 					entity.setDictId(seqno);
 				}else {

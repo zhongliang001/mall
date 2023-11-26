@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.shopcenter.shopmanager.mapper.ShopManagerMapper">
+	<resultMap id="shopManager" type="com.zl.mall.shopcenter.shopmanager.entity.ShopManagerEntity">
+		<id column="shop_manager_id" jdbcType="VARCHAR" property="shopManagerId" />
+		<result column="shop_id" jdbcType="VARCHAR" property="shopId" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="status" jdbcType="CHAR" property="status" />
+		<result column="created_date" jdbcType="VARCHAR" property="createdDate" />
+		<result column="careated_user_id" jdbcType="VARCHAR" property="careatedUserId" />
+		<result column="update_date" jdbcType="VARCHAR" property="updateDate" />
+		<result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="shopManager">
+		select * from shop_manager
+		<where>
+			<if test="shopManagerId != null and shopManagerId != ''">
+				 and shop_manager_id=#{shopManagerId, jdbcType=VARCHAR}
+			</if>
+			<if test="shopId != null and shopId != ''">
+				 and shop_id=#{shopId, jdbcType=VARCHAR}
+			</if>
+			<if test="userId != null and userId != ''">
+				 and user_id=#{userId, jdbcType=VARCHAR}
+			</if>
+			<if test="status != null and status != ''">
+				 and status=#{status, jdbcType=CHAR}
+			</if>
+			<if test="createdDate != null and createdDate != ''">
+				 and created_date=#{createdDate, jdbcType=VARCHAR}
+			</if>
+			<if test="careatedUserId != null and careatedUserId != ''">
+				 and careated_user_id=#{careatedUserId, jdbcType=VARCHAR}
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				 and update_date=#{updateDate, jdbcType=VARCHAR}
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				 and update_user_id=#{updateUserId, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.shopcenter.shopmanager.entity.ShopManagerEntity">
+		insert into shop_manager (
+		<trim suffixOverrides=",">
+			shop_manager_id,
+			<if test="shopId != null and shopId != ''">
+				shop_id,
+			</if>
+			<if test="userId != null and userId != ''">
+				user_id,
+			</if>
+			<if test="status != null and status != ''">
+				status,
+			</if>
+			<if test="createdDate != null and createdDate != ''">
+				created_date,
+			</if>
+			<if test="careatedUserId != null and careatedUserId != ''">
+				careated_user_id,
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				update_date,
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				update_user_id,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="shopManagerId != null and shopManagerId != ''">
+				#{shopManagerId, jdbcType=VARCHAR},
+			</if>
+			<if test="shopId != null and shopId != ''">
+				#{shopId, jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null and userId != ''">
+				#{userId, jdbcType=VARCHAR},
+			</if>
+			<if test="status != null and status != ''">
+				#{status, jdbcType=CHAR},
+			</if>
+			<if test="createdDate != null and createdDate != ''">
+				#{createdDate, jdbcType=VARCHAR},
+			</if>
+			<if test="careatedUserId != null and careatedUserId != ''">
+				#{careatedUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				#{updateDate, jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				#{updateUserId, jdbcType=VARCHAR},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.shopcenter.shopmanager.entity.ShopManagerEntity">
+		update shop_manager set 
+		<trim suffixOverrides=",">
+			<if test="shopId != null and shopId != ''">
+				shop_id=#{shopId, jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null and userId != ''">
+				user_id=#{userId, jdbcType=VARCHAR},
+			</if>
+			<if test="status != null and status != ''">
+				status=#{status, jdbcType=CHAR},
+			</if>
+			<if test="createdDate != null and createdDate != ''">
+				created_date=#{createdDate, jdbcType=VARCHAR},
+			</if>
+			<if test="careatedUserId != null and careatedUserId != ''">
+				careated_user_id=#{careatedUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				update_date=#{updateDate, jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				update_user_id=#{updateUserId, jdbcType=VARCHAR},
+			</if>
+		</trim>
+		<where>
+			 and shop_manager_id=#{shopManagerId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from shop_manager 
+			<where>
+			 and shop_manager_id=#{shopManagerId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+</mapper>

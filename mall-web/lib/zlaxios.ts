@@ -104,7 +104,8 @@ const zlaxios = {
 type serverKey = {
   "base": string,
   "user": string,
-  "uaa": string
+  "uaa": string,
+  "shop": string
 }
 let server: serverKey
 import { devServer } from './server.dev.json'

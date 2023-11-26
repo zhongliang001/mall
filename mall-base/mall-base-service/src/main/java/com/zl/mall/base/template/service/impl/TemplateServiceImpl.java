@@ -1,12 +1,10 @@
 package com.zl.mall.base.template.service.impl;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.github.pagehelper.PageHelper;
-import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.base.sequence.entity.SequenceEntity;
 import com.zl.mall.base.sequence.service.SequenceService;
-import com.zl.mall.base.template.dto.TemplateDto;
 import com.zl.mall.base.template.entity.TemplateEntity;
 import com.zl.mall.base.template.mapper.TemplateMapper;
 import com.zl.mall.base.template.service.TemplateService;
+import com.zl.mall.common.dto.QueryCondition;
 
 /*
  * 

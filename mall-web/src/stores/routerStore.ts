@@ -43,7 +43,6 @@ routerMap.set(
 export const routerStore = defineStore('routerStore', () => {
   const routerList: Array<ZlRoute> = reactive<Array<ZlRoute>>([])
   const showRouter = ref('welcome')
-  const welComp = defineAsyncComponent(() => import('../pages/Welcome.vue'))
   const zr: ZlRoute = reactive<ZlRoute>({
     name: 'welcome',
     cnName: '首页',

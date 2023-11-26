@@ -1,7 +1,6 @@
 package com.zl.mall.base.template;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +13,10 @@ import com.zl.mall.common.dto.ResultDto;
  * @author coolz
  *
  */
-@FeignClient(name = "${base.service}")
+@FeignClient(name = "${base.service}", contextId="template")
 @RequestMapping("/template")
 public interface TemplateClient {
-	
+
 	@PostMapping("/getSeqno")
-	public ResultDto<String> getSeqno(@RequestBody  TemplateDto templateDto  );
+	public ResultDto<String> getSeqno(@RequestBody TemplateDto templateDto);
 }

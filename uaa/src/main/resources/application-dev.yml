@@ -5,6 +5,9 @@ spring:
   application:
     name: uaa
     
+user:
+  service: user-dev
+  
 eureka:
   client:
     service-url:
