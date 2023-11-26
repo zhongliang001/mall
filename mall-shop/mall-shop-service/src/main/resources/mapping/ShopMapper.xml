@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.shopcenter.shop.mapper.ShopMapper">
+	<resultMap id="shop" type="com.zl.mall.shopcenter.shop.entity.ShopEntity">
+		<id column="shop_id" jdbcType="VARCHAR" property="shopId" />
+		<result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+		<result column="conventional" jdbcType="CHAR" property="conventional" />
+		<result column="channel" jdbcType="VARCHAR" property="channel" />
+		<result column="path" jdbcType="VARCHAR" property="path" />
+		<result column="manage_path" jdbcType="VARCHAR" property="managePath" />
+		<result column="created_date" jdbcType="VARCHAR" property="createdDate" />
+		<result column="created_user_id" jdbcType="VARCHAR" property="createdUserId" />
+		<result column="update_date" jdbcType="VARCHAR" property="updateDate" />
+		<result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="shop">
+		select * from shop
+		<where>
+			<if test="shopId != null and shopId != ''">
+				 and shop_id=#{shopId, jdbcType=VARCHAR}
+			</if>
+			<if test="shopName != null and shopName != ''">
+				 and shop_name=#{shopName, jdbcType=VARCHAR}
+			</if>
+			<if test="conventional != null and conventional != ''">
+				 and conventional=#{conventional, jdbcType=CHAR}
+			</if>
+			<if test="channel != null and channel != ''">
+				 and channel=#{channel, jdbcType=VARCHAR}
+			</if>
+			<if test="path != null and path != ''">
+				 and path=#{path, jdbcType=VARCHAR}
+			</if>
+			<if test="managePath != null and managePath != ''">
+				 and manage_path=#{managePath, jdbcType=VARCHAR}
+			</if>
+			<if test="createdDate != null and createdDate != ''">
+				 and created_date=#{createdDate, jdbcType=VARCHAR}
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				 and created_user_id=#{createdUserId, jdbcType=VARCHAR}
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				 and update_date=#{updateDate, jdbcType=VARCHAR}
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				 and update_user_id=#{updateUserId, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.shopcenter.shop.entity.ShopEntity">
+		insert into shop (
+		<trim suffixOverrides=",">
+			shop_id,
+			<if test="shopName != null and shopName != ''">
+				shop_name,
+			</if>
+			<if test="conventional != null and conventional != ''">
+				conventional,
+			</if>
+			<if test="channel != null and channel != ''">
+				channel,
+			</if>
+			<if test="path != null and path != ''">
+				path,
+			</if>
+			<if test="managePath != null and managePath != ''">
+				manage_path,
+			</if>
+			<if test="createdDate != null and createdDate != ''">
+				created_date,
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				created_user_id,
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				update_date,
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				update_user_id,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="shopId != null and shopId != ''">
+				#{shopId, jdbcType=VARCHAR},
+			</if>
+			<if test="shopName != null and shopName != ''">
+				#{shopName, jdbcType=VARCHAR},
+			</if>
+			<if test="conventional != null and conventional != ''">
+				#{conventional, jdbcType=CHAR},
+			</if>
+			<if test="channel != null and channel != ''">
+				#{channel, jdbcType=VARCHAR},
+			</if>
+			<if test="path != null and path != ''">
+				#{path, jdbcType=VARCHAR},
+			</if>
+			<if test="managePath != null and managePath != ''">
+				#{managePath, jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null and createdDate != ''">
+				#{createdDate, jdbcType=VARCHAR},
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				#{createdUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				#{updateDate, jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				#{updateUserId, jdbcType=VARCHAR},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.shopcenter.shop.entity.ShopEntity">
+		update shop set 
+		<trim suffixOverrides=",">
+			<if test="shopName != null and shopName != ''">
+				shop_name=#{shopName, jdbcType=VARCHAR},
+			</if>
+			<if test="conventional != null and conventional != ''">
+				conventional=#{conventional, jdbcType=CHAR},
+			</if>
+			<if test="channel != null and channel != ''">
+				channel=#{channel, jdbcType=VARCHAR},
+			</if>
+			<if test="path != null and path != ''">
+				path=#{path, jdbcType=VARCHAR},
+			</if>
+			<if test="managePath != null and managePath != ''">
+				manage_path=#{managePath, jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null and createdDate != ''">
+				created_date=#{createdDate, jdbcType=VARCHAR},
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				created_user_id=#{createdUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				update_date=#{updateDate, jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				update_user_id=#{updateUserId, jdbcType=VARCHAR},
+			</if>
+		</trim>
+		<where>
+			 and shop_id=#{shopId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from shop 
+			<where>
+			 and shop_id=#{shopId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+</mapper>

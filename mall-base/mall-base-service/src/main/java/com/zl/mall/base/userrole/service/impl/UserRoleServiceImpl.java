@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.zl.mall.base.template.service.TemplateService;
 import com.zl.mall.base.userrole.dto.UserRoleDto;
 import com.zl.mall.base.userrole.entity.UserRoleEntity;
 import com.zl.mall.base.userrole.mapper.UserRoleMapper;
 import com.zl.mall.base.userrole.service.UserRoleService;
+import com.zl.mall.common.constant.TempConstant;
 import com.zl.mall.common.dto.QueryCondition;
 /**
  * 
@@ -23,6 +25,9 @@ public class UserRoleServiceImpl implements UserRoleService {
 	@Autowired
 	private UserRoleMapper userRoleMapper;
 	
+	@Autowired
+	private TemplateService templateService;
+	
 	@Override
 	public List<UserRoleEntity> queryList(QueryCondition queryCondition){
 		PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
@@ -32,6 +37,9 @@ public class UserRoleServiceImpl implements UserRoleService {
 	
 	@Override	
 	public int add(UserRoleEntity userRoleEntity){
+		String seqno = templateService.getSeqno(TempConstant.USER_ROLE_TEMP);
+		userRoleEntity.setUserRoleId(seqno);
+		
 		return userRoleMapper.add(userRoleEntity);
 	}
 	

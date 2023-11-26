@@ -1,4 +1,4 @@
-; `use strict`
+;`use strict`
 import { createApp, ref, computed } from 'vue'
 import { createPinia } from 'pinia'
 

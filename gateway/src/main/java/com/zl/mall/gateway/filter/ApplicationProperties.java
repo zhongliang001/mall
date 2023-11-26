@@ -14,6 +14,8 @@ public class ApplicationProperties {
     
     private List<String> whiteList;
     
+    private String url;
+    
     public List<String> getWhiteList() {
         return whiteList;
     }
@@ -21,5 +23,13 @@ public class ApplicationProperties {
     public void setWhiteList(List<String> whiteList) {
         this.whiteList = whiteList;
     }
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 }
