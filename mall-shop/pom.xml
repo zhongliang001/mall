@@ -11,5 +11,6 @@
   <description>店铺组件parent</description>
   <modules>
   	<module>mall-shop-dto</module>
+  	<module>mall-shop-feign</module>
   </modules>
 </project>

@@ -3,8 +3,8 @@ package com.zl.mall.shopcenter.shopmanager.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import com.zl.mall.common.dto.QueryCondition;
 
+import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.shopcenter.shopmanager.entity.ShopManagerEntity;
 /*
  * 

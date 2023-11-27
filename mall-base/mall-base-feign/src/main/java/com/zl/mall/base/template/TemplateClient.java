@@ -13,7 +13,7 @@ import com.zl.mall.common.dto.ResultDto;
  * @author coolz
  *
  */
-@FeignClient(name = "${base.service}", contextId="template")
+@FeignClient(name = "${service.base}", contextId="template")
 @RequestMapping("/template")
 public interface TemplateClient {
 

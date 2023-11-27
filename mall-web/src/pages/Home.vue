@@ -3,6 +3,24 @@
     <el-header style="text-align: right; margin-top: 5px">
       <el-dropdown>
         <span class="el-dropdown-link">
+          店铺名称{{ shopName }}
+          <el-icon class="el-icon--right"><arrow-down /></el-icon>
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item
+              class="el-dropdown-link"
+              v-for="item in shops"
+              :key="item"
+              @click="chooseShop(item)"
+            >
+              {{ item?.cnName }}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+      <el-dropdown>
+        <span class="el-dropdown-link">
           欢迎{{ username }}
           <el-icon class="el-icon--right"><arrow-down /></el-icon>
         </span>
@@ -44,18 +62,45 @@
   </el-container>
 </template>
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { ArrowDown } from '@element-plus/icons-vue'
 import { zlaxios, server } from 'lib/zlaxios'
 import { ElMessage } from 'element-plus'
 import { routerStore } from '@/stores/routerStore'
 import type { Menu } from '@/components/menu'
-
+import { userStore } from '@/stores/userStore'
+const us = userStore()
 const rs = routerStore()
 
-let username = ''
+type ShopInfo = {
+  cnName: string
+  enName: string
+}
+
 const token = localStorage.getItem('token')
+let username = ref()
 let logoutdata = { userId: '', token: token }
+const shops = ref<ShopInfo[]>()
+
+const shopName = ref()
+
+onMounted(() => {
+  const j = token?.split('.')[1]
+  if (j) {
+    const a = window.atob(j)
+    const jsa = JSON.parse(a)
+    console.log('被输出值{ jsa }的输出结果是：', jsa)
+    us.setUserId(jsa.userId)
+    us.setUserName(jsa.username)
+    username.value = jsa.username
+    shops.value = jsa.shops
+    if (!us.shopId() && shops && shops?.value && shops?.value?.length > 0) {
+      us.setShopId(shops.value[0]?.enName)
+      us.setShopName(shops.value[0]?.cnName)
+      shopName.value = us.shopName()
+    }
+  }
+})
 
 let menus: Array<Menu> = reactive<Array<Menu>>([])
 
@@ -64,28 +109,22 @@ const removeTab = (targetName: string) => {
 }
 
 onMounted(() => {
-  const j = token?.split('.')[1]
-  if (j) {
-    const a = window.atob(j)
-    const jsa = JSON.parse(a)
-    logoutdata.userId = jsa.userId
-    zlaxios.request({
-      url: server.base + '/menu/selectMenuByUserId',
-      method: 'get',
-      params: { userId: jsa.userId },
-      success: function (data: any) {
-        menus.splice(0, menus.length)
-        menus.push(...data.data)
-      },
-      failed: function (data: any) {
-        ElMessage({
-          message: data.msg,
-          grouping: true,
-          type: 'error'
-        })
-      }
-    })
-  }
+  zlaxios.request({
+    url: server.base + '/menu/selectMenuByUserId',
+    method: 'get',
+    params: { userId: us.userId() },
+    success: function (data: any) {
+      menus.splice(0, menus.length)
+      menus.push(...data.data)
+    },
+    failed: function (data: any) {
+      ElMessage({
+        message: data.msg,
+        grouping: true,
+        type: 'error'
+      })
+    }
+  })
 })
 
 const logout = function () {
@@ -105,5 +144,11 @@ const logout = function () {
       })
     }
   })
+}
+
+const chooseShop = (shop: ShopInfo) => {
+  us.setShopId(shop.enName)
+  us.setShopName(shop.cnName)
+  shopName.value = us.shopName()
 }
 </script>

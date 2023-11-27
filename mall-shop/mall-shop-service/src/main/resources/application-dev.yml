@@ -30,8 +30,8 @@ management:
       enable: true
       show-details: ALWAYS
       
-base:
-  service: base-dev
+service:
+  base: base-dev
   
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml

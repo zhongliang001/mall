@@ -40,6 +40,11 @@ routerMap.set(
   defineAsyncComponent(() => import('../pages/mananger/template/Template.vue'))
 )
 
+routerMap.set(
+  'Vendor',
+  defineAsyncComponent(() => import('../pages/shopcenter/vendor/Vendor.vue'))
+)
+
 export const routerStore = defineStore('routerStore', () => {
   const routerList: Array<ZlRoute> = reactive<Array<ZlRoute>>([])
   const showRouter = ref('welcome')

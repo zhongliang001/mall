@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zl.mall.shopcenter.shop.mapper.ShopMapper">
-	<resultMap id="shop" type="com.zl.mall.shopcenter.shop.entity.ShopEntity">
-		<id column="shop_id" jdbcType="VARCHAR" property="shopId" />
-		<result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+<mapper namespace="com.zl.mall.shopcenter.vendor.mapper.VendorMapper">
+	<resultMap id="vendor" type="com.zl.mall.shopcenter.vendor.entity.VendorEntity">
+		<id column="vendor_id" jdbcType="VARCHAR" property="vendorId" />
+		<result column="vendor_name" jdbcType="VARCHAR" property="vendorName" />
 		<result column="conventional" jdbcType="CHAR" property="conventional" />
-		<result column="channel" jdbcType="VARCHAR" property="channel" />
 		<result column="path" jdbcType="VARCHAR" property="path" />
-		<result column="manage_path" jdbcType="VARCHAR" property="managePath" />
+		<result column="shop_id" jdbcType="VARCHAR" property="shopId" />
+		<result column="cooper_status" jdbcType="CHAR" property="cooperStatus" />
 		<result column="created_date" jdbcType="VARCHAR" property="createdDate" />
 		<result column="created_user_id" jdbcType="VARCHAR" property="createdUserId" />
 		<result column="update_date" jdbcType="VARCHAR" property="updateDate" />
 		<result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
 	</resultMap>
 
-	<select id="queryList" parameterType="java.util.Map" resultMap="shop">
-		select * from shop
+	<select id="queryList" parameterType="java.util.Map" resultMap="vendor">
+		select * from vendor
 		<where>
-			<if test="shopId != null and shopId != ''">
-				 and shop_id=#{shopId, jdbcType=VARCHAR}
+			<if test="vendorId != null and vendorId != ''">
+				 and vendor_id=#{vendorId, jdbcType=VARCHAR}
 			</if>
-			<if test="shopName != null and shopName != ''">
-				 and shop_name=#{shopName, jdbcType=VARCHAR}
+			<if test="vendorName != null and vendorName != ''">
+				 and vendor_name=#{vendorName, jdbcType=VARCHAR}
 			</if>
 			<if test="conventional != null and conventional != ''">
 				 and conventional=#{conventional, jdbcType=CHAR}
 			</if>
-			<if test="channel != null and channel != ''">
-				 and channel=#{channel, jdbcType=VARCHAR}
-			</if>
 			<if test="path != null and path != ''">
 				 and path=#{path, jdbcType=VARCHAR}
 			</if>
-			<if test="managePath != null and managePath != ''">
-				 and manage_path=#{managePath, jdbcType=VARCHAR}
+			<if test="shopId != null and shopId != ''">
+				 and shop_id=#{shopId, jdbcType=VARCHAR}
+			</if>
+			<if test="cooperStatus != null and cooperStatus != ''">
+				 and cooper_status=#{cooperStatus, jdbcType=CHAR}
 			</if>
 			<if test="createdDate != null and createdDate != ''">
 				 and created_date=#{createdDate, jdbcType=VARCHAR}
@@ -50,24 +50,24 @@
 		</where>
 	</select>
 
-	<insert id="add" parameterType="com.zl.mall.shopcenter.shop.entity.ShopEntity">
-		insert into shop (
+	<insert id="add" parameterType="com.zl.mall.shopcenter.vendor.entity.VendorEntity">
+		insert into vendor (
 		<trim suffixOverrides=",">
-			shop_id,
-			<if test="shopName != null and shopName != ''">
-				shop_name,
+			vendor_id,
+			<if test="vendorName != null and vendorName != ''">
+				vendor_name,
 			</if>
 			<if test="conventional != null and conventional != ''">
 				conventional,
 			</if>
-			<if test="channel != null and channel != ''">
-				channel,
-			</if>
 			<if test="path != null and path != ''">
 				path,
 			</if>
-			<if test="managePath != null and managePath != ''">
-				manage_path,
+			<if test="shopId != null and shopId != ''">
+				shop_id,
+			</if>
+			<if test="cooperStatus != null and cooperStatus != ''">
+				cooper_status,
 			</if>
 			<if test="createdDate != null and createdDate != ''">
 				created_date,
@@ -84,23 +84,23 @@
 		</trim>
 		) values (
 		<trim suffixOverrides=",">
-			<if test="shopId != null and shopId != ''">
-				#{shopId, jdbcType=VARCHAR},
+			<if test="vendorId != null and vendorId != ''">
+				#{vendorId, jdbcType=VARCHAR},
 			</if>
-			<if test="shopName != null and shopName != ''">
-				#{shopName, jdbcType=VARCHAR},
+			<if test="vendorName != null and vendorName != ''">
+				#{vendorName, jdbcType=VARCHAR},
 			</if>
 			<if test="conventional != null and conventional != ''">
 				#{conventional, jdbcType=CHAR},
 			</if>
-			<if test="channel != null and channel != ''">
-				#{channel, jdbcType=VARCHAR},
-			</if>
 			<if test="path != null and path != ''">
 				#{path, jdbcType=VARCHAR},
 			</if>
-			<if test="managePath != null and managePath != ''">
-				#{managePath, jdbcType=VARCHAR},
+			<if test="shopId != null and shopId != ''">
+				#{shopId, jdbcType=VARCHAR},
+			</if>
+			<if test="cooperStatus != null and cooperStatus != ''">
+				#{cooperStatus, jdbcType=CHAR},
 			</if>
 			<if test="createdDate != null and createdDate != ''">
 				#{createdDate, jdbcType=VARCHAR},
@@ -117,23 +117,23 @@
 		</trim>
 )
 	</insert>
-	<update id="update" parameterType="com.zl.mall.shopcenter.shop.entity.ShopEntity">
-		update shop set 
+	<update id="update" parameterType="com.zl.mall.shopcenter.vendor.entity.VendorEntity">
+		update vendor set 
 		<trim suffixOverrides=",">
-			<if test="shopName != null and shopName != ''">
-				shop_name=#{shopName, jdbcType=VARCHAR},
+			<if test="vendorName != null and vendorName != ''">
+				vendor_name=#{vendorName, jdbcType=VARCHAR},
 			</if>
 			<if test="conventional != null and conventional != ''">
 				conventional=#{conventional, jdbcType=CHAR},
 			</if>
-			<if test="channel != null and channel != ''">
-				channel=#{channel, jdbcType=VARCHAR},
-			</if>
 			<if test="path != null and path != ''">
 				path=#{path, jdbcType=VARCHAR},
 			</if>
-			<if test="managePath != null and managePath != ''">
-				manage_path=#{managePath, jdbcType=VARCHAR},
+			<if test="shopId != null and shopId != ''">
+				shop_id=#{shopId, jdbcType=VARCHAR},
+			</if>
+			<if test="cooperStatus != null and cooperStatus != ''">
+				cooper_status=#{cooperStatus, jdbcType=CHAR},
 			</if>
 			<if test="createdDate != null and createdDate != ''">
 				created_date=#{createdDate, jdbcType=VARCHAR},
@@ -149,19 +149,14 @@
 			</if>
 		</trim>
 		<where>
-			 and shop_id=#{shopId, jdbcType=VARCHAR}
+			 and vendor_id=#{vendorId, jdbcType=VARCHAR}
 		</where>
 	</update>
 
 	<delete id="delete" parameterType="java.lang.String">
-		delete from shop 
+		delete from vendor 
 			<where>
-			 and shop_id=#{shopId, jdbcType=VARCHAR}
+			 and vendor_id=#{vendorId, jdbcType=VARCHAR}
 		</where>
 	</delete>
-	
-	
-	<select id="getShops" parameterType="java.lang.String"  resultMap="shop">
-		select * from shop where shop_id in (select shop_id from shop_manager where user_id=#{userId, jdbcType=VARCHAR})
-	</select>
 </mapper>

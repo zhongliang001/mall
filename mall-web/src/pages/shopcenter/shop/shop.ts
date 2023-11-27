@@ -1,8 +1,8 @@
 type Shop = {
-  shopName?: string,
-  conventional?: string,
-  channel?: string,
-  path?: string,
+  shopName?: string
+  conventional?: string
+  channel?: string
+  path?: string
   managePath?: string
 }
 
