@@ -53,4 +53,11 @@ public class ShopController {
 		List<ShopEntity> list = shopService.queryAll();
 		return ResultUtil.generate(list, TradeCodeDict.SUCCESS_QUERRY_CODE);
 	}
+
+	
+	@GetMapping("/getShops")
+	public ResultDto<List<ShopEntity>> getShops(@RequestParam(value = "userId")  String userId) {
+		List<ShopEntity> list = shopService.getShops(userId);
+		return  ResultUtil.generate(list, TradeCodeDict.SUCCESS_QUERRY_CODE);
+	}
 }

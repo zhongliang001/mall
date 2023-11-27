@@ -1,6 +1,8 @@
 package com.zl.mall.user.userauth.dto;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 import javax.validation.constraints.NotBlank;
 
@@ -25,6 +27,8 @@ public class UserAuthDetails implements UserDetails {
 	private String username;
 	@NotBlank
 	private String password;
+	
+	private List<Map<String, String>> shops;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -78,6 +82,13 @@ public class UserAuthDetails implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+	public List<Map<String, String>> getShops() {
+		return shops;
+	}
+
+	public void setShops(List<Map<String, String>> shops) {
+		this.shops = shops;
 	}
 
 }

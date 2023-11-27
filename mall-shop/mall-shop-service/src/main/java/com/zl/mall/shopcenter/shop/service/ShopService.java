@@ -22,4 +22,6 @@ public interface ShopService{
 	public int delete(String shopId);
 	
 	public List<ShopEntity> queryAll();
+	
+	public List<ShopEntity> getShops(String userId);
 }

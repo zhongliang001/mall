@@ -23,8 +23,6 @@ import com.zl.mall.user.userauth.dto.UserAuthLogOutDto;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
 import com.zl.mall.user.userauth.mapper.UserAuthMapper;
 import com.zl.mall.user.userauth.service.UserAuthService;
-
-import feign.template.Template;
 /**
  * 
  * @author coolz

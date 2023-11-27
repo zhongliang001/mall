@@ -95,4 +95,9 @@ public class ShopServiceImpl implements ShopService {
 		List<ShopEntity> list = shopMapper.queryList(condition);
 		return list;		
 	}
+	@Override
+	public List<ShopEntity> getShops(String userId){
+		List<ShopEntity> list = shopMapper.getShops(userId);
+		return list;
+	}
 }

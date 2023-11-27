@@ -154,6 +154,11 @@
 			</dependency>
 			<dependency>
 				<groupId>com.zl</groupId>
+				<artifactId>mall-shop-feign</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.zl</groupId>
 				<artifactId>mall-base-feign</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>

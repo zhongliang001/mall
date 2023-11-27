@@ -21,4 +21,6 @@ public interface ShopMapper{
 	public int update(ShopEntity shopEntity);
 	
 	public int delete(@Param("shopId") String shopId );
+	
+	public List<ShopEntity> getShops(@Param("userId") String userId);
 }

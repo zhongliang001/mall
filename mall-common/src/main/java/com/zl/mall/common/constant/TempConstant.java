@@ -15,7 +15,9 @@ public class TempConstant {
 
 	public static final String MANAGER_TEMP = "MANAGER_TEMP";
 	public static final String SHOP_TEMP = "SHOP_TEMP";
-	
-	public static final String USER_ROLE_TEMP= "USER_ROLE_TEMP";
+
+	public static final String USER_ROLE_TEMP = "USER_ROLE_TEMP";
+
+	public static final String VENDOR_TEMP = "VENDOR_TEMP";
 
 }

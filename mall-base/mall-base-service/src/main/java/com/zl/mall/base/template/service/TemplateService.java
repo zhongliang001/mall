@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.zl.mall.base.template.dto.TemplateDto;
 import com.zl.mall.base.template.entity.TemplateEntity;
 import com.zl.mall.common.dto.QueryCondition;
 /*

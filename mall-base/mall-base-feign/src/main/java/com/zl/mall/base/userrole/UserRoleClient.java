@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.zl.mall.base.userrole.entity.UserRoleEntity;
 import com.zl.mall.common.dto.ResultDto;
 
-@FeignClient(name = "${base.service}", contextId="userRole")
+@FeignClient(name = "${service.base}", contextId="userRole")
 @RequestMapping("/userRole")
 public interface UserRoleClient {
 	@PostMapping("/add")
