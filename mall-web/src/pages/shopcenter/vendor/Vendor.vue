@@ -95,7 +95,7 @@ const toDel = () => {
       .then(() => {
         zlaxios.request({
           url: server.shop + '/vendor/delete',
-          params: { menuId: zltable.value.currentRow.menuId },
+          params: { vendorId: zltable.value.currentRow.vendorId },
           method: 'get',
           success: function () {
             zltable.value.query()

@@ -14,7 +14,7 @@ import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.shopcenter.shopmanager.entity.ShopManagerEntity;
 import com.zl.mall.shopcenter.shopmanager.mapper.ShopManagerMapper;
 import com.zl.mall.shopcenter.shopmanager.service.ShopManagerService;
-/*
+/**
  * 
  * @author coolz
  *

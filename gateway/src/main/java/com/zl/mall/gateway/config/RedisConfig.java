@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 public class RedisConfig {
     @Bean
-    @SuppressWarnings("all")
+    @SuppressWarnings({"all","unchecked"})
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         template.setConnectionFactory(factory);

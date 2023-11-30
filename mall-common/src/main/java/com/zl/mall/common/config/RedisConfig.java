@@ -25,7 +25,7 @@ public class RedisConfig {
 	
 	private final Logger logger = LoggerFactory.getLogger(RedisConfig.class);
     @Bean
-    @SuppressWarnings("all")
+    @SuppressWarnings({"all","unchecked"})
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
     	logger.info("初始化RedisTemplate");
         RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();

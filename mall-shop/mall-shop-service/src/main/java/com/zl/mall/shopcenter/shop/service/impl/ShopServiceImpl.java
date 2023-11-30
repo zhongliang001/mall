@@ -25,7 +25,7 @@ import com.zl.mall.shopcenter.shopmanager.entity.ShopManagerEntity;
 import com.zl.mall.shopcenter.shopmanager.service.ShopManagerService;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
 
-/*
+/**
  * 
  * @author coolz
  *
@@ -90,7 +90,7 @@ public class ShopServiceImpl implements ShopService {
 	public List<ShopEntity> queryAll() {
 		UserAuthEntity user = HttpRequestUtil.getRequestUser();
 		String userId = user.getUserId();
-		Map<String, Object> condition = new HashMap<>();
+		Map<String, Object> condition = new HashMap<>(16);
 		condition.put("createdUserId", userId);
 		List<ShopEntity> list = shopMapper.queryList(condition);
 		return list;		

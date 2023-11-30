@@ -11,13 +11,15 @@ import com.zl.mall.base.sequence.mapper.SequenceMapper;
 import com.zl.mall.base.sequence.service.SequenceService;
 import com.zl.mall.common.dto.QueryCondition;
 
-/*
+/**
  * 
  * @author coolz
  *
 */
 @Service
 public class SequenceServiceImpl implements SequenceService {
+	
+	private static final String ZERO_STR = "0";
 	@Autowired
 	private SequenceMapper sequenceMapper;
 
@@ -71,7 +73,7 @@ public class SequenceServiceImpl implements SequenceService {
 			String seqNoStr = String.valueOf(newSeqNo);
 			Integer len = sequenceEntity.getLen();
 			while (seqNoStr.length() < len) {
-				seqNoStr = "0" + seqNoStr;
+				seqNoStr = ZERO_STR + seqNoStr;
 			}
 			return seqNoStr;
 

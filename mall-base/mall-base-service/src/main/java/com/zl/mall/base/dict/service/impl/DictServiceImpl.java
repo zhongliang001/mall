@@ -58,7 +58,6 @@ public class DictServiceImpl implements DictService {
 		return dictMapper.delete(dictId);
 	}
 
-//	@Cacheable(value = "dictMap")
 	@Override
 	public Map<String, List<Map<String, String>>> queryAll() {
 		Map<String, List<Map<String, String>>> result = new HashMap<>(16);

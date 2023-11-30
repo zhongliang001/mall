@@ -1,5 +1,10 @@
 package com.zl.mall.common.constant;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 public class TempConstant {
 
 	public static final String MENU_ACTION_TEMP = "MENU_ACTION_TEMP";
