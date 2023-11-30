@@ -15,7 +15,7 @@ import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
 import com.zl.mall.shopcenter.shopmanager.entity.ShopManagerEntity;
 import com.zl.mall.shopcenter.shopmanager.service.ShopManagerService;
-/*
+/**
  * 
  * @author coolz
  *

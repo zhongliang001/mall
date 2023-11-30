@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserDetailsService{
 			if(shopResult.getData()!= null) {
 				List<ShopEntity> data = shopResult.getData();
 				List<Map<String, String>> shops = new ArrayList<>();
-				Map<String, String> map = new HashMap<>();
+				Map<String, String> map = new HashMap<>(16);
 				for(int i=0; i < data.size(); i ++) {
 					ShopEntity shopEntity = data.get(i);
 					map.put("cnName", shopEntity.getShopName());

@@ -3,6 +3,7 @@ package com.zl.mall.shopcenter.vendor.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
 import com.zl.mall.shopcenter.vendor.entity.VendorEntity;
 import com.zl.mall.shopcenter.vendor.service.VendorService;
-/*
+/**
  * 
  * @author coolz
  *
@@ -41,7 +42,7 @@ public class VendorController {
 		int num = vendorService.update(vendorEntity);
 		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_UPDATE_CODE);
 	}
-	@PostMapping("/delete")
+	@GetMapping("/delete")
 	public ResultDto<Integer> delete(@RequestParam(value = "vendorId") String vendorId){
 		int num = vendorService.delete(vendorId);
 		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_DELETE_CODE);

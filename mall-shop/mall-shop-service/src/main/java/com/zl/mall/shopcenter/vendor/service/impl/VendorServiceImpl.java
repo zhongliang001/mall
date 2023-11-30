@@ -16,7 +16,7 @@ import com.zl.mall.shopcenter.vendor.entity.VendorEntity;
 import com.zl.mall.shopcenter.vendor.mapper.VendorMapper;
 import com.zl.mall.shopcenter.vendor.service.VendorService;
 import com.zl.mall.user.userauth.entity.UserAuthEntity;
-/*
+/**
  * 
  * @author coolz
  *

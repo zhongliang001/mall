@@ -17,6 +17,11 @@ import com.zl.mall.common.dto.ResultDto;
 @RequestMapping("/template")
 public interface TemplateClient {
 
+	/**
+	 * 获取流水号
+	 * @param templateDto 模板dto
+	 * @return 返回流水号
+	 */
 	@PostMapping("/getSeqno")
 	public ResultDto<String> getSeqno(@RequestBody TemplateDto templateDto);
 }

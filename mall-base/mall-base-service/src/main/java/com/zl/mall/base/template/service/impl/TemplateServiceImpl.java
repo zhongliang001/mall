@@ -19,7 +19,7 @@ import com.zl.mall.base.template.mapper.TemplateMapper;
 import com.zl.mall.base.template.service.TemplateService;
 import com.zl.mall.common.dto.QueryCondition;
 
-/*
+/**
  * 
  * @author coolz
  *
@@ -85,7 +85,7 @@ public class TemplateServiceImpl implements TemplateService {
 	}
 
 	public int update(TemplateEntity templateEntity) {
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>(16);
 		map.put("name", templateEntity.getName());
 		List<TemplateEntity> list = templateMapper.queryList(map);
 		if (list.size() == 0) {

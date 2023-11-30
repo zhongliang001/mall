@@ -12,5 +12,6 @@
   <modules>
   	<module>mall-shop-dto</module>
   	<module>mall-shop-feign</module>
+  	<module>mall-shop-service</module>
   </modules>
 </project>
