@@ -1,10 +1,10 @@
 <template>
   <el-row :gutter="20" justify="end" v-show="addAble">
     <el-col :span="2">
-      <zl-button type="primary" page-name="dict" action="add" @click="addRow">新增一行</zl-button>
+      <zl-button type="primary" @click="addRow">新增一行</zl-button>
     </el-col>
     <el-col :span="2">
-      <zl-button type="primary" page-name="dict" action="add" @click="delRow">删除一行</zl-button>
+      <zl-button type="primary" @click="delRow">删除一行</zl-button>
     </el-col>
   </el-row>
   <el-table

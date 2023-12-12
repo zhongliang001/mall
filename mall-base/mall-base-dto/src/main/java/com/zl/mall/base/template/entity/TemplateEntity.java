@@ -4,11 +4,17 @@ package com.zl.mall.base.template.entity;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
+
+import com.zl.mall.common.annotation.Column;
+import com.zl.mall.common.annotation.PrimaryKey;
+import com.zl.mall.common.annotation.Record;
+import com.zl.mall.common.annotation.Table;
 /**
  * 
  * @author coolz
  *
 */
+@Table("template")
 public class TemplateEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	/**
@@ -16,6 +22,8 @@ public class TemplateEntity implements Serializable{
 	 * 主键id
 	 *
 	 */
+	@PrimaryKey
+	@Column(name = "id", comment = "模板id")
 	private String id;
 
 	/**
@@ -24,6 +32,8 @@ public class TemplateEntity implements Serializable{
 	 *
 	 */
 	@NotBlank(message="模板名不能为空")
+	@Record
+	@Column(name = "name", comment = "模板名")
 	private String name;
 
 	/**
@@ -32,6 +42,8 @@ public class TemplateEntity implements Serializable{
 	 *
 	 */
 	@NotBlank(message="模板名不能为空")
+	@Record
+	@Column(name = "temp", comment = "模板")
 	private String temp;
 
 	/**

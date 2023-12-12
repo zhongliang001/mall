@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.shopcenter.productsku.mapper.ProductSkuMapper">
+	<resultMap id="productSku" type="com.zl.mall.shopcenter.productsku.entity.ProductSkuEntity">
+		<id column="sku_id" jdbcType="VARCHAR" property="skuId" />
+		<result column="prd_id" jdbcType="VARCHAR" property="prdId" />
+		<result column="sku_name" jdbcType="VARCHAR" property="skuName" />
+		<result column="sell_price" jdbcType="DECIMAL" property="sellPrice" />
+		<result column="purch_price" jdbcType="DECIMAL" property="purchPrice" />
+		<result column="version" jdbcType="INTEGER" property="version" />
+		<result column="state" jdbcType="CHAR" property="state" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="productSku">
+		select * from product_sku
+		<where>
+			<if test="skuId != null and skuId != ''">
+				 and sku_id=#{skuId, jdbcType=VARCHAR}
+			</if>
+			<if test="prdId != null and prdId != ''">
+				 and prd_id=#{prdId, jdbcType=VARCHAR}
+			</if>
+			<if test="skuName != null and skuName != ''">
+				 and sku_name=#{skuName, jdbcType=VARCHAR}
+			</if>
+			<if test="sellPrice != null and sellPrice != ''">
+				 and sell_price=#{sellPrice, jdbcType=DECIMAL}
+			</if>
+			<if test="purchPrice != null and purchPrice != ''">
+				 and purch_price=#{purchPrice, jdbcType=DECIMAL}
+			</if>
+			<if test="version != null and version != ''">
+				 and version=#{shopId, jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				 and state=#{state, jdbcType=CHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.shopcenter.productsku.entity.ProductSkuEntity">
+		insert into product_sku (
+		<trim suffixOverrides=",">
+			sku_id,
+			<if test="prdId != null and prdId != ''">
+				prd_id,
+			</if>
+			<if test="skuName != null and skuName != ''">
+				sku_name,
+			</if>
+			<if test="sellPrice != null and sellPrice != ''">
+				sell_price,
+			</if>
+			<if test="purchPrice != null and purchPrice != ''">
+				purch_price,
+			</if>
+			<if test="version != null and version != ''">
+				version,
+			</if>
+			<if test="state != null and state != ''">
+				state,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="skuId != null and skuId != ''">
+				#{skuId, jdbcType=VARCHAR},
+			</if>
+			<if test="prdId != null and prdId != ''">
+				#{prdId, jdbcType=VARCHAR},
+			</if>
+			<if test="skuName != null and skuName != ''">
+				#{skuName, jdbcType=VARCHAR},
+			</if>
+			<if test="sellPrice != null and sellPrice != ''">
+				#{sellPrice, jdbcType=DECIMAL},
+			</if>
+			<if test="purchPrice != null and purchPrice != ''">
+				#{purchPrice, jdbcType=DECIMAL},
+			</if>
+			<if test="version != null and version != ''">
+				#{version, jdbcType=INTEGER},
+			</if>
+			<if test="state != null and state != ''">
+				#{state, jdbcType=CHAR},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.shopcenter.productsku.entity.ProductSkuEntity">
+		update product_sku set 
+		<trim suffixOverrides=",">
+			<if test="prdId != null and prdId != ''">
+				prd_id=#{prdId, jdbcType=VARCHAR},
+			</if>
+			<if test="skuName != null and skuName != ''">
+				sku_name=#{skuName, jdbcType=VARCHAR},
+			</if>
+			<if test="sellPrice != null and sellPrice != ''">
+				sell_price=#{sellPrice, jdbcType=DECIMAL},
+			</if>
+			<if test="purchPrice != null and purchPrice != ''">
+				purch_price=#{purchPrice, jdbcType=DECIMAL},
+			</if>
+			<if test="state != null and state != ''">
+				state=#{state, jdbcType=CHAR},
+			</if>
+		</trim>
+		<where>
+			 and sku_id=#{skuId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from product_sku 
+			<where>
+			 and sku_id=#{skuId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+	
+</mapper>

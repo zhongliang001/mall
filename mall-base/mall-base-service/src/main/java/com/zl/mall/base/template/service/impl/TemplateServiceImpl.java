@@ -75,9 +75,7 @@ public class TemplateServiceImpl implements TemplateService {
 					sequenceEntity.setStep(step);
 					sequenceEntity.setMaxNo(max);
 					sequenceEntity.setSeqNo(min);
-					sequenceEntity.setLen(length);
-					String sequence = getSeqno("SEQ_TEMP");
-					sequenceEntity.setSeqId(sequence);
+					sequenceEntity.setLen(length);					
 					sequenceService.add(sequenceEntity);
 				}
 			}
