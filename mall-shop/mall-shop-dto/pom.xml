@@ -8,4 +8,10 @@
 	<artifactId>mall-shop-dto</artifactId>
 	<name>商品dto</name>
 	<description>商品dto</description>
+	<dependencies>
+		<dependency>
+			<groupId>com.zl</groupId>
+			<artifactId>mall-common-utils</artifactId>
+		</dependency>
+	</dependencies>
 </project>

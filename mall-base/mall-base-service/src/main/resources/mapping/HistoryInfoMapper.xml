@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.zl.mall.base.historyinfo.mapper.HistoryInfoMapper">
+	<resultMap id="historyInfo"
+		type="com.zl.mall.base.historyinfo.entity.HistoryInfoEntity">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="table_name" jdbcType="VARCHAR"
+			property="tableName" />
+		<result column="pri_key" jdbcType="VARCHAR" property="priKey" />
+		<result column="pri_value" jdbcType="VARCHAR"
+			property="priValue" />
+		<result column="mod_key" jdbcType="VARCHAR" property="modKey" />
+		<result column="mod_name" jdbcType="VARCHAR" property="modName" />
+		<result column="old_value" jdbcType="VARCHAR"
+			property="oldValue" />
+		<result column="new_value" jdbcType="VARCHAR"
+			property="newValue" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="version" jdbcType="INTEGER" property="version" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map"
+		resultMap="historyInfo">
+		select * from history_info
+		<where>
+			<if test="id != null and id != ''">
+				and id=#{id, jdbcType=VARCHAR}
+			</if>
+			<if test="tableName != null and tableName != ''">
+				and table_name=#{tableName, jdbcType=VARCHAR}
+			</if>
+			<if test="priKey != null and priKey != ''">
+				and pri_key=#{priKey, jdbcType=VARCHAR}
+			</if>
+			<if test="priValue != null and priValue != ''">
+				and pri_value=#{priValue, jdbcType=VARCHAR}
+			</if>
+			<if test="modKey != null and modKey != ''">
+				and mod_key=#{modKey, jdbcType=VARCHAR}
+			</if>
+			<if test="modName != null and modName != ''">
+				and mod_name=#{modName, jdbcType=VARCHAR}
+			</if>
+			<if test="oldValue != null and oldValue != ''">
+				and old_value=#{oldValue, jdbcType=VARCHAR}
+			</if>
+			<if test="newValue != null and newValue != ''">
+				and new_value=#{newValue, jdbcType=VARCHAR}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				and update_time=#{updateTime, jdbcType=VARCHAR}
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				and update_user_id=#{updateUserId, jdbcType=VARCHAR}
+			</if>
+			<if test="version != null and version != ''">
+				and version=#{version, jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add"
+		parameterType="com.zl.mall.base.historyinfo.entity.HistoryInfoEntity">
+		insert into history_info (
+		<trim suffixOverrides=",">
+			id,
+			<if test="tableName != null and tableName != ''">
+				table_name,
+			</if>
+			<if test="priKey != null and priKey != ''">
+				pri_key,
+			</if>
+			<if test="priValue != null and priValue != ''">
+				pri_value,
+			</if>
+			<if test="modKey != null and modKey != ''">
+				mod_key,
+			</if>
+			<if test="modName != null and modName != ''">
+				mod_name,
+			</if>
+			<if test="oldValue != null and oldValue != ''">
+				old_value,
+			</if>
+			<if test="newValue != null and newValue != ''">
+				new_value,
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				update_time,
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				update_user_id,
+			</if>
+			<if test="version != null and version != ''">
+				version,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id, jdbcType=VARCHAR},
+			</if>
+			<if test="tableName != null and tableName != ''">
+				#{tableName, jdbcType=VARCHAR},
+			</if>
+			<if test="priKey != null and priKey != ''">
+				#{priKey, jdbcType=VARCHAR},
+			</if>
+			<if test="priValue != null and priValue != ''">
+				#{priValue, jdbcType=VARCHAR},
+			</if>
+			<if test="modKey != null and modKey != ''">
+				#{modKey, jdbcType=VARCHAR},
+			</if>
+			<if test="modName != null and modName != ''">
+				#{modName, jdbcType=VARCHAR},
+			</if>
+			<if test="oldValue != null and oldValue != ''">
+				#{oldValue, jdbcType=VARCHAR},
+			</if>
+			<if test="newValue != null and newValue != ''">
+				#{newValue, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				#{updateTime, jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				#{updateUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="version != null and version != ''">
+				#{version, jdbcType=INTEGER},
+			</if>
+		</trim>
+		)
+	</insert>
+	<update id="update"
+		parameterType="com.zl.mall.base.historyinfo.entity.HistoryInfoEntity">
+		update history_info set
+		<trim suffixOverrides=",">
+			<if test="tableName != null and tableName != ''">
+				table_name=#{tableName, jdbcType=VARCHAR},
+			</if>
+			<if test="priKey != null and priKey != ''">
+				pri_key=#{priKey, jdbcType=VARCHAR},
+			</if>
+			<if test="priValue != null and priValue != ''">
+				pri_value=#{priValue, jdbcType=VARCHAR},
+			</if>
+			<if test="modKey != null and modKey != ''">
+				mod_key=#{modKey, jdbcType=VARCHAR},
+			</if>
+			<if test="modName != null and modName != ''">
+				mod_name=#{modName, jdbcType=VARCHAR},
+			</if>
+			<if test="oldValue != null and oldValue != ''">
+				old_value=#{oldValue, jdbcType=VARCHAR},
+			</if>
+			<if test="newValue != null and newValue != ''">
+				new_value=#{newValue, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				update_time=#{updateTime, jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				update_user_id=#{updateUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="version != null and version != ''">
+				version=#{version, jdbcType=INTEGER},
+			</if>
+		</trim>
+		<where> and id=#{id, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from history_info
+		<where>
+			and id=#{id, jdbcType=VARCHAR}
+		</where>
+	</delete>
+
+	<insert id="batchAdd"
+		parameterType="java.util.List">
+		insert into history_info (
+		id,
+		table_name,
+		pri_key,
+		pri_value,
+		mod_key,
+		mod_name,
+		old_value,
+		new_value,
+		update_time,
+		update_user_id,
+		version
+		) values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.id, jdbcType=VARCHAR},
+			#{item.tableName, jdbcType=VARCHAR},
+			#{item.priKey, jdbcType=VARCHAR},
+			#{item.priValue, jdbcType=VARCHAR},
+			#{item.modKey, jdbcType=VARCHAR},
+			#{item.modName, jdbcType=VARCHAR},
+			#{item.oldValue, jdbcType=VARCHAR},
+			#{item.newValue, jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=VARCHAR},			
+			#{item.updateUserId, jdbcType=VARCHAR},
+			#{item.version, jdbcType=INTEGER})
+		</foreach>
+	</insert>
+</mapper>

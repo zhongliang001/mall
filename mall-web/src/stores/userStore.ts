@@ -16,7 +16,6 @@ export const userStore = defineStore('userStore', () => {
     shopName: ''
   })
   const userId = () => {
-    debugger
     return user.userId
   }
   const userName = () => {

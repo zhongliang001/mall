@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.zl.mall.base.sequence.entity.SequenceEntity;
 import com.zl.mall.base.sequence.mapper.SequenceMapper;
 import com.zl.mall.base.sequence.service.SequenceService;
+import com.zl.mall.base.template.service.impl.TemplateServiceImpl;
 import com.zl.mall.common.dto.QueryCondition;
 
 /**
@@ -22,6 +23,8 @@ public class SequenceServiceImpl implements SequenceService {
 	private static final String ZERO_STR = "0";
 	@Autowired
 	private SequenceMapper sequenceMapper;
+	@Autowired
+	private TemplateServiceImpl templateServiceImpl;
 
 	public List<SequenceEntity> queryList(QueryCondition queryCondition) {
 		PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
@@ -29,15 +32,18 @@ public class SequenceServiceImpl implements SequenceService {
 		return list;
 	}
 
-	public int add(SequenceEntity sequenceEntity) {
+	public int add(SequenceEntity sequenceEntity) {		
 		String name = sequenceEntity.getName();
 		QueryCondition queryCondition = new QueryCondition();
 		queryCondition.getCondition().put("name", name);
 		List<SequenceEntity> list = sequenceMapper.queryList(queryCondition.getCondition());
 		if (list.size() == 0) {
+			String sequence = templateServiceImpl.getSeqno("SEQ_TEMP");
+			sequenceEntity.setSeqId(sequence);
 			return sequenceMapper.add(sequenceEntity);
 		} else {
 			SequenceEntity se = list.get(0);
+			sequenceEntity.setSeqId(se.getSeqId());
 			sequenceEntity.setVersion(se.getVersion());
 			return sequenceMapper.update(sequenceEntity);
 		}

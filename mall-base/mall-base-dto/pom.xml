@@ -16,9 +16,8 @@
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<scope>provided</scope>
+			<groupId>com.zl</groupId>
+			<artifactId>mall-common-utils</artifactId>
 		</dependency>
 	</dependencies>
 </project>

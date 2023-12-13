@@ -24,5 +24,11 @@ public class TempConstant {
 	public static final String USER_ROLE_TEMP = "USER_ROLE_TEMP";
 
 	public static final String VENDOR_TEMP = "VENDOR_TEMP";
+	
+	public static final String PRODUCT_TEMP = "PRODUCT_TEMP";
+	
+	public static final String SKU_TEMP = "SKU_TEMP";
+	
+	public static final String HIS_TEMP = "HIS_TEMP";
 
 }

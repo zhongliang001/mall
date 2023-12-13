@@ -30,6 +30,12 @@ management:
       enable: true
       show-details: ALWAYS
       
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 60000
+        read-timeout: 60000
 service:
   base: base-dev
   

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.shopcenter.productinfo.mapper.ProductInfoMapper">
+	<resultMap id="productInfo" type="com.zl.mall.shopcenter.productinfo.entity.ProductInfoEntity">
+		<id column="prd_id" jdbcType="VARCHAR" property="prdId" />
+		<result column="prd_name" jdbcType="VARCHAR" property="prdName" />
+		<result column="prd_type" jdbcType="VARCHAR" property="prdType" />
+		<result column="platform_prd_id" jdbcType="VARCHAR" property="platformPrdId" />
+		<result column="vendor_id" jdbcType="VARCHAR" property="vendorId" />
+		<result column="create_date" jdbcType="VARCHAR" property="createDate" />
+		<result column="created_user_id" jdbcType="VARCHAR" property="createdUserId" />
+		<result column="update_date" jdbcType="VARCHAR" property="updateDate" />
+		<result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
+		<result column="state" jdbcType="CHAR" property="state" />
+		<result column="grd_date" jdbcType="VARCHAR" property="grdDate" />
+		<result column="shop_id" jdbcType="VARCHAR" property="shopId" />
+		<result column="version" jdbcType="INTEGER" property="version" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="productInfo">
+		select * from product_info
+		<where>
+			<if test="prdId != null and prdId != ''">
+				 and prd_id=#{prdId, jdbcType=VARCHAR}
+			</if>
+			<if test="prdName != null and prdName != ''">
+				 and prd_name=#{prdName, jdbcType=VARCHAR}
+			</if>
+			<if test="prdType != null and prdType != ''">
+				 and prd_type=#{prdType, jdbcType=VARCHAR}
+			</if>
+			<if test="platformPrdId != null and platformPrdId != ''">
+				 and platform_prd_id=#{platformPrdId, jdbcType=VARCHAR}
+			</if>
+			<if test="vendorId != null and vendorId != ''">
+				 and vendor_id=#{vendorId, jdbcType=VARCHAR}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				 and create_date=#{createDate, jdbcType=VARCHAR}
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				 and created_user_id=#{createdUserId, jdbcType=VARCHAR}
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				 and update_date=#{updateDate, jdbcType=VARCHAR}
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				 and update_user_id=#{updateUserId, jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state != ''">
+				 and state=#{state, jdbcType=CHAR}
+			</if>
+			<if test="grdDate != null and grdDate != ''">
+				 and grd_date=#{grdDate, jdbcType=VARCHAR}
+			</if>
+			<if test="shopId != null and shopId != ''">
+				 and shop_id=#{shopId, jdbcType=VARCHAR}
+			</if>
+			<if test="version != null and version != ''">
+				 and version=#{shopId, jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.shopcenter.productinfo.entity.ProductInfoEntity">
+		insert into product_info (
+		<trim suffixOverrides=",">
+			prd_id,
+			<if test="prdName != null and prdName != ''">
+				prd_name,
+			</if>
+			<if test="prdType != null and prdType != ''">
+				prd_type,
+			</if>
+			<if test="platformPrdId != null and platformPrdId != ''">
+				platform_prd_id,
+			</if>
+			<if test="vendorId != null and vendorId != ''">
+				vendor_id,
+			</if>
+			<if test="createDate != null and createDate != ''">
+				create_date,
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				created_user_id,
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				update_date,
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				update_user_id,
+			</if>
+			<if test="state != null and state != ''">
+				state,
+			</if>
+			<if test="grdDate != null and grdDate != ''">
+				grd_date,
+			</if>
+			<if test="shopId != null and shopId != ''">
+				shop_id,
+			</if>
+			<if test="version != null and version != ''">
+				version,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="prdId != null and prdId != ''">
+				#{prdId, jdbcType=VARCHAR},
+			</if>
+			<if test="prdName != null and prdName != ''">
+				#{prdName, jdbcType=VARCHAR},
+			</if>
+			<if test="prdType != null and prdType != ''">
+				#{prdType, jdbcType=VARCHAR},
+			</if>
+			<if test="platformPrdId != null and platformPrdId != ''">
+				#{platformPrdId, jdbcType=VARCHAR},
+			</if>
+			<if test="vendorId != null and vendorId != ''">
+				#{vendorId, jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null and createDate != ''">
+				#{createDate, jdbcType=VARCHAR},
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				#{createdUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				#{updateDate, jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				#{updateUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="state != null and state != ''">
+				#{state, jdbcType=CHAR},
+			</if>
+			<if test="grdDate != null and grdDate != ''">
+				#{grdDate, jdbcType=VARCHAR},
+			</if>
+			<if test="shopId != null and shopId != ''">
+				#{shopId, jdbcType=VARCHAR},
+			</if>
+			<if test="version != null and version != ''">
+				#{version, jdbcType=INTEGER},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.shopcenter.productinfo.entity.ProductInfoEntity">
+		update product_info set 
+		<trim suffixOverrides=",">
+			<if test="prdName != null and prdName != ''">
+				prd_name=#{prdName, jdbcType=VARCHAR},
+			</if>
+			<if test="prdType != null and prdType != ''">
+				prd_type=#{prdType, jdbcType=VARCHAR},
+			</if>
+			<if test="platformPrdId != null and platformPrdId != ''">
+				platform_prd_id=#{platformPrdId, jdbcType=VARCHAR},
+			</if>
+			<if test="vendorId != null and vendorId != ''">
+				vendor_id=#{vendorId, jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null and createDate != ''">
+				create_date=#{createDate, jdbcType=VARCHAR},
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				created_user_id=#{createdUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				update_date=#{updateDate, jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				update_user_id=#{updateUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="state != null and state != ''">
+				state=#{state, jdbcType=CHAR},
+			</if>
+			<if test="grdDate != null and grdDate != ''">
+				grd_date=#{grdDate, jdbcType=VARCHAR},
+			</if>
+			<if test="shopId != null and shopId != ''">
+				shop_id=#{shopId, jdbcType=VARCHAR},
+			</if>
+			<if test="version != null and version != ''">
+				version=#{version, jdbcType=INTEGER},
+			</if>
+		</trim>
+		<where>
+			 and prd_id=#{prdId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from product_info 
+			<where>
+			 and prd_id=#{prdId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+</mapper>
