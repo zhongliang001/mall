@@ -105,6 +105,9 @@
 			<if test="state != null and state != ''">
 				state=#{state, jdbcType=CHAR},
 			</if>
+			<if test="version != null and version != ''">
+				version=#{version, jdbcType=INTEGER},
+			</if>
 		</trim>
 		<where>
 			 and sku_id=#{skuId, jdbcType=VARCHAR}

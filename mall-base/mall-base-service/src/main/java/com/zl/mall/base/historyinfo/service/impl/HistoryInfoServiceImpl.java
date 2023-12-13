@@ -51,6 +51,7 @@ public List<HistoryInfoEntity> queryList(QueryCondition queryCondition){
 			String seqno = templateService.getSeqno(TempConstant.HIS_TEMP);
 			historyInfoEntity.setId(seqno);
 			historyInfoEntity.setPriKey(priKey);
+			historyInfoEntity.setPriValue(priValue);
 		}
 		return historyInfoMapper.batchAdd(list);
 	}

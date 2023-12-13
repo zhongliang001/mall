@@ -57,7 +57,7 @@ public class ModifyUtil {
 							Object value1 = method.invoke(newObject);
 							Object value2 = method.invoke(oldObject);
 							// 对比获取修改的字段
-							if (!((value1 != null && value1.equals(value2))) || (value1 == null && value2 != null)) {
+							if ((value1 != null && !value1.equals(value2)) || (value1 == null && value1 != value2)) {
 								HistoryInfoEntity historyInfoEntity = new HistoryInfoEntity();
 								historyInfoEntity.setTableName(tableName);
 								historyInfoEntity.setNewValue(value1 == null ? null : value1.toString());

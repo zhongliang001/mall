@@ -92,13 +92,13 @@ public class ProductSkuEntity implements Serializable{
 		return this.skuName;
 	}
 	public  void setSellPrice(BigDecimal sellPrice){
-		this.sellPrice = sellPrice;
+		this.sellPrice = sellPrice.setScale(2);
 	}
 	public BigDecimal getSellPrice(){
 		return this.sellPrice;
 	}
 	public  void setPurchPrice(BigDecimal purchPrice){
-		this.purchPrice = purchPrice;
+		this.purchPrice = purchPrice.setScale(2);
 	}
 	public BigDecimal getPurchPrice(){
 		return this.purchPrice;
