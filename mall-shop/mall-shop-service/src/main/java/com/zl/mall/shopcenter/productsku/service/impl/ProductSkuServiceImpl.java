@@ -61,7 +61,7 @@ public class ProductSkuServiceImpl implements ProductSkuService {
 	public int update(ProductSkuEntity productSkuEntity) {
 		String skuId = productSkuEntity.getSkuId();
 		if(StringUtils.isNotEmpty(skuId)) {
-			Map<String, Object> map = new HashMap<>();
+			Map<String, Object> map = new HashMap<>(16);
 			map.put("skuId", productSkuEntity.getSkuId());
 			List<ProductSkuEntity> queryList = productSkuMapper.queryList(map);
 			if(queryList.size() >0) {

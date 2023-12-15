@@ -9,6 +9,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 @Component
 public class FeignConfiguration implements RequestInterceptor {
 	@Override

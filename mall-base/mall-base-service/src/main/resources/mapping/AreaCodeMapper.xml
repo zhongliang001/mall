@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.base.areacode.mapper.AreaCodeMapper">
+	<resultMap id="areaCode" type="com.zl.mall.base.areacode.entity.AreaCodeEntity">
+		<result column="province" jdbcType="VARCHAR" property="province" />
+		<result column="city" jdbcType="VARCHAR" property="city" />
+		<result column="area" jdbcType="VARCHAR" property="area" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+	</resultMap>
+	
+	<resultMap id="areaCodeDto" type="com.zl.mall.base.areacode.dto.AreaCodeDto">
+		<result column="area" jdbcType="VARCHAR" property="area" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="areaCode">
+		select * from area_code
+		<where>
+			<if test="province != null and province != ''">
+				 and province=#{province, jdbcType=VARCHAR}
+			</if>
+			<if test="city != null and city != ''">
+				 and city=#{city, jdbcType=VARCHAR}
+			</if>
+			<if test="area != null and area != ''">
+				 and area=#{area, jdbcType=VARCHAR}
+			</if>
+			<if test="name != null and name != ''">
+				 and name=#{name, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.base.areacode.entity.AreaCodeEntity">
+		insert into area_code (
+		<trim suffixOverrides=",">
+			<if test="province != null and province != ''">
+				province,
+			</if>
+			<if test="city != null and city != ''">
+				city,
+			</if>
+			<if test="area != null and area != ''">
+				area,
+			</if>
+			<if test="name != null and name != ''">
+				name,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="province != null and province != ''">
+				#{province, jdbcType=VARCHAR},
+			</if>
+			<if test="city != null and city != ''">
+				#{city, jdbcType=VARCHAR},
+			</if>
+			<if test="area != null and area != ''">
+				#{area, jdbcType=VARCHAR},
+			</if>
+			<if test="name != null and name != ''">
+				#{name, jdbcType=VARCHAR},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.base.areacode.entity.AreaCodeEntity">
+		update area_code set 
+		<trim suffixOverrides=",">
+			<if test="province != null and province != ''">
+				province=#{province, jdbcType=VARCHAR},
+			</if>
+			<if test="city != null and city != ''">
+				city=#{city, jdbcType=VARCHAR},
+			</if>
+			<if test="area != null and area != ''">
+				area=#{area, jdbcType=VARCHAR},
+			</if>
+			<if test="name != null and name != ''">
+				name=#{name, jdbcType=VARCHAR},
+			</if>
+		</trim>
+		<where>
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from area_code 
+			<where>
+		</where>
+	</delete>
+	
+	<select id="queryProvince" resultMap="areaCodeDto">
+		select area, name from area_code where province = area
+	</select>
+	
+	<select id="queryCtiy" resultMap="areaCodeDto" parameterType="java.lang.String">
+		select area, name from area_code where province = #{province,jdbcType=VARCHAR} and province <![CDATA[<>]]> area and city=area
+	</select>
+	
+	<select id="queryArea" resultMap="areaCodeDto" parameterType="java.lang.String">
+		select area, name from area_code where city = #{city,jdbcType=VARCHAR} and city <![CDATA[<>]]> area
+	</select>
+</mapper>

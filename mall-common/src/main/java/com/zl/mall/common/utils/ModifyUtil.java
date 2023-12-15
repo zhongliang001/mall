@@ -57,7 +57,8 @@ public class ModifyUtil {
 							Object value1 = method.invoke(newObject);
 							Object value2 = method.invoke(oldObject);
 							// 对比获取修改的字段
-							if ((value1 != null && !value1.equals(value2)) || (value1 == null && value1 != value2)) {
+							boolean flag = (value1 != null && !value1.equals(value2)) || (value1 == null && value1 != value2);
+							if (flag) {
 								HistoryInfoEntity historyInfoEntity = new HistoryInfoEntity();
 								historyInfoEntity.setTableName(tableName);
 								historyInfoEntity.setNewValue(value1 == null ? null : value1.toString());
@@ -66,27 +67,7 @@ public class ModifyUtil {
 								historyInfoEntity.setModName(column.comment());
 								historyInfoEntity.setUpdateTime(DateUtils.getCurrentDate());
 								historyInfoEntity.setUpdateUserId(userId);
-
-								// 记录版本号
-								Method getVersionMethod = null;
-								Method setVersionMethod = null;
-								try {
-									getVersionMethod = class1.getMethod("getVersion");
-									if (getVersionMethod != null) {
-										Object versionObj = getVersionMethod.invoke(oldObject);
-										if (versionObj != null) {
-											Integer version = Integer.parseInt(versionObj.toString());
-											Integer newVersion = version + 1;
-											setVersionMethod = class1.getMethod("setVersion", Integer.class);
-											setVersionMethod.invoke(newObject, newVersion);
-											historyInfoEntity.setVersion(newVersion);
-										}
-									}
-								} catch (NoSuchMethodException e) {
-									e.printStackTrace();
-								} catch (SecurityException e) {
-									e.printStackTrace();
-								}
+								recordVersion(newObject, oldObject, class1, historyInfoEntity);
 								list.add(historyInfoEntity);
 
 							}
@@ -102,28 +83,55 @@ public class ModifyUtil {
 					}
 				}
 
-				PrimaryKey[] primaryKeys = field.getDeclaredAnnotationsByType(PrimaryKey.class);
-				Method method = getMethod(field, class1);
-				try {
-					Object keyValue = method.invoke(oldObject);
-					if (primaryKeys.length > 0) {
-						historyInfoDto.setPriKey(name);
-						if (keyValue != null)
-							historyInfoDto.setPriValue(keyValue.toString());
-
-					}
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					e.printStackTrace();
-				}
-
+				recordPrimaryKey(oldObject, class1, historyInfoDto, field, name);
 			}
-
 		}
 		return historyInfoDto;
+	}
+
+	private static void recordPrimaryKey(Object oldObject, Class<? extends Object> class1,
+			HistoryInfoDto historyInfoDto, Field field, String name) {
+		PrimaryKey[] primaryKeys = field.getDeclaredAnnotationsByType(PrimaryKey.class);
+		Method method = getMethod(field, class1);
+		try {
+			Object keyValue = method.invoke(oldObject);
+			if (primaryKeys.length > 0) {
+				historyInfoDto.setPriKey(name);
+				if (keyValue != null) {
+					historyInfoDto.setPriValue(keyValue.toString());
+				}
+			}
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void recordVersion(Object newObject, Object oldObject, Class<? extends Object> class1,
+			HistoryInfoEntity historyInfoEntity) throws IllegalAccessException, InvocationTargetException {
+		// 记录版本号
+		Method getVersionMethod = null;
+		Method setVersionMethod = null;
+		try {
+			getVersionMethod = class1.getMethod("getVersion");
+			if (getVersionMethod != null) {
+				Object versionObj = getVersionMethod.invoke(oldObject);
+				if (versionObj != null) {
+					Integer version = Integer.parseInt(versionObj.toString());
+					Integer newVersion = version + 1;
+					setVersionMethod = class1.getMethod("setVersion", Integer.class);
+					setVersionMethod.invoke(newObject, newVersion);
+					historyInfoEntity.setVersion(newVersion);
+				}
+			}
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static Method getMethod(Field field, Class<? extends Object> clazz) {

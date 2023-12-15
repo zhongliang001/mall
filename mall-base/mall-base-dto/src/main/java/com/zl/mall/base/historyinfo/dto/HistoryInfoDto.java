@@ -5,6 +5,11 @@ import java.util.List;
 
 import com.zl.mall.base.historyinfo.entity.HistoryInfoEntity;
 
+/**
+ * 
+ * @author coolz
+ *
+ */
 public class HistoryInfoDto implements Serializable{
 		
 	/**

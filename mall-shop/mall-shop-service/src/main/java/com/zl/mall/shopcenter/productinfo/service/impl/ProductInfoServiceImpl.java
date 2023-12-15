@@ -64,7 +64,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 	@Transactional(rollbackFor = RuntimeException.class)
 	public int update(ProductInfoEntity productInfoEntity) {
 		String prdId = productInfoEntity.getPrdId();
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>(16);
 		map.put("prdId", prdId);
 		List<ProductInfoEntity> queryList = productInfoMapper.queryList(map);
 		if (queryList.size() != 0) {
@@ -83,7 +83,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 	}
 
 	public int delete(String prdId) {
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>(16);
 		map.put("prdId", prdId);
 		List<ProductInfoEntity> list = productInfoMapper.queryList(map);
 		if(list.size() > 0) {
