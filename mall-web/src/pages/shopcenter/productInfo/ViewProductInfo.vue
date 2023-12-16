@@ -18,12 +18,12 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="商品类型" prop="prdType">
-              <zl-select v-model="formdata.prdType" type="PRD_TYPE" :disabled="true"></zl-select>
+              <zl-dict v-model="formdata.prdType" type="PRD_TYPE" :disabled="true"></zl-dict>
             </el-form-item>
           </el-col>
           <el-col :span="11">
             <el-form-item label="商品上架状态" prop="state">
-              <zl-select v-model="formdata.state" type="PRD_STATE" :disabled="true"></zl-select>
+              <zl-dict v-model="formdata.state" type="PRD_STATE" :disabled="true"></zl-dict>
             </el-form-item>
           </el-col>
         </el-row>

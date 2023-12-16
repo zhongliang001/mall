@@ -10,7 +10,7 @@
           <el-input v-model="formdata.nickName"></el-input>
         </el-form-item>
         <el-form-item label="证件类型" prop="certType">
-          <zl-select v-model="formdata.certType" type="CERT_TYPE"></zl-select>
+          <zl-dict v-model="formdata.certType" type="CERT_TYPE"></zl-dict>
         </el-form-item>
         <el-form-item label="证件号" prop="certCode">
           <el-input v-model="formdata.certCode"></el-input>
@@ -19,7 +19,7 @@
           <el-input v-model="formdata.phone"></el-input>
         </el-form-item>
         <el-form-item label="性别" prop="sex">
-          <zl-select v-model="formdata.sex" type="SEX"></zl-select>
+          <zl-dict v-model="formdata.sex" type="SEX"></zl-dict>
         </el-form-item>
       </el-form>
       <el-button type="primary" @click="doSub(reqForm)">提交</el-button>

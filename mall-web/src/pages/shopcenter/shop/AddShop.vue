@@ -11,7 +11,7 @@
           </el-col>
           <el-col :span="11">
             <el-form-item label="是否实体店" prop="conventional">
-              <zl-select v-model="formdata.conventional" type="YES_NO"></zl-select>
+              <zl-dict v-model="formdata.conventional" type="YES_NO"></zl-dict>
             </el-form-item>
           </el-col>
         </el-row>
@@ -60,7 +60,7 @@ const doSub = async (formEl: FormInstance | undefined) => {
         url: server.shop + '/shop/add',
         data: formdata,
         method: 'post',
-        success: function (data: any) {
+        success: function () {
           toBack(formEl)
         },
         failed: function (data: any) {

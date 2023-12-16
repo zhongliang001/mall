@@ -6,8 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.zl.mall.base.areacode.dto.AreaCodeDto;
 import com.zl.mall.base.areacode.entity.AreaCodeEntity;
+import com.zl.mall.common.dto.SelectDto;
 /**
  * 
  * @author coolz
@@ -47,17 +47,17 @@ public interface AreaCodeMapper{
 	 * 查询省份列表
 	 * @return 返回省份列表
 	 */
-	public List<AreaCodeDto> queryProvince();
+	public List<SelectDto> queryProvince();
 	
 	/**
 	 * 查询城市列表
 	 * @return 返回城市列表
 	 */
-	public List<AreaCodeDto> queryCtiy(@Param("province") String province);
+	public List<SelectDto> queryCtiy(@Param("province") String province);
 	
 	/**
 	 * 查询地区列表
 	 * @return 返回地区列表
 	 */
-	public List<AreaCodeDto> queryArea(@Param("city") String city);
+	public List<SelectDto> queryArea(@Param("city") String city);
 }

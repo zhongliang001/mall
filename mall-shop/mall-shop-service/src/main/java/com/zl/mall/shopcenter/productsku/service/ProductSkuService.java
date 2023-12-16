@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import com.zl.mall.common.dto.QueryCondition;
-
+import com.zl.mall.common.dto.SelectDto;
 import com.zl.mall.shopcenter.productsku.entity.ProductSkuEntity;
 /**
  * 
@@ -41,4 +41,11 @@ public interface ProductSkuService{
 	 * @return 删除商品sku信息数量
 	 */
 	public int delete(String skuId);
+	
+	/**
+	 * 查询商品sku下拉选
+	 * @param prdId 商品id
+	 * @return 商品sku选项
+	 */
+	public List<SelectDto> queryForSelect(String prdId);
 }

@@ -15,6 +15,7 @@ import com.zl.mall.base.areacode.entity.AreaCodeEntity;
 import com.zl.mall.base.areacode.service.AreaCodeService;
 import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
+import com.zl.mall.common.dto.SelectDto;
 import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
 /**
@@ -50,20 +51,20 @@ public class AreaCodeController {
 	}
 	
 	@GetMapping("/queryProvince")
-	public  ResultDto<List<AreaCodeDto>> queryProvince(){
-		List<AreaCodeDto> list = areaCodeService.queryProvince();
+	public  ResultDto<List<SelectDto>> queryProvince(){
+		List<SelectDto> list = areaCodeService.queryProvince();
 		return  ResultUtil.generate(list, TradeCodeDict.SUCCESS_QUERRY_CODE);
 	}
 	
 	@GetMapping("/queryCtiy")
-	public  ResultDto<List<AreaCodeDto>> queryCtiy(@RequestParam("province") String province){
-		List<AreaCodeDto> list = areaCodeService.queryCtiy(province);
+	public  ResultDto<List<SelectDto>> queryCtiy(@RequestParam("province") String province){
+		List<SelectDto> list = areaCodeService.queryCtiy(province);
 		return  ResultUtil.generate(list, TradeCodeDict.SUCCESS_QUERRY_CODE);
 	}
 	
 	@GetMapping("/queryArea")
-	public  ResultDto<List<AreaCodeDto>> queryArea(@RequestParam("city") String city){
-		List<AreaCodeDto> list = areaCodeService.queryArea(city);
+	public  ResultDto<List<SelectDto>> queryArea(@RequestParam("city") String city){
+		List<SelectDto> list = areaCodeService.queryArea(city);
 		return  ResultUtil.generate(list, TradeCodeDict.SUCCESS_QUERRY_CODE);
 	}
 }

@@ -9,13 +9,13 @@
             <ArrowDown v-if="isshow[index]" />
           </el-icon>
         </span>
-        <zl-select-tree
+        <zl-dict-tree
           v-show="isshow[index]"
           ref="tree"
           v-if="item?.children?.length"
           :data="item.children"
           :selData="selData"
-        ></zl-select-tree>
+        ></zl-dict-tree>
         <ul v-show="isshow[index]">
           <el-checkbox-group v-model="datas">
             <li v-for="i in item?.list" :key="i">

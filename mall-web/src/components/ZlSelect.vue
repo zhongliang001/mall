@@ -1,17 +1,13 @@
 <template>
   <el-select>
-    <el-option
-      v-for="item in dict[type]"
-      :key="item.enName"
-      :label="item.cnName"
-      :value="item.enName"
-    />
+    <el-option v-for="item in options" :key="item.name" :label="item.name" :value="item.value" />
   </el-select>
 </template>
-
 <script setup lang="ts">
-import useCurrentInstance from 'lib/useCurrentInstance'
-const props = defineProps(['type'])
-const { proxy } = useCurrentInstance()
-const dict = proxy.dict
+import type { Item } from './Item'
+defineProps({
+  options: {
+    type: Array<Item>
+  }
+})
 </script>

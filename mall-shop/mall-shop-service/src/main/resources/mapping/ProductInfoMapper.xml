@@ -198,4 +198,8 @@
 			 and prd_id=#{prdId, jdbcType=VARCHAR}
 		</where>
 	</delete>
+	
+	<select id="queryForSelect"  parameterType="java.lang.String" resultType="com.zl.mall.common.dto.SelectDto">
+		select prd_id value,prd_name name from product_info where shop_id = #{shopId, jdbcType=VARCHAR}
+	</select>
 </mapper>

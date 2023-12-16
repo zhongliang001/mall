@@ -115,30 +115,28 @@ const toDel = () => {
       confirmButtonText: ' 确认',
       cancelButtonText: '返回',
       type: 'warning'
-    })
-      .then(() => {
-        zlaxios.request({
-          url: server.base + '/menu/delete',
-          params: { menuId: zltable.value.currentRow.menuId },
-          method: 'get',
-          success: function (data: any) {
-            zltable.value.query()
-            ElMessage({
-              message: '删除成功',
-              grouping: true,
-              type: 'success'
-            })
-          },
-          failed: function (data: any) {
-            ElMessage({
-              message: data.msg,
-              grouping: true,
-              type: 'error'
-            })
-          }
-        })
+    }).then(() => {
+      zlaxios.request({
+        url: server.base + '/menu/delete',
+        params: { menuId: zltable.value.currentRow.menuId },
+        method: 'get',
+        success: function () {
+          zltable.value.query()
+          ElMessage({
+            message: '删除成功',
+            grouping: true,
+            type: 'success'
+          })
+        },
+        failed: function (data: any) {
+          ElMessage({
+            message: data.msg,
+            grouping: true,
+            type: 'error'
+          })
+        }
       })
-      .catch((e) => {})
+    })
   } else {
     ElMessageBox.alert('请选择一笔数据', '错误信息', {
       confirmButtonText: '确认'

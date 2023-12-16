@@ -30,7 +30,7 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="菜单状态" prop="state">
-              <zl-select v-model="formdata.state" type="ONLINE_STATE"></zl-select>
+              <zl-dict v-model="formdata.state" type="ONLINE_STATE"></zl-dict>
             </el-form-item>
           </el-col>
         </el-row>

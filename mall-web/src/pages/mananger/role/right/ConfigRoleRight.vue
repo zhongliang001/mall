@@ -1,6 +1,6 @@
 <template>
   角色名：{{ data.roleName }}
-  <zl-select-tree ref="tree" :data="menuActionList" :selData="selData"></zl-select-tree>
+  <zl-dict-tree ref="tree" :data="menuActionList" :selData="selData"></zl-dict-tree>
   <el-row>
     <el-col :span="11" :offset="11">
       <el-button type="primary" @click="save()">保存</el-button>

@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.github.pagehelper.PageHelper;
-import com.zl.mall.common.dto.QueryCondition;
-import com.zl.mall.base.areacode.dto.AreaCodeDto;
 import com.zl.mall.base.areacode.entity.AreaCodeEntity;
 import com.zl.mall.base.areacode.mapper.AreaCodeMapper;
 import com.zl.mall.base.areacode.service.AreaCodeService;
+import com.zl.mall.common.dto.QueryCondition;
+import com.zl.mall.common.dto.SelectDto;
 /**
  * 
  * @author coolz
@@ -34,15 +35,15 @@ public class AreaCodeServiceImpl implements AreaCodeService {
 		return areaCodeMapper.delete();
 	}
 	@Override
-	public List<AreaCodeDto> queryProvince() {
+	public List<SelectDto> queryProvince() {
 		return areaCodeMapper.queryProvince();
 	}
 	@Override
-	public List<AreaCodeDto> queryCtiy(String province) {
+	public List<SelectDto> queryCtiy(String province) {
 		return areaCodeMapper.queryCtiy(province);
 	}
 	@Override
-	public List<AreaCodeDto> queryArea(String city) {
+	public List<SelectDto> queryArea(String city) {
 		return areaCodeMapper.queryArea(city);
 	}
 }

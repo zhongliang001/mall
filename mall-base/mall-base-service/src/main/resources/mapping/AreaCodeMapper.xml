@@ -90,15 +90,15 @@
 		</where>
 	</delete>
 	
-	<select id="queryProvince" resultMap="areaCodeDto">
-		select area, name from area_code where province = area
+	<select id="queryProvince" resultType="com.zl.mall.common.dto.SelectDto">
+		select area value, name from area_code where province = area
 	</select>
 	
-	<select id="queryCtiy" resultMap="areaCodeDto" parameterType="java.lang.String">
-		select area, name from area_code where province = #{province,jdbcType=VARCHAR} and province <![CDATA[<>]]> area and city=area
+	<select id="queryCtiy"  resultType="com.zl.mall.common.dto.SelectDto" parameterType="java.lang.String">
+		select area value, name from area_code where province = #{province,jdbcType=VARCHAR} and province <![CDATA[<>]]> area and city=area
 	</select>
 	
-	<select id="queryArea" resultMap="areaCodeDto" parameterType="java.lang.String">
-		select area, name from area_code where city = #{city,jdbcType=VARCHAR} and city <![CDATA[<>]]> area
+	<select id="queryArea"  resultType="com.zl.mall.common.dto.SelectDto" parameterType="java.lang.String">
+		select area value, name from area_code where city = #{city,jdbcType=VARCHAR} and city <![CDATA[<>]]> area
 	</select>
 </mapper>

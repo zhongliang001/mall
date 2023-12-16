@@ -11,7 +11,7 @@
           </el-col>
           <el-col :span="11">
             <el-form-item label="是否实体店" prop="conventional">
-              <zl-select v-model="formdata.conventional" type="YES_NO"></zl-select>
+              <zl-dict v-model="formdata.conventional" type="YES_NO"></zl-dict>
             </el-form-item>
           </el-col>
         </el-row>
@@ -23,7 +23,7 @@
           </el-col>
           <el-col :span="11">
             <el-form-item label="是否合作" prop="cooperStatus">
-              <zl-select v-model="formdata.cooperStatus" type="YES_NO"></zl-select>
+              <zl-dict v-model="formdata.cooperStatus" type="YES_NO"></zl-dict>
             </el-form-item>
           </el-col>
         </el-row>
