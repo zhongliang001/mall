@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.zl.mall.shopcenter.orderinfo.dto.OrderInfoDto;
 import com.zl.mall.shopcenter.orderinfo.entity.OrderInfoEntity;
 /**
  * 
@@ -19,7 +20,7 @@ public interface OrderInfoMapper{
 	 * @param condition 查询条件
 	 * @return 返回订单信息列表
 		 */
-	public List<OrderInfoEntity> queryList(Map<String, Object> condition);
+	public List<OrderInfoDto> queryList(Map<String, Object> condition);
 	
 	/**
 	 * 新增订单信息

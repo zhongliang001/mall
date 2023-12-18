@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container>
-      <el-header>新增订单</el-header>
+      <el-header>修改订单</el-header>
       <el-main>
         <el-form ref="reqForm" :rules="rules" :model="formdata">
           <el-row>
@@ -77,11 +77,11 @@
 </template>
 <script setup lang="ts">
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
-import { reactive, ref, watch } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import type { OrderInfo } from './orderInfo'
 import { changeProductInfo, queryProductSelect, skus, prds } from '../productInfo/productInfo'
 import { server, zlaxios } from 'lib/zlaxios'
-const props = defineProps(['page'])
+const props = defineProps(['page', 'modData'])
 const reqForm = ref()
 const formdata = reactive<OrderInfo>({})
 const rules = reactive<FormRules>({})
@@ -89,18 +89,26 @@ const rules = reactive<FormRules>({})
 watch(
   () => props.page,
   (newVal) => {
-    if (newVal === 'add') {
-      queryProductSelect()
+    if (newVal === 'mod') {
+      Object.assign(formdata, props.modData)
+      let prdId = formdata.prdId
+      if (prdId) {
+        changeProductInfo(prdId)
+      }
     }
   }
 )
+
+onMounted(() => {
+  queryProductSelect()
+})
 
 const save = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate((valid) => {
     if (valid) {
       zlaxios.request({
-        url: server.shop + '/orderInfo/add',
+        url: server.shop + '/orderInfo/update',
         data: formdata,
         method: 'post',
         success: function () {
@@ -135,6 +143,7 @@ const toBack = (formEl: FormInstance | undefined) => {
 }
 
 const change = (value: string | undefined) => {
+  alert('hi')
   formdata.skuId = ''
   changeProductInfo(value)
 }

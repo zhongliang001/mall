@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.github.pagehelper.PageHelper;
 import com.zl.mall.base.template.TemplateClient;
 import com.zl.mall.base.template.dto.TemplateDto;
@@ -12,6 +13,7 @@ import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.common.utils.DateUtils;
 import com.zl.mall.common.utils.HttpRequestUtil;
+import com.zl.mall.shopcenter.orderinfo.dto.OrderInfoDto;
 import com.zl.mall.shopcenter.orderinfo.entity.OrderInfoEntity;
 import com.zl.mall.shopcenter.orderinfo.mapper.OrderInfoMapper;
 import com.zl.mall.shopcenter.orderinfo.service.OrderInfoService;
@@ -31,9 +33,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 	private TemplateClient templateClient;
 
 	@Override
-	public List<OrderInfoEntity> queryList(QueryCondition queryCondition) {
+	public List<OrderInfoDto> queryList(QueryCondition queryCondition) {
 		PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
-		List<OrderInfoEntity> list = orderInfoMapper.queryList(queryCondition.getCondition());
+		List<OrderInfoDto> list = orderInfoMapper.queryList(queryCondition.getCondition());
 		return list;
 	}
 

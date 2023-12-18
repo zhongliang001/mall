@@ -2,10 +2,10 @@ package com.zl.mall.shopcenter.orderinfo.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
+
 import com.zl.mall.common.dto.QueryCondition;
-import com.zl.mall.common.dto.SelectDto;
+import com.zl.mall.shopcenter.orderinfo.dto.OrderInfoDto;
 import com.zl.mall.shopcenter.orderinfo.entity.OrderInfoEntity;
 /**
  * 
@@ -19,7 +19,7 @@ public interface OrderInfoService{
 	 * @param queryCondition 查询条件
 	 * @return 返回订单信息列表
 		 */
-	public List<OrderInfoEntity> queryList(QueryCondition queryCondition);
+	public List<OrderInfoDto> queryList(QueryCondition queryCondition);
 	
 	/**
 	 * 新增订单信息
