@@ -30,7 +30,11 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="供应商id" prop="vendorId">
-              <el-input v-model="formdata.vendorId" :readonly="true"></el-input>
+              <zl-select
+                v-model="formdata.vendorId"
+                :options="vendors"
+                :readonly="true"
+              ></zl-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -60,6 +64,7 @@ import type { ProductInfo } from './productInfo'
 import { server } from 'lib/zlaxios'
 import { userStore } from '@/stores/userStore'
 import type { FormInstance } from 'element-plus'
+import { queryVendorSelect, vendors } from '../vendor/vendor'
 const props = defineProps(['page', 'modData'])
 
 const us = userStore()
@@ -77,6 +82,7 @@ watch(
       Object.assign(formdata, props.modData)
       tabledata.prdId = props.modData.prdId
       zltable.value.query()
+      queryVendorSelect()
     }
   }
 )

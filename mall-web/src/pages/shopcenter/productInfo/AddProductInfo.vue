@@ -30,7 +30,7 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="供应商id" prop="vendorId">
-              <el-input v-model="formdata.vendorId"></el-input>
+              <zl-select v-model="formdata.vendorId" :options="vendors"></zl-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -54,7 +54,7 @@
       </zl-table>
       <el-row :gutter="20" justify="center">
         <el-col :span="6">
-          <zl-button type="primary" @click="save(reqForm)">保存</zl-button>
+          <zl-button :loading="loading" type="primary" @click="save(reqForm)">保存</zl-button>
           <zl-button type="primary" @click="toBack(reqForm)">返回</zl-button>
         </el-col>
       </el-row>
@@ -62,11 +62,23 @@
   </el-container>
 </template>
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import type { ProductInfo } from './productInfo'
 import { server, zlaxios } from 'lib/zlaxios'
 import { ElMessage, type FormInstance } from 'element-plus'
 import { userStore } from '@/stores/userStore'
+import { queryVendorSelect, vendors } from '@/pages/shopcenter/vendor/vendor'
+const props = defineProps(['page'])
+const loading = ref(false)
+watch(
+  () => props.page,
+  (newVal) => {
+    if (newVal === 'add') {
+      queryVendorSelect()
+    }
+  }
+)
+
 const us = userStore()
 const formdata: ProductInfo = reactive({
   shopId: us.shopId()
@@ -86,8 +98,10 @@ const save = async (formEl: FormInstance | undefined) => {
           list: tableData
         },
         method: 'post',
+        loading: loading,
         success: function () {
           toBack(formEl)
+
           ElMessage({
             message: '新增成功',
             grouping: true,

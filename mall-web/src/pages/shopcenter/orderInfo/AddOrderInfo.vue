@@ -67,7 +67,7 @@
         </el-form>
         <el-row :gutter="20" justify="center">
           <el-col :span="6">
-            <zl-button type="primary" @click="save(reqForm)">保存</zl-button>
+            <zl-button type="primary" :loading="loading" @click="save(reqForm)">保存</zl-button>
             <zl-button type="primary" @click="toBack(reqForm)">返回</zl-button>
           </el-col>
         </el-row>
@@ -81,6 +81,7 @@ import { reactive, ref, watch } from 'vue'
 import type { OrderInfo } from './orderInfo'
 import { changeProductInfo, queryProductSelect, skus, prds } from '../productInfo/productInfo'
 import { server, zlaxios } from 'lib/zlaxios'
+const loading = ref(false)
 const props = defineProps(['page'])
 const reqForm = ref()
 const formdata = reactive<OrderInfo>({})
@@ -103,6 +104,7 @@ const save = async (formEl: FormInstance | undefined) => {
         url: server.shop + '/orderInfo/add',
         data: formdata,
         method: 'post',
+        loading: loading,
         success: function () {
           toBack(formEl)
           ElMessage({

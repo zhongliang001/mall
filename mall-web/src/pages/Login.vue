@@ -4,7 +4,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import router from '@/router'
 import { zlaxios, server } from 'lib/zlaxios'
-
+const loading = ref(false)
 const reqForm = ref<FormInstance>()
 const reqdata = reactive({
   username: '',
@@ -40,6 +40,7 @@ const login = async (formEl: FormInstance | undefined) => {
           params: reqdata
         },
         method: 'post',
+        loading: loading,
         success: function (data: any) {
           router.push({ name: 'home', query: { ViewUserInfo: data.data } })
         },
@@ -77,7 +78,7 @@ const toRegister = function () {
             <el-input v-model="reqdata.password" type="password"></el-input>
           </el-form-item>
         </el-form>
-        <el-button type="primary" @click="login(reqForm)">提交</el-button>
+        <el-button type="primary" :loading="loading" @click="login(reqForm)">提交</el-button>
         <el-button type="primary" @click="toRegister">注册</el-button>
       </el-main>
     </el-container>

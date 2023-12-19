@@ -2,7 +2,6 @@ package com.zl.mall.shopcenter.orderinfo.dto;
 
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import com.zl.mall.shopcenter.orderinfo.entity.OrderInfoEntity;
 /**

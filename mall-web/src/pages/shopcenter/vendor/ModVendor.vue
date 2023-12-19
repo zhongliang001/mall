@@ -30,7 +30,7 @@
       </el-form>
       <el-row>
         <el-col :span="11" :offset="11">
-          <el-button type="primary" @click="doSub(reqForm)">提交</el-button>
+          <el-button type="primary" :loading="loading" @click="doSub(reqForm)">提交</el-button>
           <zl-button type="primary" @click="toBack(reqForm)">返回</zl-button>
         </el-col>
       </el-row>
@@ -42,6 +42,7 @@ import { ElMessage, type FormInstance } from 'element-plus'
 import { server, zlaxios } from 'lib/zlaxios'
 import { reactive, ref, watch } from 'vue'
 import type { Vendor } from './vendor'
+const loading = ref(false)
 const props = defineProps(['page', 'modData'])
 
 const formdata: Vendor = reactive({})
@@ -64,6 +65,7 @@ const doSub = async (formEl: FormInstance | undefined) => {
         url: server.shop + '/vendor/update',
         data: formdata,
         method: 'post',
+        loading: loading,
         success: function () {
           toBack(formEl)
         },

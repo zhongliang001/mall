@@ -37,7 +37,7 @@
       </el-form>
       <el-row>
         <el-col :span="11" :offset="11">
-          <el-button type="primary" @click="update(reqForm)">保存</el-button>
+          <el-button type="primary" :loading="loading" @click="update(reqForm)">保存</el-button>
           <el-button type="primary" @click="toBack(reqForm)">返回</el-button>
         </el-col>
       </el-row>
@@ -53,6 +53,9 @@ import type { Action } from './MenuAction'
 
 const props = defineProps(['page', 'modData'])
 const reqForm = ref<FormInstance>()
+
+const loading = ref(false)
+
 const rules = reactive<FormRules>({
   actionName: [{ required: true, message: '请输入操作名称', trigger: 'blur' }],
   actionCode: [{ required: true, message: '请输入操作码', trigger: 'blur' }],
@@ -108,6 +111,7 @@ const update = async (formEl: FormInstance | undefined) => {
         url: server.base + '/menuAction/update',
         data: formdata,
         method: 'post',
+        loading: loading,
         success: function (data: any) {
           toBack(formEl)
         },

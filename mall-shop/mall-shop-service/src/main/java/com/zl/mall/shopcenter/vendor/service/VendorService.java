@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import com.zl.mall.common.dto.QueryCondition;
-
+import com.zl.mall.common.dto.SelectDto;
 import com.zl.mall.shopcenter.vendor.entity.VendorEntity;
 /**
  * 
@@ -41,4 +41,11 @@ public interface VendorService{
 	 * @return 删除供应商数量
 	 */
 	public int delete(String vendorId);
+
+	/**
+	 * 查询供应商下拉选
+	 * @param shopId 店铺id
+	 * @return 返回供应商列表
+	 */
+	public List<SelectDto> queryForSelect(String shopId);
 }

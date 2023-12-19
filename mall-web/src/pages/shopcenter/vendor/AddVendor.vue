@@ -30,7 +30,7 @@
       </el-form>
       <el-row>
         <el-col :span="11" :offset="11">
-          <el-button type="primary" @click="doSub(reqForm)">提交</el-button>
+          <el-button type="primary" :loading="loading" @click="doSub(reqForm)">提交</el-button>
           <zl-button type="primary" @click="toBack(reqForm)">返回</zl-button>
         </el-col>
       </el-row>
@@ -47,6 +47,7 @@ const us = userStore()
 const formdata: Vendor = reactive({})
 formdata.shopId = us.shopId()
 const reqForm = ref<FormInstance>()
+const loading = ref(false)
 const doSub = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate((valid, fields) => {
@@ -55,6 +56,7 @@ const doSub = async (formEl: FormInstance | undefined) => {
         url: server.shop + '/vendor/add',
         data: formdata,
         method: 'post',
+        loading: loading,
         success: function () {
           toBack(formEl)
         },

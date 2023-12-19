@@ -28,7 +28,7 @@
       </el-form>
       <el-row :gutter="20" justify="center">
         <el-col :span="6">
-          <zl-button type="primary" @click="save(reqForm)">保存</zl-button>
+          <zl-button type="primary" :loading="loading" @click="save(reqForm)">保存</zl-button>
           <zl-button type="primary" @click="toBack(reqForm)">返回</zl-button>
         </el-col>
       </el-row>
@@ -43,7 +43,7 @@ import type { Template } from './template'
 
 const props = defineProps(['data'])
 let formdata: Template = reactive<Template>({})
-
+const loading = ref(false)
 watch(
   () => props.data,
   (newval) => {
@@ -66,6 +66,7 @@ const save = async (formEl: FormInstance | undefined) => {
         url: server.base + '/template/update',
         data: formdata,
         method: 'post',
+        loading: loading,
         success: function (data: any) {
           toBack(formEl)
           ElMessage({

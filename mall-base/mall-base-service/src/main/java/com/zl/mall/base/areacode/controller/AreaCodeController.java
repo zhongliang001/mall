@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zl.mall.base.areacode.dto.AreaCodeDto;
 import com.zl.mall.base.areacode.entity.AreaCodeEntity;
 import com.zl.mall.base.areacode.service.AreaCodeService;
 import com.zl.mall.common.dto.QueryCondition;

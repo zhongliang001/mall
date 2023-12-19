@@ -37,7 +37,7 @@
       </el-form>
       <el-row>
         <el-col :span="11" :offset="11">
-          <el-button type="primary" @click="add(reqForm)">保存</el-button>
+          <el-button type="primary" :loading="loading" @click="add(reqForm)">保存</el-button>
           <el-button type="primary" @click="toBack(reqForm)">返回</el-button>
         </el-col>
       </el-row>
@@ -54,6 +54,7 @@ const emit = defineEmits(['clickBackAction'])
 
 const props = defineProps(['page', 'addData'])
 
+const loading = ref(false)
 const reqForm = ref<FormInstance>()
 
 const rules = reactive<FormRules>({
@@ -107,6 +108,7 @@ const add = async (formEl: FormInstance | undefined) => {
         url: server.base + '/menuAction/add',
         data: formdata,
         method: 'post',
+        loading: loading,
         success: function (data: any) {
           toBack(formEl)
         },

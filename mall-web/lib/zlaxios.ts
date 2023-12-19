@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { Ref } from 'vue';
 
 const baseUrl = import.meta.env.VITE_BASE_URL
 const request = axios.create({
@@ -33,12 +34,17 @@ interface requestInfo {
   success?: Function | any,
   data?: Object | any,
   config?: Object | any,
-  params?: Object | any
+  params?: Object | any,
+  loading?: Ref<boolean>
 }
 const zlaxios = {
   request: function (requestInfo: requestInfo) {
     const url = baseUrl + requestInfo.url
     const method = requestInfo.method
+    if (requestInfo.loading !== undefined) {
+      requestInfo.loading.value = true
+
+    }
     if (method === undefined || method === 'get') {
       request.get(url, { params: requestInfo.params }).then(reseponse => {
         if (reseponse.request.status !== 200) {
@@ -60,6 +66,9 @@ const zlaxios = {
           } else {
             requestInfo.failed(reseponse.data)
           }
+        }
+        if (requestInfo.loading !== undefined) {
+          requestInfo.loading.value = false
         }
       })
     } else {
@@ -96,6 +105,9 @@ const zlaxios = {
               alert(reseponse.data.msg)
             }
           }
+        }
+        if (requestInfo.loading !== undefined) {
+          requestInfo.loading.value = false
         }
       })
     }

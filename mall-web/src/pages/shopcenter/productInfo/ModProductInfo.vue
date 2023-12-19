@@ -30,7 +30,7 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="供应商id" prop="vendorId">
-              <el-input v-model="formdata.vendorId"></el-input>
+              <zl-select v-model="formdata.vendorId" :options="vendors"></zl-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -60,7 +60,7 @@
       </zl-table>
       <el-row :gutter="20" justify="center">
         <el-col :span="6">
-          <zl-button type="primary" @click="save(reqForm)">保存</zl-button>
+          <zl-button type="primary" :loading="loading" @click="save(reqForm)">保存</zl-button>
           <zl-button type="primary" @click="toBack(reqForm)">返回</zl-button>
         </el-col>
       </el-row>
@@ -73,6 +73,8 @@ import type { ProductInfo } from './productInfo'
 import { server, zlaxios } from 'lib/zlaxios'
 import { ElMessage, type FormInstance } from 'element-plus'
 import { userStore } from '@/stores/userStore'
+import { queryVendorSelect, vendors } from '../vendor/vendor'
+const loading = ref(false)
 const props = defineProps(['page', 'modData'])
 
 const us = userStore()
@@ -91,6 +93,7 @@ watch(
       Object.assign(formdata, props.modData)
       tabledata.prdId = props.modData.prdId
       zltable.value.query()
+      queryVendorSelect()
     }
   }
 )
@@ -109,6 +112,7 @@ const save = async (formEl: FormInstance | undefined) => {
           delList: delData
         },
         method: 'post',
+        loading: loading,
         success: function () {
           toBack(formEl)
           ElMessage({
