@@ -10,6 +10,18 @@
                 <el-input v-model="formdata.prdId"></el-input>
               </el-form-item>
             </el-col>
+            <el-col :span="11">
+              <el-form-item label="平台商品id" prop="platformPrdId">
+                <el-input v-model="formdata.platformPrdId"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="商品类型" prop="prdType">
+                <zl-dict v-model="formdata.prdType" type="PRD_TYPE"></zl-dict>
+              </el-form-item>
+            </el-col>
           </el-row>
         </el-form>
         <el-row>
@@ -102,7 +114,7 @@ const toDel = () => {
           url: server.shop + '/productInfo/delete',
           params: { prdId: zltable.value.currentRow.prdId },
           method: 'get',
-          success: function (data: any) {
+          success: function () {
             zltable.value.query()
             ElMessage({
               message: '删除成功',

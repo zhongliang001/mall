@@ -121,4 +121,7 @@
 		</where>
 	</delete>
 	
+	<select id="queryForSelect"  parameterType="java.lang.String" resultType="com.zl.mall.common.dto.SelectDto">
+		select sku_id value,sku_name name from product_sku where prd_id = #{prdId, jdbcType=VARCHAR}
+	</select>
 </mapper>

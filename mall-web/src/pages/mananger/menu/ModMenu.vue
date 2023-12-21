@@ -23,7 +23,7 @@
           </el-col>
           <el-col :span="11">
             <el-form-item label="菜单状态" prop="state">
-              <zl-select v-model="formdata.state" type="ONLINE_STATE"></zl-select>
+              <zl-dict v-model="formdata.state" type="ONLINE_STATE"></zl-dict>
             </el-form-item>
           </el-col>
           <el-col :span="11">
@@ -47,7 +47,7 @@
       </el-form>
       <el-row>
         <el-col :span="11" :offset="11">
-          <el-button type="primary" @click="save(reqForm)">保存</el-button>
+          <el-button type="primary" :loading="loading" @click="save(reqForm)">保存</el-button>
           <el-button type="primary" @click="toBack(reqForm)">返回</el-button>
         </el-col>
       </el-row>
@@ -62,6 +62,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 const reqForm = ref<FormInstance>()
 const props = defineProps(['page', 'modData'])
+const loading = ref(false)
 const formdata = reactive({
   menuCnName: '',
   menuName: '',
@@ -124,6 +125,7 @@ const save = async (formEl: FormInstance | undefined) => {
         url: server.base + '/menu/update',
         data: formdata,
         method: 'post',
+        loading: loading,
         success: function (data: any) {
           toBack(formEl)
         },

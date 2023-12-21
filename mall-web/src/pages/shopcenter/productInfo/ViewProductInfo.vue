@@ -18,19 +18,23 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="商品类型" prop="prdType">
-              <zl-select v-model="formdata.prdType" type="PRD_TYPE" :disabled="true"></zl-select>
+              <zl-dict v-model="formdata.prdType" type="PRD_TYPE" :disabled="true"></zl-dict>
             </el-form-item>
           </el-col>
           <el-col :span="11">
             <el-form-item label="商品上架状态" prop="state">
-              <zl-select v-model="formdata.state" type="PRD_STATE" :disabled="true"></zl-select>
+              <zl-dict v-model="formdata.state" type="PRD_STATE" :disabled="true"></zl-dict>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11">
             <el-form-item label="供应商id" prop="vendorId">
-              <el-input v-model="formdata.vendorId" :readonly="true"></el-input>
+              <zl-select
+                v-model="formdata.vendorId"
+                :options="vendors"
+                :readonly="true"
+              ></zl-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -60,6 +64,7 @@ import type { ProductInfo } from './productInfo'
 import { server } from 'lib/zlaxios'
 import { userStore } from '@/stores/userStore'
 import type { FormInstance } from 'element-plus'
+import { queryVendorSelect, vendors } from '../vendor/vendor'
 const props = defineProps(['page', 'modData'])
 
 const us = userStore()
@@ -77,6 +82,7 @@ watch(
       Object.assign(formdata, props.modData)
       tabledata.prdId = props.modData.prdId
       zltable.value.query()
+      queryVendorSelect()
     }
   }
 )

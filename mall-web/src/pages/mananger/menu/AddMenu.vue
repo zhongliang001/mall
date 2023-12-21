@@ -23,7 +23,7 @@
           </el-col>
           <el-col :span="11">
             <el-form-item label="菜单状态" prop="state">
-              <zl-select v-model="formdata.state" type="ONLINE_STATE"></zl-select>
+              <zl-dict v-model="formdata.state" type="ONLINE_STATE"></zl-dict>
             </el-form-item>
           </el-col>
         </el-row>
@@ -47,7 +47,7 @@
       </el-form>
       <el-row>
         <el-col :span="11" :offset="11">
-          <el-button type="primary" @click="add(reqForm)">保存</el-button>
+          <el-button type="primary" :loading="loading" @click="add(reqForm)">保存</el-button>
           <el-button type="primary" @click="toBack(reqForm)">返回</el-button>
         </el-col>
       </el-row>
@@ -63,6 +63,7 @@ import { ElMessage } from 'element-plus'
 const props = defineProps(['page'])
 // emit 获取父组件传来的方法
 const emit = defineEmits(['clickBack'])
+const loading = ref(false)
 const reqForm = ref<FormInstance>()
 type pa = {
   menuId: string | any
@@ -125,6 +126,7 @@ const add = async (formEl: FormInstance | undefined) => {
         url: server.base + '/menu/add',
         data: formdata,
         method: 'post',
+        loading: loading,
         success: function (data: any) {
           toBack(formEl)
         },

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
+import com.zl.mall.common.dto.SelectDto;
 import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
 import com.zl.mall.shopcenter.productinfo.dto.ProductInfoDto;
@@ -59,5 +60,11 @@ public class ProductInfoController {
 	public ResultDto<Integer> updateProduct(@RequestBody ProductInfoDto productInfoDto){
 		int num = productInfoService.updateProduct(productInfoDto);		
 		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_ADD_CODE);
+	}
+	
+	@GetMapping("/queryForSelect")
+	public ResultDto<List<SelectDto>> queryForSelect(@RequestParam(value = "shopId") String shopId) {
+		List<SelectDto> list = productInfoService.queryForSelect(shopId);
+		return ResultUtil.generate(list, TradeCodeDict.SUCCESS_ADD_CODE);
 	}
 }

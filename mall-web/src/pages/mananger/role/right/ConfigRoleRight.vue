@@ -3,7 +3,7 @@
   <zl-select-tree ref="tree" :data="menuActionList" :selData="selData"></zl-select-tree>
   <el-row>
     <el-col :span="11" :offset="11">
-      <el-button type="primary" @click="save()">保存</el-button>
+      <el-button type="primary" :loading="loading" @click="save()">保存</el-button>
       <el-button type="primary" @click="toBack()">返回</el-button>
     </el-col>
   </el-row>
@@ -18,6 +18,7 @@ const props = defineProps(['page', 'data'])
 
 let menuActionList: MenuActionList | any = ref([])
 let selData = ref([])
+const loading = ref(false)
 
 const tree: any = ref(null)
 watch(
@@ -67,6 +68,7 @@ const save = () => {
       roleId: props.data.roleId,
       list: a.value
     },
+    loading: loading,
     success: function (data: any) {
       toBack()
     },

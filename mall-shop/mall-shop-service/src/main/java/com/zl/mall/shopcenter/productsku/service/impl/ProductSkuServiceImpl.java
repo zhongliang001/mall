@@ -17,6 +17,7 @@ import com.zl.mall.base.template.dto.TemplateDto;
 import com.zl.mall.common.constant.TempConstant;
 import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
+import com.zl.mall.common.dto.SelectDto;
 import com.zl.mall.common.utils.ModifyUtil;
 import com.zl.mall.shopcenter.productsku.entity.ProductSkuEntity;
 import com.zl.mall.shopcenter.productsku.mapper.ProductSkuMapper;
@@ -61,7 +62,7 @@ public class ProductSkuServiceImpl implements ProductSkuService {
 	public int update(ProductSkuEntity productSkuEntity) {
 		String skuId = productSkuEntity.getSkuId();
 		if(StringUtils.isNotEmpty(skuId)) {
-			Map<String, Object> map = new HashMap<>();
+			Map<String, Object> map = new HashMap<>(16);
 			map.put("skuId", productSkuEntity.getSkuId());
 			List<ProductSkuEntity> queryList = productSkuMapper.queryList(map);
 			if(queryList.size() >0) {
@@ -85,5 +86,10 @@ public class ProductSkuServiceImpl implements ProductSkuService {
 
 	public int delete(String skuId) {
 		return productSkuMapper.delete(skuId);
+	}
+
+	@Override
+	public List<SelectDto> queryForSelect(String prdId) {
+		return productSkuMapper.queryForSelect(prdId);
 	}
 }

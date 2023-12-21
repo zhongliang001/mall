@@ -41,7 +41,7 @@
       </zl-table>
       <el-row :gutter="20" justify="center">
         <el-col :span="6">
-          <zl-button type="primary" @click="save(reqForm)">保存</zl-button>
+          <zl-button type="primary" :loading="loading" @click="save(reqForm)">保存</zl-button>
           <zl-button type="primary" @click="toBack(reqForm)">返回</zl-button>
         </el-col>
       </el-row>
@@ -56,6 +56,7 @@ import { zlaxios, server } from 'lib/zlaxios'
 const props = defineProps(['data'])
 const formdata: Dict = reactive<Dict>({})
 const reqForm = ref<FormInstance>()
+const loading = ref(false)
 watch(
   () => props.data,
   (newval) => {
@@ -77,6 +78,7 @@ const save = (formEl: FormInstance | undefined) => {
       list: tableData,
       delList: delData
     },
+    loading: loading,
     method: 'post',
     success: function (data: any) {
       toBack(formEl)

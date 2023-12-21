@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import com.zl.mall.common.dto.QueryCondition;
+import com.zl.mall.common.dto.SelectDto;
 import com.zl.mall.shopcenter.productinfo.dto.ProductInfoDto;
 import com.zl.mall.shopcenter.productinfo.entity.ProductInfoEntity;
 /**
@@ -55,4 +56,11 @@ public interface ProductInfoService{
 	 * @return 修改商品信息数量
 	 */
 	public int updateProduct(ProductInfoDto productInfoDto);
+	
+	/**
+	 * 查询商品下拉选
+	 * @param shopId 店铺id
+	 * @return 商品选项
+	 */
+	public List<SelectDto> queryForSelect(String shopId);
 }

@@ -28,7 +28,7 @@
       </el-form>
       <el-row :gutter="20" justify="center">
         <el-col :span="6">
-          <zl-button type="primary" @click="save(reqForm)">保存</zl-button>
+          <zl-button type="primary" :loading="loading" @click="save(reqForm)">保存</zl-button>
           <zl-button type="primary" @click="toBack(reqForm)">返回</zl-button>
         </el-col>
       </el-row>
@@ -43,6 +43,7 @@ import type { Template } from './template'
 
 const formdata: Template = reactive<Template>({})
 const reqForm = ref<FormInstance>()
+const loading = ref(false)
 const rules = reactive<FormRules>({
   name: [{ required: true, message: '请输入模板名称', trigger: 'blur' }],
   temp: [{ required: true, message: '请输入模板', trigger: 'blur' }]
@@ -56,6 +57,7 @@ const save = async (formEl: FormInstance | undefined) => {
         url: server.base + '/template/add',
         data: formdata,
         method: 'post',
+        loading: loading,
         success: function () {
           toBack(formEl)
           ElMessage({

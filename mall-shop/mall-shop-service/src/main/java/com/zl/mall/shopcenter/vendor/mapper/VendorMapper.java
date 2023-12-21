@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.zl.mall.common.dto.SelectDto;
 import com.zl.mall.shopcenter.vendor.entity.VendorEntity;
 /**
  * 
@@ -42,4 +43,11 @@ public interface VendorMapper{
 	 * @return 删除供应商数量
 	 */
 	public int delete(@Param("vendorId") String vendorId );
+
+	/**
+	 * 查询供应商下拉选
+	 * @param shopId 店铺id
+	 * @return 返回供应商列表
+	 */
+	public List<SelectDto> queryForSelect(String shopId);
 }

@@ -32,7 +32,7 @@
 </template>
 <script setup lang="ts">
 import useCurrentInstance from 'lib/useCurrentInstance'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 
 const { proxy } = useCurrentInstance()
@@ -58,6 +58,12 @@ const currentPage = ref(1)
 const total = ref(0)
 const pageSize = ref(5)
 let tableData = ref<any>([])
+
+onMounted(() => {
+  if (!props.showPage) {
+    pageSize.value = 0
+  }
+})
 
 const currentRow = ref()
 

@@ -10,7 +10,7 @@
           <el-input v-model="formdata.nickName"></el-input>
         </el-form-item>
         <el-form-item label="证件类型" prop="certType">
-          <zl-select v-model="formdata.certType" type="CERT_TYPE"></zl-select>
+          <zl-dict v-model="formdata.certType" type="CERT_TYPE"></zl-dict>
         </el-form-item>
         <el-form-item label="证件号" prop="certCode">
           <el-input v-model="formdata.certCode"></el-input>
@@ -19,10 +19,10 @@
           <el-input v-model="formdata.phone"></el-input>
         </el-form-item>
         <el-form-item label="性别" prop="sex">
-          <zl-select v-model="formdata.sex" type="SEX"></zl-select>
+          <zl-dict v-model="formdata.sex" type="SEX"></zl-dict>
         </el-form-item>
       </el-form>
-      <el-button type="primary" @click="doSub(reqForm)">提交</el-button>
+      <el-button type="primary" :loading="loading" @click="doSub(reqForm)">提交</el-button>
       <el-button type="primary" @click="goback">返回</el-button>
     </el-main>
   </el-container>
@@ -34,7 +34,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { zlaxios, server } from 'lib/zlaxios'
 import router from '@/router'
 import { ElMessage } from 'element-plus'
-
+const loading = ref(false)
 let formdata = reactive({
   userId: '',
   userName: '',
@@ -71,6 +71,7 @@ const doSub = async (formEl: FormInstance | undefined) => {
         url: server.user + '/userInfo/add',
         data: formdata,
         method: 'post',
+        loading: loading,
         success: function (data: any) {
           router.push({ name: 'login' })
         },

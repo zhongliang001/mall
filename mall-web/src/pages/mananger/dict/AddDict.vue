@@ -36,7 +36,7 @@
       </zl-table>
       <el-row :gutter="20" justify="center">
         <el-col :span="6">
-          <zl-button type="primary" @click="save(reqForm)">保存</zl-button>
+          <zl-button type="primary" :loading="loading" @click="save(reqForm)">保存</zl-button>
           <zl-button type="primary" @click="toBack(reqForm)">返回</zl-button>
         </el-col>
       </el-row>
@@ -48,6 +48,8 @@ import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { zlaxios, server } from 'lib/zlaxios'
 import { reactive, ref } from 'vue'
 import type { Dict } from './dict'
+
+const loading = ref(false)
 const reqForm = ref<FormInstance>()
 
 const formdata: Dict = reactive<Dict>({})
@@ -70,6 +72,7 @@ const save = async (formEl: FormInstance | undefined) => {
           dictType: formdata.dictType,
           list: tableData
         },
+        loading: loading,
         method: 'post',
         success: function (data: any) {
           toBack(formEl)

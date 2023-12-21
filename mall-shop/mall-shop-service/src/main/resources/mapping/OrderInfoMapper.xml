@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.zl.mall.shopcenter.orderinfo.mapper.OrderInfoMapper">
+	<resultMap id="orderInfo"
+		type="com.zl.mall.shopcenter.orderinfo.entity.OrderInfoEntity">
+		<id column="order_id" jdbcType="VARCHAR" property="orderId" />
+		<result column="prd_id" jdbcType="VARCHAR" property="prdId" />
+		<result column="sku_id" jdbcType="VARCHAR" property="skuId" />
+		<result column="sell_price" jdbcType="DECIMAL"
+			property="sellPrice" />
+		<result column="buyer_id" jdbcType="VARCHAR" property="buyerId" />
+		<result column="purchase_time" jdbcType="VARCHAR"
+			property="purchaseTime" />
+		<result column="plat_order_id" jdbcType="VARCHAR"
+			property="platOrderId" />
+		<result column="vendor_order_id" jdbcType="VARCHAR"
+			property="vendorOrderId" />
+		<result column="sell_postage" jdbcType="DECIMAL"
+			property="sellPostage" />
+		<result column="purchase_postage" jdbcType="DECIMAL"
+			property="purchasePostage" />
+		<result column="sales" jdbcType="INTEGER"
+			property="sales" />
+		<result column="area" jdbcType="VARCHAR" property="area" />
+		<result column="state" jdbcType="CHAR" property="state" />
+		<result column="create_date" jdbcType="VARCHAR"
+			property="createDate" />
+		<result column="created_user_id" jdbcType="VARCHAR"
+			property="createdUserId" />
+		<result column="update_date" jdbcType="VARCHAR"
+			property="updateDate" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+	</resultMap>
+
+	<resultMap id="orderInfoDto"
+		type="com.zl.mall.shopcenter.orderinfo.dto.OrderInfoDto">
+		<id column="order_id" jdbcType="VARCHAR" property="orderId" />
+		<result column="prd_id" jdbcType="VARCHAR" property="prdId" />
+		<result column="sku_id" jdbcType="VARCHAR" property="skuId" />
+		<result column="sell_price" jdbcType="DECIMAL"
+			property="sellPrice" />
+		<result column="buyer_id" jdbcType="VARCHAR" property="buyerId" />
+		<result column="purchase_time" jdbcType="VARCHAR"
+			property="purchaseTime" />
+		<result column="plat_order_id" jdbcType="VARCHAR"
+			property="platOrderId" />
+		<result column="vendor_order_id" jdbcType="VARCHAR"
+			property="vendorOrderId" />
+		<result column="sell_postage" jdbcType="DECIMAL"
+			property="sellPostage" />
+		<result column="purchase_postage" jdbcType="DECIMAL"
+			property="purchasePostage" />
+		<result column="sales" jdbcType="INTEGER"
+			property="sales" />
+		<result column="area" jdbcType="VARCHAR" property="area" />
+		<result column="state" jdbcType="CHAR" property="state" />
+		<result column="create_date" jdbcType="VARCHAR"
+			property="createDate" />
+		<result column="created_user_id" jdbcType="VARCHAR"
+			property="createdUserId" />
+		<result column="update_date" jdbcType="VARCHAR"
+			property="updateDate" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="prd_name" jdbcType="VARCHAR" property="prdName" />
+		<result column="sku_name" jdbcType="VARCHAR" property="skuName" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map"
+		resultMap="orderInfoDto">
+		select *, (select prd_name from product_info pi where pi.prd_id =
+		oi.prd_id) as prd_name, (select sku_name from product_sku ps where ps.sku_id =
+		oi.sku_id) as sku_name from order_info oi
+		<where>
+			<if test="orderId != null and orderId != ''">
+				and order_id=#{orderId, jdbcType=VARCHAR}
+			</if>
+			<if test="prdId != null and prdId != ''">
+				and prd_id=#{prdId, jdbcType=VARCHAR}
+			</if>
+			<if test="skuId != null and skuId != ''">
+				and sku_id=#{skuId, jdbcType=VARCHAR}
+			</if>
+			<if test="sellPrice != null and sellPrice != ''">
+				and sell_price=#{sellPrice, jdbcType=DECIMAL}
+			</if>
+			<if test="buyerId != null and buyerId != ''">
+				and buyer_id=#{buyerId, jdbcType=VARCHAR}
+			</if>
+			<if test="purchaseTime != null and purchaseTime != ''">
+				and purchase_time=#{purchaseTime, jdbcType=VARCHAR}
+			</if>
+			<if test="platOrderId != null and platOrderId != ''">
+				and plat_order_id=#{platOrderId, jdbcType=VARCHAR}
+			</if>
+			<if test="vendorOrderId != null and vendorOrderId != ''">
+				and vendor_order_id=#{vendorOrderId, jdbcType=VARCHAR}
+			</if>
+			<if test="area != null and area != ''">
+				and area=#{area, jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state != ''">
+				and state=#{state, jdbcType=CHAR}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and create_date=#{createDate, jdbcType=VARCHAR}
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				and created_user_id=#{createdUserId, jdbcType=VARCHAR}
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				and update_date=#{updateDate, jdbcType=VARCHAR}
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				and update_user_id=#{updateUserId, jdbcType=VARCHAR}
+			</if>
+			<if test="sellPostage != null and sellPostage != ''">
+				and sell_postage=#{sellPostage, jdbcType=DECIMAL}
+			</if>
+			<if test="purchasePostage != null and purchasePostage != ''">
+				and purchase_postage =#{purchasePostage, jdbcType=DECIMAL}
+			</if>
+			<if test="sales != null and sales != ''">
+				and sales =#{sales, jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add"
+		parameterType="com.zl.mall.shopcenter.orderinfo.entity.OrderInfoEntity">
+		insert into order_info (
+		<trim suffixOverrides=",">
+			order_id,
+			<if test="prdId != null and prdId != ''">
+				prd_id,
+			</if>
+			<if test="skuId != null and skuId != ''">
+				sku_id,
+			</if>
+			<if test="sellPrice != null and sellPrice != ''">
+				sell_price,
+			</if>
+			<if test="buyerId != null and buyerId != ''">
+				buyer_id,
+			</if>
+			<if test="purchaseTime != null and purchaseTime != ''">
+				purchase_time,
+			</if>
+			<if test="platOrderId != null and platOrderId != ''">
+				plat_order_id,
+			</if>
+			<if test="vendorOrderId != null and vendorOrderId != ''">
+				vendor_order_id,
+			</if>
+			<if test="area != null and area != ''">
+				area,
+			</if>
+			<if test="state != null and state != ''">
+				state,
+			</if>
+			<if test="createDate != null and createDate != ''">
+				create_date,
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				created_user_id,
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				update_date,
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				update_user_id,
+			</if>
+			<if test="sellPostage != null and sellPostage != ''">
+				sell_postage,
+			</if>
+			<if test="purchasePostage != null and purchasePostage != ''">
+				purchase_postage,
+			</if>
+			<if test="sales != null and sales != ''">
+				sales,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="orderId != null and orderId != ''">
+				#{orderId, jdbcType=VARCHAR},
+			</if>
+			<if test="prdId != null and prdId != ''">
+				#{prdId, jdbcType=VARCHAR},
+			</if>
+			<if test="skuId != null and skuId != ''">
+				#{skuId, jdbcType=VARCHAR},
+			</if>
+			<if test="sellPrice != null and sellPrice != ''">
+				#{sellPrice, jdbcType=DECIMAL},
+			</if>
+			<if test="buyerId != null and buyerId != ''">
+				#{buyerId, jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseTime != null and purchaseTime != ''">
+				#{purchaseTime, jdbcType=VARCHAR},
+			</if>
+			<if test="platOrderId != null and platOrderId != ''">
+				#{platOrderId, jdbcType=VARCHAR},
+			</if>
+			<if test="vendorOrderId != null and vendorOrderId != ''">
+				#{vendorOrderId, jdbcType=VARCHAR},
+			</if>
+			<if test="area != null and area != ''">
+				#{area, jdbcType=VARCHAR},
+			</if>
+			<if test="state != null and state != ''">
+				#{state, jdbcType=CHAR},
+			</if>
+			<if test="createDate != null and createDate != ''">
+				#{createDate, jdbcType=VARCHAR},
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				#{createdUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				#{updateDate, jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				#{updateUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="sellPostage != null and sellPostage != ''">
+				#{sellPostage, jdbcType=DECIMAL},
+			</if>
+			<if test="purchasePostage != null and purchasePostage != ''">
+				#{purchasePostage, jdbcType=DECIMAL},
+			</if>
+			<if test="sales != null and sales != ''">
+				#{sales, jdbcType=INTEGER},
+			</if>
+		</trim>
+		)
+	</insert>
+	<update id="update"
+		parameterType="com.zl.mall.shopcenter.orderinfo.entity.OrderInfoEntity">
+		update order_info set
+		<trim suffixOverrides=",">
+			<if test="prdId != null and prdId != ''">
+				prd_id=#{prdId, jdbcType=VARCHAR},
+			</if>
+			<if test="skuId != null and skuId != ''">
+				sku_id=#{skuId, jdbcType=VARCHAR},
+			</if>
+			<if test="sellPrice != null and sellPrice != ''">
+				sell_price=#{sellPrice, jdbcType=DECIMAL},
+			</if>
+			<if test="buyerId != null and buyerId != ''">
+				buyer_id=#{buyerId, jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseTime != null and purchaseTime != ''">
+				purchase_time=#{purchaseTime, jdbcType=VARCHAR},
+			</if>
+			<if test="platOrderId != null and platOrderId != ''">
+				plat_order_id=#{platOrderId, jdbcType=VARCHAR},
+			</if>
+			<if test="vendorOrderId != null and vendorOrderId != ''">
+				vendor_order_id=#{vendorOrderId, jdbcType=VARCHAR},
+			</if>
+			<if test="area != null and area != ''">
+				area=#{area, jdbcType=VARCHAR},
+			</if>
+			<if test="state != null and state != ''">
+				state=#{state, jdbcType=CHAR},
+			</if>
+			<if test="createDate != null and createDate != ''">
+				create_date=#{createDate, jdbcType=VARCHAR},
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				created_user_id=#{createdUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				update_date=#{updateDate, jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				update_user_id=#{updateUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="sellPostage != null and sellPostage != ''">
+				sell_postage=#{sellPostage, jdbcType=DECIMAL},
+			</if>
+			<if test="purchasePostage != null and purchasePostage != ''">
+				purchase_postage =#{purchasePostage, jdbcType=DECIMAL},
+			</if>
+			<if test="sales != null and sales != ''">
+				sales =#{sales, jdbcType=INTEGER},
+			</if>
+		</trim>
+		<where> and order_id=#{orderId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from order_info
+		<where>
+			and order_id=#{orderId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+</mapper>

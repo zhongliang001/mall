@@ -7,7 +7,7 @@
       </div>
       <el-row>
         <el-col :span="11" :offset="11">
-          <el-button type="primary" @click="add()">保存</el-button>
+          <el-button type="primary" :loading="loading" @click="add()">保存</el-button>
           <el-button type="primary" @click="toBack()">返回</el-button>
         </el-col>
       </el-row>
@@ -25,7 +25,7 @@ const props = defineProps(['page', 'modData'])
 let datas: Array<Item> = reactive<Array<Item>>([])
 
 let choosedData: Array<Item> = reactive<Array<Item>>([])
-
+const loading = ref(false)
 watch(
   () => props.page,
   (newVal) => {
@@ -73,6 +73,7 @@ const add = () => {
     url: server.base + '/userRole/config',
     method: 'post',
     data: { userId: props.modData.userId, list: reqData },
+    loading: loading,
     success: function (data: any) {
       toBack()
     },

@@ -10,6 +10,7 @@ import com.zl.mall.base.template.dto.TemplateDto;
 import com.zl.mall.common.constant.TempConstant;
 import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
+import com.zl.mall.common.dto.SelectDto;
 import com.zl.mall.common.utils.DateUtils;
 import com.zl.mall.common.utils.HttpRequestUtil;
 import com.zl.mall.shopcenter.vendor.entity.VendorEntity;
@@ -58,5 +59,10 @@ public class VendorServiceImpl implements VendorService {
 	}
 	public int delete(String vendorId){
 		return vendorMapper.delete(vendorId);
+	}
+
+	@Override
+	public List<SelectDto> queryForSelect(String shopId) {
+		return vendorMapper.queryForSelect(shopId);
 	}
 }

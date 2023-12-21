@@ -159,4 +159,8 @@
 			 and vendor_id=#{vendorId, jdbcType=VARCHAR}
 		</where>
 	</delete>
+	
+	<select id="queryForSelect"  parameterType="java.lang.String" resultType="com.zl.mall.common.dto.SelectDto">
+		select vendor_id value,vendor_name name from vendor where shop_id = #{shopId, jdbcType=VARCHAR}
+	</select>
 </mapper>

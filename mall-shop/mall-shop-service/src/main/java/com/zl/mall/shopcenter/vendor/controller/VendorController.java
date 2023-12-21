@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
+import com.zl.mall.common.dto.SelectDto;
 import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
 import com.zl.mall.shopcenter.vendor.entity.VendorEntity;
@@ -46,5 +47,11 @@ public class VendorController {
 	public ResultDto<Integer> delete(@RequestParam(value = "vendorId") String vendorId){
 		int num = vendorService.delete(vendorId);
 		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_DELETE_CODE);
+	}
+	
+	@GetMapping("/queryForSelect")
+	public ResultDto<List<SelectDto>> queryForSelect(@RequestParam(value = "shopId") String shopId) {
+		List<SelectDto> list = vendorService.queryForSelect(shopId);
+		return ResultUtil.generate(list, TradeCodeDict.SUCCESS_ADD_CODE);
 	}
 }

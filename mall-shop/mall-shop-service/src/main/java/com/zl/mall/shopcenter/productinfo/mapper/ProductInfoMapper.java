@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.zl.mall.common.dto.SelectDto;
 import com.zl.mall.shopcenter.productinfo.entity.ProductInfoEntity;
 /**
  * 
@@ -41,4 +42,12 @@ public interface ProductInfoMapper{
 	* @return 删除商品信息数量
 	*/
 	public int delete(@Param("prdId") String prdId );
+	
+	
+	/**
+	 * 查询商品下拉选
+	 * @param shopId 店铺id
+	 * @return 商品选项
+	 */
+	public List<SelectDto> queryForSelect(@Param("shopId") String shopId);
 }

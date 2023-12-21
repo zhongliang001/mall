@@ -10,7 +10,7 @@
     "build-only": "vite build --mode prod",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/ lib/"
   },
   "dependencies": {
     "axios": "^0.25.0",
