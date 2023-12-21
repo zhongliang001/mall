@@ -16,7 +16,11 @@
             </el-col>
             <el-col :span="11">
               <el-form-item label="商品sku" prop="skuId">
-                <zl-select v-model="formdata.skuId" :options="skus"></zl-select>
+                <zl-select
+                  v-model="formdata.skuId"
+                  :options="skus"
+                  :loading="skuLoading"
+                ></zl-select>
               </el-form-item>
             </el-col>
           </el-row>
@@ -46,13 +50,24 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="16">
-              <el-form-item label="地址" for="area" prop="area">
-                <zl-select-area v-model="formdata.area"></zl-select-area>
+            <el-col :span="11">
+              <el-form-item label="销售邮费" prop="sellPostage">
+                <zl-input-cur v-model="formdata.sellPostage"></zl-input-cur>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="11">
+              <el-form-item label="采购邮费" prop="purchasePostage">
+                <zl-input-cur v-model="formdata.purchasePostage"></zl-input-cur>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
+            <el-col :span="11">
+              <el-form-item label="销售数量" prop="sales">
+                <el-input v-model="formdata.sales" type="number"></el-input>
+              </el-form-item>
+            </el-col>
             <el-col :span="11">
               <el-form-item label="交易时间" prop="purchaseTime">
                 <el-date-picker
@@ -61,6 +76,13 @@
                   format="YYYY-MM-DD HH:mm:ss"
                   value-format="YYYYMMDD HH:mm:ss"
                 ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="16">
+              <el-form-item label="地址" for="area" prop="area">
+                <zl-select-area v-model="formdata.area"></zl-select-area>
               </el-form-item>
             </el-col>
           </el-row>
@@ -79,7 +101,13 @@
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { onMounted, reactive, ref, watch } from 'vue'
 import type { OrderInfo } from './orderInfo'
-import { changeProductInfo, queryProductSelect, skus, prds } from '../productInfo/productInfo'
+import {
+  changeProductInfo,
+  queryProductSelect,
+  skus,
+  prds,
+  skuLoading
+} from '../productInfo/productInfo'
 import { server, zlaxios } from 'lib/zlaxios'
 const loading = ref(false)
 const props = defineProps(['page', 'modData'])

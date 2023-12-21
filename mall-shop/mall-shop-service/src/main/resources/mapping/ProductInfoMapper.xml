@@ -59,6 +59,7 @@
 			<if test="version != null and version != ''">
 				 and version=#{shopId, jdbcType=INTEGER}
 			</if>
+			and state <![CDATA[<>]]> 2
 		</where>
 	</select>
 

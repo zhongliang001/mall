@@ -8,6 +8,9 @@ type OrderInfo = {
   area?: string
   vendorOrderId?: string
   purchaseTime?: string
+  sellPostage?: number
+  purchasePostage?: number
+  sales?: number
 }
 
 export type { OrderInfo }

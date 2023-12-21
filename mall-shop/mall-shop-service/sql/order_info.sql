@@ -14,3 +14,12 @@ create table order_info (
 	update_date varchar(10) comment '修改时间',	
 	update_user_id varchar(32) comment '修改人id'
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COMMENT='订单信息';
+
+ALTER TABLE `shopCenter`.`order_info` 
+ADD COLUMN `purchase_postage` DECIMAL(16,2) NULL COMMENT '采购邮费' AFTER `vendor_order_id`;
+
+ALTER TABLE `shopCenter`.`order_info` 
+ADD COLUMN `sell_postage` DECIMAL(16,2) NULL COMMENT '销售邮费' AFTER `vendor_order_id`;
+
+ALTER TABLE `shopCenter`.`order_info` 
+ADD COLUMN `sales` INT NULL COMMENT '销售数量' AFTER `vendor_order_id`;

@@ -65,6 +65,21 @@ public class OrderInfoEntity implements Serializable{
 	 *
 	 */
 	private String vendorOrderId;
+	
+	/**
+	 * 销售邮费
+	 */
+	private BigDecimal sellPostage;
+	
+	/**
+	 * 采购邮费
+	 */
+	private BigDecimal purchasePostage;
+	
+	/**
+	 * 销售数量
+	 */
+	private Integer sales;
 
 	/**
 	 * 
@@ -191,5 +206,23 @@ public class OrderInfoEntity implements Serializable{
 	}
 	public String getUpdateUserId(){
 		return this.updateUserId;
+	}
+	public BigDecimal getPurchasePostage() {
+		return purchasePostage;
+	}
+	public void setPurchasePostage(BigDecimal purchasePostage) {
+		this.purchasePostage = purchasePostage;
+	}
+	public BigDecimal getSellPostage() {
+		return sellPostage;
+	}
+	public void setSellPostage(BigDecimal sellPostage) {
+		this.sellPostage = sellPostage;
+	}
+	public Integer getSales() {
+		return sales;
+	}
+	public void setSales(Integer sales) {
+		this.sales = sales;
 	}
 }

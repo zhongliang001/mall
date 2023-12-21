@@ -16,6 +16,12 @@
 			property="platOrderId" />
 		<result column="vendor_order_id" jdbcType="VARCHAR"
 			property="vendorOrderId" />
+		<result column="sell_postage" jdbcType="DECIMAL"
+			property="sellPostage" />
+		<result column="purchase_postage" jdbcType="DECIMAL"
+			property="purchasePostage" />
+		<result column="sales" jdbcType="INTEGER"
+			property="sales" />
 		<result column="area" jdbcType="VARCHAR" property="area" />
 		<result column="state" jdbcType="CHAR" property="state" />
 		<result column="create_date" jdbcType="VARCHAR"
@@ -42,6 +48,12 @@
 			property="platOrderId" />
 		<result column="vendor_order_id" jdbcType="VARCHAR"
 			property="vendorOrderId" />
+		<result column="sell_postage" jdbcType="DECIMAL"
+			property="sellPostage" />
+		<result column="purchase_postage" jdbcType="DECIMAL"
+			property="purchasePostage" />
+		<result column="sales" jdbcType="INTEGER"
+			property="sales" />
 		<result column="area" jdbcType="VARCHAR" property="area" />
 		<result column="state" jdbcType="CHAR" property="state" />
 		<result column="create_date" jdbcType="VARCHAR"
@@ -104,6 +116,15 @@
 			<if test="updateUserId != null and updateUserId != ''">
 				and update_user_id=#{updateUserId, jdbcType=VARCHAR}
 			</if>
+			<if test="sellPostage != null and sellPostage != ''">
+				and sell_postage=#{sellPostage, jdbcType=DECIMAL}
+			</if>
+			<if test="purchasePostage != null and purchasePostage != ''">
+				and purchase_postage =#{purchasePostage, jdbcType=DECIMAL}
+			</if>
+			<if test="sales != null and sales != ''">
+				and sales =#{sales, jdbcType=INTEGER}
+			</if>
 		</where>
 	</select>
 
@@ -151,6 +172,15 @@
 			<if test="updateUserId != null and updateUserId != ''">
 				update_user_id,
 			</if>
+			<if test="sellPostage != null and sellPostage != ''">
+				sell_postage,
+			</if>
+			<if test="purchasePostage != null and purchasePostage != ''">
+				purchase_postage,
+			</if>
+			<if test="sales != null and sales != ''">
+				sales,
+			</if>
 		</trim>
 		) values (
 		<trim suffixOverrides=",">
@@ -195,6 +225,15 @@
 			</if>
 			<if test="updateUserId != null and updateUserId != ''">
 				#{updateUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="sellPostage != null and sellPostage != ''">
+				#{sellPostage, jdbcType=DECIMAL},
+			</if>
+			<if test="purchasePostage != null and purchasePostage != ''">
+				#{purchasePostage, jdbcType=DECIMAL},
+			</if>
+			<if test="sales != null and sales != ''">
+				#{sales, jdbcType=INTEGER},
 			</if>
 		</trim>
 		)
@@ -241,6 +280,15 @@
 			</if>
 			<if test="updateUserId != null and updateUserId != ''">
 				update_user_id=#{updateUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="sellPostage != null and sellPostage != ''">
+				sell_postage=#{sellPostage, jdbcType=DECIMAL},
+			</if>
+			<if test="purchasePostage != null and purchasePostage != ''">
+				purchase_postage =#{purchasePostage, jdbcType=DECIMAL},
+			</if>
+			<if test="sales != null and sales != ''">
+				sales =#{sales, jdbcType=INTEGER},
 			</if>
 		</trim>
 		<where> and order_id=#{orderId, jdbcType=VARCHAR}

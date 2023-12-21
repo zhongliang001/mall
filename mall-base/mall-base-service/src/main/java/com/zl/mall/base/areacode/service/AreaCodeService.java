@@ -51,12 +51,14 @@ public interface AreaCodeService{
 	
 	/**
 	 * 查询省份列表
+	 * @param  province 省份编码
 	 * @return 返回省份列表
 	 */
 	public List<SelectDto> queryCtiy(String province);
 	
 	/**
 	 * 查询地区列表
+	 * @param  city 城市编码
 	 * @return 返回地区列表
 	 */
 	public List<SelectDto> queryArea(String city);

@@ -1,11 +1,16 @@
 <template>
-  <el-select v-model="province" @change="changeProvince(province)" :disabled="disabled">
+  <el-select
+    v-model="province"
+    @change="changeProvince(province)"
+    :disabled="disabled"
+    :loading="provineLoading"
+  >
     <el-option v-for="item in provinces" :key="item.name" :label="item.name" :value="item.value" />
   </el-select>
-  <el-select v-model="city" @change="changeCity(city)" :disabled="disabled">
+  <el-select v-model="city" @change="changeCity(city)" :disabled="disabled" :loading="cityLoading">
     <el-option v-for="item in cities" :key="item.name" :label="item.name" :value="item.value" />
   </el-select>
-  <el-select v-model="area" @change="changeArea(area)" :disabled="disabled">
+  <el-select v-model="area" @change="changeArea(area)" :disabled="disabled" :loading="areaLoading">
     <el-option v-for="item in areas" :key="item.name" :label="item.name" :value="item.value" />
   </el-select>
 </template>
@@ -25,6 +30,9 @@ const areas = reactive<Array<Item>>([])
 const province = ref('')
 const city = ref('')
 const area = ref('')
+const provineLoading = ref(false)
+const cityLoading = ref(false)
+const areaLoading = ref(false)
 const emit = defineEmits(['update:modelValue'])
 const initflag = ref(true)
 const aStore = areaStore()
@@ -38,12 +46,18 @@ watch(
       city.value = ''
       area.value = ''
     } else {
-      initflag.value = true
-      area.value = newVal
-      province.value = newVal.substring(0, 2) + '0000'
-      changeProvince(province.value)
-      city.value = newVal.substring(0, 4) + '00'
-      changeCity(city.value)
+      if (initflag.value) {
+        if (newVal === '710000' || newVal === '810000' || newVal === '820000') {
+          province.value = newVal
+          initflag.value = false
+          return
+        }
+        area.value = newVal
+        province.value = newVal.substring(0, 2) + '0000'
+        changeProvince(province.value)
+        city.value = newVal.substring(0, 4) + '00'
+        changeCity(city.value)
+      }
     }
     initflag.value = false
   }
@@ -57,6 +71,7 @@ onMounted(() => {
     zlaxios.request({
       url: server.base + '/areaCode/queryProvince',
       method: 'get',
+      loading: provineLoading,
       success: function (data: any) {
         provinces.length = 0
         provinces.push(...data.data)
@@ -80,18 +95,25 @@ const changeProvince = (value: string | undefined) => {
     emit('update:modelValue', '')
   }
   const areasInStore = aStore.getAreas(value)
-  if (areasInStore) {
+  if (value === '710000' || value === '810000' || value === '820000') {
+    emit('update:modelValue', value)
+    return
+  }
+
+  if (areasInStore && areasInStore.length > 0) {
+    cities.length = 0
     cities.push(...areasInStore)
   } else {
     zlaxios.request({
       url: server.base + '/areaCode/queryCtiy',
       params: { province: value },
       method: 'get',
+      loading: cityLoading,
       success: function (data: any) {
         cities.length = 0
         cities.push(...data.data)
         if (value) {
-          aStore.setAreas(value, cities)
+          aStore.setAreas(value, data.data)
         }
       },
       failed: function (data: any) {
@@ -111,18 +133,20 @@ const changeCity = (value: string | undefined) => {
     emit('update:modelValue', '')
   }
   const areasInStore = aStore.getAreas(value)
-  if (areasInStore) {
+  if (areasInStore && areasInStore.length > 0) {
+    areas.length = 0
     areas.push(...areasInStore)
   } else {
     zlaxios.request({
       url: server.base + '/areaCode/queryArea',
       params: { city: value },
       method: 'get',
+      loading: areaLoading,
       success: function (data: any) {
         areas.length = 0
         areas.push(...data.data)
         if (value) {
-          aStore.setAreas(value, areas)
+          aStore.setAreas(value, data.data)
         }
       },
       failed: function (data: any) {

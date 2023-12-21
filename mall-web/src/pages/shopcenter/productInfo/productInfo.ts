@@ -2,7 +2,7 @@ import type { Item } from '@/components/Item'
 import { userStore } from '@/stores/userStore'
 import { ElMessage } from 'element-plus'
 import { server, zlaxios } from 'lib/zlaxios'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 const us = userStore()
 
 export type ProductInfo = {
@@ -16,6 +16,7 @@ export type ProductInfo = {
 }
 export const skus = reactive<Array<Item>>([])
 export const prds = reactive<Array<Item>>([])
+export const skuLoading = ref(false)
 
 /**
  * 查询产品下拉选
@@ -45,10 +46,12 @@ export const queryProductSelect = () => {
  * @param value 商品id
  */
 export const changeProductInfo = (value: string | undefined) => {
+  skuLoading.value = true
   zlaxios.request({
     url: server.shop + '/productSku/queryForSelect',
     params: { prdId: value },
     method: 'get',
+    loading: skuLoading,
     success: function (data: any) {
       skus.length = 0
       skus.push(...data.data)
