@@ -11,6 +11,11 @@
                   <el-input v-model="formdata.orderId"></el-input>
                 </el-form-item>
               </el-col>
+              <el-col :span="11">
+                <el-form-item label="交易状态" prop="state">
+                  <zl-dict v-model="formdata.state" type="TRANS_STATE"></zl-dict>
+                </el-form-item>
+              </el-col>
             </el-row>
           </el-form>
           <el-row>

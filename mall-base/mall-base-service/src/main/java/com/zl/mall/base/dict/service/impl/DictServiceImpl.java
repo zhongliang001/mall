@@ -8,6 +8,8 @@ import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -39,6 +41,7 @@ public class DictServiceImpl implements DictService {
 		return list;
 	}
 	
+	@CacheEvict(value="dicts",allEntries=true)
 	@Override
 	public int add(DictEntity dictEntity) {
 		String seqno = templateService.getSeqno(TempConstant.DICT_TEMP);
@@ -58,6 +61,7 @@ public class DictServiceImpl implements DictService {
 		return dictMapper.delete(dictId);
 	}
 
+	@Cacheable(cacheNames="dicts")
 	@Override
 	public Map<String, List<Map<String, String>>> queryAll() {
 		Map<String, List<Map<String, String>>> result = new HashMap<>(16);
@@ -78,7 +82,7 @@ public class DictServiceImpl implements DictService {
 		List<DictEntity> list = dictMapper.queryDictTypeList(queryCondition.getCondition());
 		return list;
 	}
-
+	@CacheEvict(value="dicts",allEntries=true)
 	@Override
 	public int modDict(ModDictDto modDictDto) {
 		String dictType = modDictDto.getDictType();

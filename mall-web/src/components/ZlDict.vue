@@ -1,5 +1,5 @@
 <template>
-  <el-select>
+  <el-select clearable>
     <el-option
       v-for="item in dict[type]"
       :key="item.enName"

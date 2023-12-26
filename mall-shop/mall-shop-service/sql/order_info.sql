@@ -23,3 +23,6 @@ ADD COLUMN `sell_postage` DECIMAL(16,2) NULL COMMENT '销售邮费' AFTER `vendo
 
 ALTER TABLE `shopCenter`.`order_info` 
 ADD COLUMN `sales` INT NULL COMMENT '销售数量' AFTER `vendor_order_id`;
+
+ALTER TABLE `shopCenter`.`order_info` 
+ADD COLUMN `vendor_price` DECIMAL(16,2) NULL COMMENT '采购价格' AFTER `vendor_order_id`;

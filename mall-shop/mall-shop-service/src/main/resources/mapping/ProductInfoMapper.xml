@@ -59,8 +59,8 @@
 			<if test="version != null and version != ''">
 				 and version=#{shopId, jdbcType=INTEGER}
 			</if>
-			and state <![CDATA[<>]]> 2
-		</where>
+			and state <![CDATA[<>]]> 2 
+		</where> order by  prd_id desc
 	</select>
 
 	<insert id="add" parameterType="com.zl.mall.shopcenter.productinfo.entity.ProductInfoEntity">
@@ -201,6 +201,6 @@
 	</delete>
 	
 	<select id="queryForSelect"  parameterType="java.lang.String" resultType="com.zl.mall.common.dto.SelectDto">
-		select prd_id value,prd_name name from product_info where shop_id = #{shopId, jdbcType=VARCHAR}
+		select prd_id value,prd_name name from product_info where shop_id = #{shopId, jdbcType=VARCHAR} and state <![CDATA[<>]]> 2
 	</select>
 </mapper>

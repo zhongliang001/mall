@@ -52,6 +52,9 @@ const zlaxios = {
     }
     if (method === undefined || method === 'get') {
       request.get(url, { params: requestInfo.params }).then((reseponse) => {
+        if (requestInfo.loading !== undefined) {
+          requestInfo.loading.value = false
+        }
         if (reseponse.request.status !== 200) {
           if (reseponse.request.status === 401) {
             alert('登录失效，请重新登录')
@@ -72,9 +75,7 @@ const zlaxios = {
             requestInfo.failed(reseponse.data)
           }
         }
-        if (requestInfo.loading !== undefined) {
-          requestInfo.loading.value = false
-        }
+
       })
     } else {
       const token = localStorage.getItem('token')
@@ -82,6 +83,9 @@ const zlaxios = {
         document.cookie = 'token=' + token
       }
       request.post(url, requestInfo.data, requestInfo.config).then((reseponse) => {
+        if (requestInfo.loading !== undefined) {
+          requestInfo.loading.value = false
+        }
         if (reseponse.request.status !== 200) {
           if (reseponse.request.status === 401) {
             alert('登录失效，请重新登录')
@@ -111,9 +115,7 @@ const zlaxios = {
             }
           }
         }
-        if (requestInfo.loading !== undefined) {
-          requestInfo.loading.value = false
-        }
+
       })
     }
   }

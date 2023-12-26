@@ -80,6 +80,11 @@ public class OrderInfoEntity implements Serializable{
 	 * 销售数量
 	 */
 	private Integer sales;
+	
+	/**
+	 * 采购价格
+	 */
+	private BigDecimal vendorPrice;
 
 	/**
 	 * 
@@ -224,5 +229,11 @@ public class OrderInfoEntity implements Serializable{
 	}
 	public void setSales(Integer sales) {
 		this.sales = sales;
+	}
+	public BigDecimal getVendorPrice() {
+		return vendorPrice;
+	}
+	public void setVendorPrice(BigDecimal vendorPrice) {
+		this.vendorPrice = vendorPrice;
 	}
 }

@@ -84,6 +84,18 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="交易状态" prop="state">
+                <zl-dict v-model="formdata.state" type="TRANS_STATE" :disabled="true"></zl-dict>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="采购价格" prop="vendorPrice">
+                <zl-input-cur v-model="formdata.vendorPrice" :readonly="true"></zl-input-cur>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form>
         <el-row :gutter="20" justify="center">
           <el-col :span="6">
