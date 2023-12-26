@@ -45,6 +45,7 @@ watch(
       province.value = ''
       city.value = ''
       area.value = ''
+      initflag.value = true
     } else {
       if (initflag.value) {
         if (newVal === '710000' || newVal === '810000' || newVal === '820000') {
@@ -54,12 +55,15 @@ watch(
         }
         area.value = newVal
         province.value = newVal.substring(0, 2) + '0000'
+        if (province.value === '520000') {
+          province.value = '510000'
+        }
         changeProvince(province.value)
         city.value = newVal.substring(0, 4) + '00'
         changeCity(city.value)
       }
+      initflag.value = false
     }
-    initflag.value = false
   }
 )
 onMounted(() => {

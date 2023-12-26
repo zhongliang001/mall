@@ -11,6 +11,8 @@ type OrderInfo = {
   sellPostage?: number
   purchasePostage?: number
   sales?: number
+  state?: string
+  vendorPrice?: number
 }
 
 export type { OrderInfo }

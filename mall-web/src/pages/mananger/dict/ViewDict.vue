@@ -22,8 +22,8 @@
         </el-col>
       </el-row>
       <zl-table ref="zltable" :url="server.base + '/dict/'" :query-data="formdata">
-        <el-table-column label="字典名" prop="enName" />
-        <el-table-column label="字典代码" prop="cnName" />
+        <el-table-column label="字典名" prop="cnName" />
+        <el-table-column label="字典代码" prop="enName" />
       </zl-table>
       <el-row :gutter="20" justify="center">
         <el-col :span="6">

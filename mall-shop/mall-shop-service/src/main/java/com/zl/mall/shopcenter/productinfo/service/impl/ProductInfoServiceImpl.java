@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -82,7 +84,8 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 		}
 		return productInfoMapper.update(productInfoEntity);
 	}
-
+	
+	@CacheEvict(key="#productInfoDto.productInfo.shopId", value="produsts")
 	public int delete(String prdId) {
 		Map<String, Object> map = new HashMap<>(16);
 		map.put("prdId", prdId);
@@ -102,6 +105,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 		return 0;
 	}
 
+	@CacheEvict(key="#productInfoDto.productInfo.shopId", value="products")
 	@Override
 	@Transactional(rollbackFor = RuntimeException.class)
 	public int addProduct(ProductInfoDto productInfoDto) {
@@ -160,6 +164,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 		return num + update;
 	}
 
+	@Cacheable(key="#shopId", value="products")
 	@Override
 	public List<SelectDto> queryForSelect(String shopId) {
 		return  productInfoMapper.queryForSelect(shopId);

@@ -3,6 +3,7 @@ package com.zl.mall.base.areacode.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -34,14 +35,20 @@ public class AreaCodeServiceImpl implements AreaCodeService {
 	public int delete(){
 		return areaCodeMapper.delete();
 	}
+	
+	@Cacheable(cacheNames="provinces")
 	@Override
 	public List<SelectDto> queryProvince() {
 		return areaCodeMapper.queryProvince();
 	}
+	
+	@Cacheable(key="#province", value="cities")
 	@Override
 	public List<SelectDto> queryCtiy(String province) {
 		return areaCodeMapper.queryCtiy(province);
 	}
+	
+	@Cacheable(key="#city", value="areas")
 	@Override
 	public List<SelectDto> queryArea(String city) {
 		return areaCodeMapper.queryArea(city);

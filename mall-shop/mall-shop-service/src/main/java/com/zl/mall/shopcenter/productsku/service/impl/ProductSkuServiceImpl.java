@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -59,6 +61,7 @@ public class ProductSkuServiceImpl implements ProductSkuService {
 		return 0;
 	}
 
+	@CacheEvict(key="#productSkuEntity.prdId", value="productSkus")
 	public int update(ProductSkuEntity productSkuEntity) {
 		String skuId = productSkuEntity.getSkuId();
 		if(StringUtils.isNotEmpty(skuId)) {
@@ -88,6 +91,7 @@ public class ProductSkuServiceImpl implements ProductSkuService {
 		return productSkuMapper.delete(skuId);
 	}
 
+	@Cacheable(key="#prdId", value="productSkus")
 	@Override
 	public List<SelectDto> queryForSelect(String prdId) {
 		return productSkuMapper.queryForSelect(prdId);

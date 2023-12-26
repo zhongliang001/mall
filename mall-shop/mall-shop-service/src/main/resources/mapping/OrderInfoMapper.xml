@@ -32,6 +32,8 @@
 			property="updateDate" />
 		<result column="update_user_id" jdbcType="VARCHAR"
 			property="updateUserId" />
+		<result column="vendor_price" jdbcType="DECIMAL"
+			property="vendorPrice" />
 	</resultMap>
 
 	<resultMap id="orderInfoDto"
@@ -66,6 +68,8 @@
 			property="updateUserId" />
 		<result column="prd_name" jdbcType="VARCHAR" property="prdName" />
 		<result column="sku_name" jdbcType="VARCHAR" property="skuName" />
+		<result column="vendor_price" jdbcType="DECIMAL"
+			property="vendorPrice" />
 	</resultMap>
 
 	<select id="queryList" parameterType="java.util.Map"
@@ -125,6 +129,9 @@
 			<if test="sales != null and sales != ''">
 				and sales =#{sales, jdbcType=INTEGER}
 			</if>
+			<if test="vendorPrice != null and vendorPrice != ''">
+				and vendor_price =#{vendorPrice, jdbcType=DECIMAL}
+			</if>
 		</where>
 	</select>
 
@@ -181,6 +188,9 @@
 			<if test="sales != null and sales != ''">
 				sales,
 			</if>
+			<if test="vendorPrice != null and vendorPrice != ''">
+				vendor_price,
+			</if>
 		</trim>
 		) values (
 		<trim suffixOverrides=",">
@@ -234,6 +244,9 @@
 			</if>
 			<if test="sales != null and sales != ''">
 				#{sales, jdbcType=INTEGER},
+			</if>
+			<if test="vendorPrice != null and vendorPrice != ''">
+				#{vendorPrice, jdbcType=DECIMAL},
 			</if>
 		</trim>
 		)
@@ -289,6 +302,9 @@
 			</if>
 			<if test="sales != null and sales != ''">
 				sales =#{sales, jdbcType=INTEGER},
+			</if>
+			<if test="vendorPrice != null and vendorPrice != ''">
+				vendor_price = #{vendorPrice, jdbcType=DECIMAL},
 			</if>
 		</trim>
 		<where> and order_id=#{orderId, jdbcType=VARCHAR}
