@@ -6,40 +6,10 @@
         <el-form ref="reqForm" :rules="rules" :model="formdata">
           <el-row>
             <el-col :span="11">
-              <el-form-item label="商品名" prop="prdId">
-                <zl-select
-                  v-model="formdata.prdId"
-                  :options="prds"
-                  @change="change(formdata.prdId)"
-                  :disabled="true"
-                ></zl-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="商品sku" prop="skuId">
-                <zl-select v-model="formdata.skuId" :options="skus" :disabled="true"></zl-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="销售价格" prop="sellPrice">
-                <zl-input-cur v-model="formdata.sellPrice" :readonly="true"></zl-input-cur>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="购买者id" prop="buyerId">
-                <el-input v-model="formdata.buyerId" :readonly="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="11">
               <el-form-item label="平台订单号" prop="platOrderId">
                 <el-input v-model="formdata.platOrderId" :readonly="true"></el-input>
               </el-form-item>
             </el-col>
-
             <el-col :span="11">
               <el-form-item label="采购订单号" prop="vendorOrderId">
                 <el-input v-model="formdata.vendorOrderId" :readonly="true"></el-input>
@@ -48,23 +18,17 @@
           </el-row>
           <el-row>
             <el-col :span="11">
-              <el-form-item label="销售邮费" prop="sellPostage">
-                <zl-input-cur v-model="formdata.sellPostage" :readonly="true"></zl-input-cur>
+              <el-form-item label="购买者id" prop="buyerId">
+                <el-input v-model="formdata.buyerId" :readonly="true"></el-input>
               </el-form-item>
             </el-col>
-
             <el-col :span="11">
-              <el-form-item label="采购邮费" prop="purchasePostage">
-                <zl-input-cur v-model="formdata.purchasePostage" :readonly="true"></zl-input-cur>
+              <el-form-item label="交易状态" prop="state">
+                <zl-dict v-model="formdata.state" type="TRANS_STATE" :disabled="true"></zl-dict>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="11">
-              <el-form-item label="销售数量" prop="sales">
-                <el-input v-model="formdata.sales" type="number" :readonly="true"></el-input>
-              </el-form-item>
-            </el-col>
             <el-col :span="11">
               <el-form-item label="交易时间" prop="purchaseTime">
                 <el-date-picker
@@ -72,7 +36,7 @@
                   type="datetime"
                   format="YYYY-MM-DD HH:mm:ss"
                   value-format="YYYYMMDD HH:mm:ss"
-                  :readonly="true"
+                  :disabled="true"
                 ></el-date-picker>
               </el-form-item>
             </el-col>
@@ -84,19 +48,21 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="交易状态" prop="state">
-                <zl-dict v-model="formdata.state" type="TRANS_STATE" :disabled="true"></zl-dict>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="采购价格" prop="vendorPrice">
-                <zl-input-cur v-model="formdata.vendorPrice" :readonly="true"></zl-input-cur>
-              </el-form-item>
-            </el-col>
-          </el-row>
         </el-form>
+        <zl-table
+          ref="zlPrdTable"
+          :show-page="false"
+          :url="server.shop + '/orderDetail/'"
+          :query-data="tabledata"
+        >
+          <el-table-column label="商品名称" prop="prdName" />
+          <el-table-column label="sku名称" prop="skuName" />
+          <el-table-column label="销售价格" prop="sellPrice" />
+          <el-table-column label="销售邮费" prop="sellPostage" />
+          <el-table-column label="采购价格" prop="vendorPrice" />
+          <el-table-column label="采购邮费" prop="purchasePostage" />
+          <el-table-column label="销售数量" prop="sales" />
+        </zl-table>
         <el-row :gutter="20" justify="center">
           <el-col :span="6">
             <zl-button type="primary" @click="toBack(reqForm)">返回</zl-button>
@@ -110,20 +76,22 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import { onMounted, reactive, ref, watch } from 'vue'
 import type { OrderInfo } from './orderInfo'
-import { changeProductInfo, queryProductSelect, skus, prds } from '../productInfo/productInfo'
+import { queryProductSelect } from '../productInfo/productInfo'
+import { server } from 'lib/zlaxios'
 const props = defineProps(['page', 'modData'])
 const reqForm = ref()
 const formdata = reactive<OrderInfo>({})
 const rules = reactive<FormRules>({})
-
+const tabledata = reactive({ orderId: '' })
+const zlPrdTable: any = ref(null)
 watch(
   () => props.page,
   (newVal) => {
     if (newVal === 'view') {
       Object.assign(formdata, props.modData)
-      let prdId = formdata.prdId
-      if (prdId) {
-        changeProductInfo(prdId)
+      if (formdata.orderId) {
+        tabledata.orderId = formdata.orderId
+        zlPrdTable.value.query()
       }
     }
   }
@@ -141,11 +109,5 @@ const toBack = (formEl: FormInstance | undefined) => {
     return
   }
   formEl.resetFields()
-}
-
-const change = (value: string | undefined) => {
-  alert('hi')
-  formdata.skuId = ''
-  changeProductInfo(value)
 }
 </script>

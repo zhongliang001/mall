@@ -73,13 +73,14 @@
 </template>
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { server, zlaxios } from 'lib/zlaxios'
+import { server } from 'lib/zlaxios'
 import type { OrderInfo } from './orderInfo'
 import AddOrderInfo from './AddOrderInfo.vue'
 import { mod } from '@/components/common'
 import ModOrderInfo from './ModOrderInfo.vue'
 import ViewOrderInfo from './ViewOrderInfo.vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
+import { deleteOrder } from '@/api/shop/order'
 
 const zltable: any = ref(null)
 const formdata = reactive<OrderInfo>({})
@@ -107,28 +108,11 @@ const toDel = () => {
       type: 'warning'
     })
       .then(() => {
-        zlaxios.request({
-          url: server.shop + '/orderInfo/delete',
-          params: { orderId: zltable.value.currentRow.orderId },
-          method: 'get',
-          success: function (data: any) {
-            zltable.value.query()
-            ElMessage({
-              message: '删除成功',
-              grouping: true,
-              type: 'success'
-            })
-          },
-          failed: function (data: any) {
-            ElMessage({
-              message: data.msg,
-              grouping: true,
-              type: 'error'
-            })
-          }
-        })
+        deleteOrder(zltable.value.currentRow.orderId, zltable.value.query)
       })
-      .catch((e) => {})
+      .catch((e) => {
+        console.log(e)
+      })
   } else {
     ElMessageBox.alert('请选择一笔数据', '错误信息', {
       confirmButtonText: '确认'

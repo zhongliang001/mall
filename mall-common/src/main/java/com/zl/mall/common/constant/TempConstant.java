@@ -32,5 +32,7 @@ public class TempConstant {
 	public static final String HIS_TEMP = "HIS_TEMP";
 	
 	public static final String ORDER_TEMP = "ORDER_TEMP";
+	
+	public static final String ORDER_DETAIL_TEMP = "ORDER_DETAIL_TEMP";
 
 }

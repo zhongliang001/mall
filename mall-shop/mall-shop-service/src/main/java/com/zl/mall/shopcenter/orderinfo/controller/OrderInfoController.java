@@ -14,7 +14,7 @@ import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.common.dto.TradeCodeDict;
 import com.zl.mall.common.utils.ResultUtil;
-import com.zl.mall.shopcenter.orderinfo.dto.OrderInfoDto;
+import com.zl.mall.shopcenter.orderinfo.dto.OrderDto;
 import com.zl.mall.shopcenter.orderinfo.entity.OrderInfoEntity;
 import com.zl.mall.shopcenter.orderinfo.service.OrderInfoService;
 /**
@@ -28,8 +28,8 @@ public class OrderInfoController {
 	@Autowired
 	private OrderInfoService orderInfoService;
 	@PostMapping("/")
-	public ResultDto<List<OrderInfoDto>> queryList(@RequestBody QueryCondition queryCondition){
-		List<OrderInfoDto> list = orderInfoService.queryList(queryCondition);
+	public ResultDto<List<OrderInfoEntity>> queryList(@RequestBody QueryCondition queryCondition){
+		List<OrderInfoEntity> list = orderInfoService.queryList(queryCondition);
 		return  ResultUtil.generate(list, TradeCodeDict.SUCCESS_QUERRY_CODE);
 	}
 	
@@ -46,6 +46,24 @@ public class OrderInfoController {
 	@GetMapping("/delete")
 	public ResultDto<Integer> delete(@RequestParam(value = "orderId") String orderId){
 		int num = orderInfoService.delete(orderId);
+		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_DELETE_CODE);
+	}
+	
+	@PostMapping("/addOrder")
+	public ResultDto<Integer> addOrder(@RequestBody OrderDto orderDto){
+		int num = orderInfoService.addOrder(orderDto);
+		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_ADD_CODE);
+	}
+	
+	@PostMapping("/updateOrder")
+	public ResultDto<Integer> updateOrder(@RequestBody OrderDto orderDto){
+		int num = orderInfoService.updateOrder(orderDto);
+		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_ADD_CODE);
+	}
+	
+	@GetMapping("/deleteOrder")
+	public ResultDto<Integer> deleteOrder(@RequestParam(value = "orderId") String orderId){
+		int num = orderInfoService.deleteOrder(orderId);
 		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_DELETE_CODE);
 	}
 }

@@ -85,7 +85,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 		return productInfoMapper.update(productInfoEntity);
 	}
 	
-	@CacheEvict(key="#productInfoDto.productInfo.shopId", value="produsts")
+	@CacheEvict(key="#prdId", value="produsts")
 	public int delete(String prdId) {
 		Map<String, Object> map = new HashMap<>(16);
 		map.put("prdId", prdId);

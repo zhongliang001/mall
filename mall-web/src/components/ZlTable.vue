@@ -142,12 +142,18 @@ const clearData = () => {
   tableData.value.length = 0
 }
 
+const push = (data: any) => {
+  tableData.value.push(data)
+}
+
 defineExpose({
   query,
   currentRow,
   getTableData,
   clearData,
-  getDelData
+  getDelData,
+  push,
+  delRow
 })
 </script>
 
