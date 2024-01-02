@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.shopcenter.orderdetail.mapper.OrderDetailMapper">
+	<resultMap id="orderDetail" type="com.zl.mall.shopcenter.orderdetail.entity.OrderDetailEntity">
+		<id column="order_detail_id" jdbcType="VARCHAR" property="orderDetailId" />
+		<result column="order_id" jdbcType="VARCHAR" property="orderId" />
+		<result column="prd_id" jdbcType="VARCHAR" property="prdId" />
+		<result column="sku_id" jdbcType="VARCHAR" property="skuId" />
+		<result column="sell_price" jdbcType="DECIMAL" property="sellPrice" />
+		<result column="sell_postage" jdbcType="DECIMAL" property="sellPostage" />
+		<result column="vendor_price" jdbcType="DECIMAL" property="vendorPrice" />
+		<result column="purchase_postage" jdbcType="DECIMAL" property="purchasePostage" />
+		<result column="sales" jdbcType="INTEGER" property="sales" />
+	</resultMap>
+	<resultMap id="orderDetailDto" type="com.zl.mall.shopcenter.orderdetail.dto.OrderDetailDto">
+		<id column="order_detail_id" jdbcType="VARCHAR" property="orderDetailId" />
+		<result column="order_id" jdbcType="VARCHAR" property="orderId" />
+		<result column="prd_id" jdbcType="VARCHAR" property="prdId" />
+		<result column="sku_id" jdbcType="VARCHAR" property="skuId" />
+		<result column="sell_price" jdbcType="DECIMAL" property="sellPrice" />
+		<result column="sell_postage" jdbcType="DECIMAL" property="sellPostage" />
+		<result column="vendor_price" jdbcType="DECIMAL" property="vendorPrice" />
+		<result column="purchase_postage" jdbcType="DECIMAL" property="purchasePostage" />
+		<result column="sales" jdbcType="INTEGER" property="sales" />	
+		<result column="prd_name" jdbcType="VARCHAR" property="prdName" />
+		<result column="sku_name" jdbcType="VARCHAR" property="skuName" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="orderDetailDto">
+		select * , (select prd_name from product_info pi where pi.prd_id =
+		od.prd_id) as prd_name, (select sku_name from product_sku ps where ps.sku_id =
+		od.sku_id) as sku_name from order_detail od
+		<where>
+			<if test="orderDetailId != null and orderDetailId != ''">
+				 and order_detail_id=#{orderDetailId, jdbcType=VARCHAR}
+			</if>
+			<if test="orderId != null and orderId != ''">
+				 and order_id=#{orderId, jdbcType=VARCHAR}
+			</if>
+			<if test="prdId != null and prdId != ''">
+				 and prd_id=#{skuId, jdbcType=VARCHAR}
+			</if>
+			<if test="skuId != null and skuId != ''">
+				 and sku_id=#{skuId, jdbcType=VARCHAR}
+			</if>
+			<if test="sellPrice != null and sellPrice != ''">
+				 and sell_price=#{sellPrice, jdbcType=DECIMAL}
+			</if>
+			<if test="sellPostage != null and sellPostage != ''">
+				 and sell_postage=#{sellPostage, jdbcType=DECIMAL}
+			</if>
+			<if test="vendorPrice != null and vendorPrice != ''">
+				 and vendor_price=#{vendorPrice, jdbcType=DECIMAL}
+			</if>
+			<if test="purchasePostage != null and purchasePostage != ''">
+				 and purchase_postage=#{purchasePostage, jdbcType=DECIMAL}
+			</if>
+			<if test="sales != null and sales != ''">
+				 and sales=#{sales, jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.shopcenter.orderdetail.entity.OrderDetailEntity">
+		insert into order_detail (
+		<trim suffixOverrides=",">
+			order_detail_id,
+			<if test="orderId != null and orderId != ''">
+				order_id,
+			</if>
+			<if test="prdId != null and prdId != ''">
+				prd_id,
+			</if>
+			<if test="skuId != null and skuId != ''">
+				sku_id,
+			</if>
+			<if test="sellPrice != null and sellPrice != ''">
+				sell_price,
+			</if>
+			<if test="sellPostage != null and sellPostage != ''">
+				sell_postage,
+			</if>
+			<if test="vendorPrice != null and vendorPrice != ''">
+				vendor_price,
+			</if>
+			<if test="purchasePostage != null and purchasePostage != ''">
+				purchase_postage,
+			</if>
+			<if test="sales != null and sales != ''">
+				sales,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="orderDetailId != null and orderDetailId != ''">
+				#{orderDetailId, jdbcType=VARCHAR},
+			</if>
+			<if test="orderId != null and orderId != ''">
+				#{orderId, jdbcType=VARCHAR},
+			</if>
+			<if test="prdId != null and prdId != ''">
+				#{prdId, jdbcType=VARCHAR},
+			</if>
+			<if test="skuId != null and skuId != ''">
+				#{skuId, jdbcType=VARCHAR},
+			</if>
+			<if test="sellPrice != null and sellPrice != ''">
+				#{sellPrice, jdbcType=DECIMAL},
+			</if>
+			<if test="sellPostage != null and sellPostage != ''">
+				#{sellPostage, jdbcType=DECIMAL},
+			</if>
+			<if test="vendorPrice != null and vendorPrice != ''">
+				#{vendorPrice, jdbcType=DECIMAL},
+			</if>
+			<if test="purchasePostage != null and purchasePostage != ''">
+				#{purchasePostage, jdbcType=DECIMAL},
+			</if>
+			<if test="sales != null and sales != ''">
+				#{sales, jdbcType=INTEGER},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.shopcenter.orderdetail.entity.OrderDetailEntity">
+		update order_detail set 
+		<trim suffixOverrides=",">
+			<if test="orderId != null and orderId != ''">
+				order_id=#{orderId, jdbcType=VARCHAR},
+			</if>
+			<if test="prdId != null and prdId != ''">
+				prd_id=#{prdId, jdbcType=VARCHAR},
+			</if>
+			<if test="skuId != null and skuId != ''">
+				sku_id=#{skuId, jdbcType=VARCHAR},
+			</if>
+			<if test="sellPrice != null and sellPrice != ''">
+				sell_price=#{sellPrice, jdbcType=DECIMAL},
+			</if>
+			<if test="sellPostage != null and sellPostage != ''">
+				sell_postage=#{sellPostage, jdbcType=DECIMAL},
+			</if>
+			<if test="vendorPrice != null and vendorPrice != ''">
+				vendor_price=#{vendorPrice, jdbcType=DECIMAL},
+			</if>
+			<if test="purchasePostage != null and purchasePostage != ''">
+				purchase_postage=#{purchasePostage, jdbcType=DECIMAL},
+			</if>
+			<if test="sales != null and sales != ''">
+				sales=#{sales, jdbcType=INTEGER},
+			</if>
+		</trim>
+		<where>
+			 and order_detail_id=#{orderDetailId, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from order_detail 
+			<where>
+			 and order_detail_id=#{orderDetailId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+	
+	<delete id="deleteByOrderId" parameterType="java.lang.String">
+		delete from order_detail 
+			<where>
+			 and order_id=#{orderId, jdbcType=VARCHAR}
+		</where>
+	</delete>
+</mapper>

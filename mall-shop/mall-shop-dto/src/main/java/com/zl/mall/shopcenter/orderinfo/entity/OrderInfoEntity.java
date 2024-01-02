@@ -2,7 +2,6 @@ package com.zl.mall.shopcenter.orderinfo.entity;
 
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 /**
  * 
  * @author coolz
@@ -16,28 +15,7 @@ public class OrderInfoEntity implements Serializable{
 	 *
 	 */
 	private String orderId;
-
-	/**
-	 *
-	 * 产品id
-	 *
-	 */
-	private String prdId;
-
-	/**
-	 *
-	 * 产品sku_id
-	 *
-	 */
-	private String skuId;
-
-	/**
-	 *
-	 * 出售价格
-	 *
-	 */
-	private BigDecimal sellPrice;
-
+	
 	/**
 	 *
 	 * 购买者id
@@ -64,27 +42,8 @@ public class OrderInfoEntity implements Serializable{
 	 * 采购订单号
 	 *
 	 */
-	private String vendorOrderId;
+	private String vendorOrderId;	
 	
-	/**
-	 * 销售邮费
-	 */
-	private BigDecimal sellPostage;
-	
-	/**
-	 * 采购邮费
-	 */
-	private BigDecimal purchasePostage;
-	
-	/**
-	 * 销售数量
-	 */
-	private Integer sales;
-	
-	/**
-	 * 采购价格
-	 */
-	private BigDecimal vendorPrice;
 
 	/**
 	 * 
@@ -134,24 +93,7 @@ public class OrderInfoEntity implements Serializable{
 	public String getOrderId(){
 		return this.orderId;
 	}
-	public  void setPrdId(String prdId){
-		this.prdId = prdId;
-	}
-	public String getPrdId(){
-		return this.prdId;
-	}
-	public  void setSkuId(String skuId){
-		this.skuId = skuId;
-	}
-	public String getSkuId(){
-		return this.skuId;
-	}
-	public  void setSellPrice(BigDecimal sellPrice){
-		this.sellPrice = sellPrice;
-	}
-	public BigDecimal getSellPrice(){
-		return this.sellPrice;
-	}
+	
 	public  void setBuyerId(String buyerId){
 		this.buyerId = buyerId;
 	}
@@ -212,28 +154,5 @@ public class OrderInfoEntity implements Serializable{
 	public String getUpdateUserId(){
 		return this.updateUserId;
 	}
-	public BigDecimal getPurchasePostage() {
-		return purchasePostage;
-	}
-	public void setPurchasePostage(BigDecimal purchasePostage) {
-		this.purchasePostage = purchasePostage;
-	}
-	public BigDecimal getSellPostage() {
-		return sellPostage;
-	}
-	public void setSellPostage(BigDecimal sellPostage) {
-		this.sellPostage = sellPostage;
-	}
-	public Integer getSales() {
-		return sales;
-	}
-	public void setSales(Integer sales) {
-		this.sales = sales;
-	}
-	public BigDecimal getVendorPrice() {
-		return vendorPrice;
-	}
-	public void setVendorPrice(BigDecimal vendorPrice) {
-		this.vendorPrice = vendorPrice;
-	}
+	
 }

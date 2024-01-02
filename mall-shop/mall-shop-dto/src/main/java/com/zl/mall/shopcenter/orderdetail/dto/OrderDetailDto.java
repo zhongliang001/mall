@@ -1,15 +1,15 @@
-package com.zl.mall.shopcenter.orderinfo.dto;
+package com.zl.mall.shopcenter.orderdetail.dto;
 
 
 import java.io.Serializable;
 
-import com.zl.mall.shopcenter.orderinfo.entity.OrderInfoEntity;
+import com.zl.mall.shopcenter.orderdetail.entity.OrderDetailEntity;
 /**
  * 
  * @author coolz
  *
 */
-public class OrderInfoDto extends OrderInfoEntity implements Serializable{
+public class OrderDetailDto extends OrderDetailEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	/**

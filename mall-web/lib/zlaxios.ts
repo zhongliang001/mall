@@ -75,7 +75,6 @@ const zlaxios = {
             requestInfo.failed(reseponse.data)
           }
         }
-
       })
     } else {
       const token = localStorage.getItem('token')
@@ -115,7 +114,6 @@ const zlaxios = {
             }
           }
         }
-
       })
     }
   }
