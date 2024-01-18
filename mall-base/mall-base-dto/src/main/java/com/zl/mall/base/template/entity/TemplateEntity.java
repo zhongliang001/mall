@@ -1,14 +1,13 @@
 package com.zl.mall.base.template.entity;
 
 
-import java.io.Serializable;
-
-import javax.validation.constraints.NotBlank;
-
 import com.zl.mall.common.annotation.Column;
 import com.zl.mall.common.annotation.PrimaryKey;
 import com.zl.mall.common.annotation.Record;
 import com.zl.mall.common.annotation.Table;
+
+import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 /**
  * 
  * @author coolz

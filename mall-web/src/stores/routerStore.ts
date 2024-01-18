@@ -30,10 +30,6 @@ routerMap.set(
   'UserInfo',
   defineAsyncComponent(() => import('../pages/user/UserInfo.vue'))
 )
-routerMap.set(
-  'Test',
-  defineAsyncComponent(() => import('../pages/Test.vue'))
-)
 
 routerMap.set(
   'Template',
@@ -53,6 +49,11 @@ routerMap.set(
 routerMap.set(
   'OrderInfo',
   defineAsyncComponent(() => import('../pages/shopcenter/orderInfo/OrderInfo.vue'))
+)
+
+routerMap.set(
+  'AreaStatistics',
+  defineAsyncComponent(() => import('../pages/shopcenter/areastatistics/AreaStatistics.vue'))
 )
 
 export const routerStore = defineStore('routerStore', () => {

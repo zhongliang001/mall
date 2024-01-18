@@ -1,17 +1,15 @@
 package com.zl.mall.common.utils;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.auth0.jwt.interfaces.Claim;
+import com.zl.mall.user.userauth.entity.UserAuthEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.auth0.jwt.interfaces.Claim;
-import com.zl.mall.user.userauth.entity.UserAuthEntity;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * <p>

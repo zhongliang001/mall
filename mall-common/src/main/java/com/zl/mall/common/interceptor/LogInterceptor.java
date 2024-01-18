@@ -1,18 +1,16 @@
 package com.zl.mall.common.interceptor;
 
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.zl.mall.common.utils.HttpRequestUtil;
+import com.zl.mall.user.userauth.entity.UserAuthEntity;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zl.mall.common.utils.HttpRequestUtil;
-import com.zl.mall.user.userauth.entity.UserAuthEntity;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 /**
  * @author zhongliang

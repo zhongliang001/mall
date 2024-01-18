@@ -1,3 +1,6 @@
 /.project
 /todo.txt
 /query.txt
+/.idea
+mall-parent.iml
+**/target/*

@@ -1,10 +1,5 @@
 package com.zl.mall.shopcenter.orderdetail.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.github.pagehelper.PageHelper;
 import com.zl.mall.base.template.TemplateClient;
 import com.zl.mall.base.template.dto.TemplateDto;
@@ -15,6 +10,11 @@ import com.zl.mall.shopcenter.orderdetail.dto.OrderDetailDto;
 import com.zl.mall.shopcenter.orderdetail.entity.OrderDetailEntity;
 import com.zl.mall.shopcenter.orderdetail.mapper.OrderDetailMapper;
 import com.zl.mall.shopcenter.orderdetail.service.OrderDetailService;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import javax.inject.Inject;
+import java.util.List;
 
 /**
  * 
@@ -23,10 +23,16 @@ import com.zl.mall.shopcenter.orderdetail.service.OrderDetailService;
  */
 @Service
 public class OrderDetailServiceImpl implements OrderDetailService {
-	@Autowired
-	private OrderDetailMapper orderDetailMapper;
-	@Autowired
-	private TemplateClient templateClient;
+	private final OrderDetailMapper orderDetailMapper;
+	private final TemplateClient templateClient;
+
+	@Inject
+	public OrderDetailServiceImpl(OrderDetailMapper orderDetailMapper, TemplateClient templateClient) {
+		Assert.notNull(orderDetailMapper, "orderDetailMapper must not be null!");
+		Assert.notNull(templateClient, "templateClient must not be null!");
+		this.orderDetailMapper = orderDetailMapper;
+		this.templateClient = templateClient;
+	}
 
 	@Override
 	public List<OrderDetailDto> queryList(QueryCondition queryCondition) {
