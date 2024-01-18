@@ -194,10 +194,7 @@
 	</update>
 
 	<delete id="delete" parameterType="java.lang.String">
-		delete from product_info 
-			<where>
-			 and prd_id=#{prdId, jdbcType=VARCHAR}
-		</where>
+		delete from product_info where prd_id=#{prdId, jdbcType=VARCHAR}
 	</delete>
 	
 	<select id="queryForSelect"  parameterType="java.lang.String" resultType="com.zl.mall.common.dto.SelectDto">

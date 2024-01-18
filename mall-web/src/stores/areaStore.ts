@@ -1,8 +1,9 @@
 import type { Item } from '@/components/Item'
 import { defineStore } from 'pinia'
+import { reactive } from 'vue'
 
 export const areaStore = defineStore('areaStore', () => {
-  const areaMap = new Map<string, Array<Item>>()
+  const areaMap = reactive(new Map<string, Array<Item>>())
   const getAreas = (value: string = 'province'): Array<Item> | undefined => {
     return areaMap.get(value)
   }

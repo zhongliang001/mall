@@ -89,7 +89,6 @@ onMounted(() => {
   if (j) {
     const a = window.atob(j)
     const jsa = JSON.parse(a)
-    console.log('被输出值{ jsa }的输出结果是：', jsa)
     us.setUserId(jsa.userId)
     us.setUserName(jsa.username)
     username.value = jsa.username
@@ -109,6 +108,9 @@ const removeTab = (targetName: string) => {
 }
 
 onMounted(() => {
+  if (!token) {
+    return
+  }
   zlaxios.request({
     url: server.base + '/menu/selectMenuByUserId',
     method: 'get',

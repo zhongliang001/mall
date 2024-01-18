@@ -20,6 +20,7 @@ import { server, zlaxios } from 'lib/zlaxios'
 import { onMounted, reactive, ref, watch } from 'vue'
 import type { Item } from './Item'
 import { areaStore } from '@/stores/areaStore'
+import { queryProvince } from '@/components/Area'
 const props = defineProps({
   modelValue: { type: String },
   disabled: { type: Boolean }
@@ -67,29 +68,7 @@ watch(
   }
 )
 onMounted(() => {
-  const areasInStore = aStore.getAreas()
-  if (areasInStore) {
-    provinces.length = 0
-    provinces.push(...areasInStore)
-  } else {
-    zlaxios.request({
-      url: server.base + '/areaCode/queryProvince',
-      method: 'get',
-      loading: provineLoading,
-      success: function (data: any) {
-        provinces.length = 0
-        provinces.push(...data.data)
-        aStore.setAreas('province', provinces)
-      },
-      failed: function (data: any) {
-        ElMessage({
-          message: data.msg,
-          grouping: true,
-          type: 'error'
-        })
-      }
-    })
-  }
+  queryProvince(provinces, provineLoading)
 })
 
 const changeProvince = (value: string | undefined) => {
