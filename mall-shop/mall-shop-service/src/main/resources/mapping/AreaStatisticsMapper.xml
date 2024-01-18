@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.shopcenter.areastatistics.mapper.AreaStatisticsMapper">
+	<resultMap id="areaStatistics" type="com.zl.mall.shopcenter.areastatistics.entity.AreaStatisticsEntity">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="statistics_date" jdbcType="VARCHAR" property="statisticsDate" />
+		<result column="area" jdbcType="VARCHAR" property="area" />
+		<result column="visitors" jdbcType="INTEGER" property="visitors" />
+		<result column="orders" jdbcType="INTEGER" property="orders" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="areaStatistics">
+				select * from area_statistics
+		<where>
+			<if test="id != null and id != ''">
+				 and id=#{id, jdbcType=VARCHAR}
+			</if>
+			<if test="area != null and area != ''">
+				and area=#{area, jdbcType=VARCHAR}
+			</if>
+
+			<if test="statisticsDate != null and statisticsDate != ''">
+				 and statistics_date=#{statisticsDate, jdbcType=VARCHAR}
+			</if>
+			<if test="visitors != null and visitors != ''">
+				 and visitors=#{visitors, jdbcType=INTEGER}
+			</if>
+			<if test="orders != null and orders != ''">
+				 and orders=#{orders, jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.shopcenter.areastatistics.entity.AreaStatisticsEntity">
+		insert into area_statistics (
+		<trim suffixOverrides=",">
+			id,
+			<if test="statisticsDate != null and statisticsDate != ''">
+				statistics_date,
+			</if>
+			<if test="area != null and area != ''">
+				area,
+			</if>
+			<if test="visitors != null and visitors != ''">
+				visitors,
+			</if>
+			<if test="orders != null and orders != ''">
+				orders,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id, jdbcType=VARCHAR},
+			</if>
+			<if test="statisticsDate != null and statisticsDate != ''">
+				#{statisticsDate, jdbcType=VARCHAR},
+			</if>
+			<if test="area != null and area != ''">
+				#{area, jdbcType=VARCHAR},
+			</if>
+			<if test="visitors != null and visitors != ''">
+				#{visitors, jdbcType=INTEGER},
+			</if>
+			<if test="orders != null and orders != ''">
+				#{orders, jdbcType=INTEGER},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.shopcenter.areastatistics.entity.AreaStatisticsEntity">
+		update area_statistics set 
+		<trim suffixOverrides=",">
+			<if test="statisticsDate != null and statisticsDate != ''">
+				statistics_date=#{statisticsDate, jdbcType=VARCHAR},
+			</if>
+			<if test="area != null and area != ''">
+				area=#{area, jdbcType=VARCHAR},
+			</if>
+			<if test="visitors != null and visitors != ''">
+				visitors=#{visitors, jdbcType=INTEGER},
+			</if>
+			<if test="orders != null and orders != ''">
+				orders=#{orders, jdbcType=INTEGER},
+			</if>
+		</trim>
+		<where>
+			 and id=#{id, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from area_statistics where  id=#{id, jdbcType=VARCHAR}
+	</delete>
+</mapper>
