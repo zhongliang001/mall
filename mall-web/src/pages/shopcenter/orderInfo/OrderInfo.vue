@@ -51,8 +51,8 @@
           </el-row>
           <zl-table ref="zltable" :url="server.shop + '/orderInfo/'" :query-data="formdata">
             <el-table-column label="订单编号" prop="orderId" />
-            <el-table-column label="平台订单编号" prop="platOrderId"/>
-              <zl-table-column label="交易状态" prop="state"  type="TRANS_STATE"/>
+            <el-table-column label="平台订单编号" prop="platOrderId" />
+            <zl-table-column label="交易状态" prop="state" type="TRANS_STATE" />
             <el-table-column label="购买者id" prop="buyerId" />
             <el-table-column label="购买时间" prop="purchaseTime" />
           </zl-table>

@@ -42,8 +42,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		}else{
 			PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
 		}
-		List<OrderDetailDto> list = orderDetailMapper.queryList(queryCondition.getCondition());
-		return list;
+		return orderDetailMapper.queryList(queryCondition.getCondition());
 	}
 
 	@Override
