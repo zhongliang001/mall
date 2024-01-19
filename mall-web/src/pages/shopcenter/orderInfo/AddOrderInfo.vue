@@ -113,6 +113,7 @@ watch(
   (newVal) => {
     if (newVal === 'add') {
       queryProductSelect()
+      zlPrdTable.value.clearData()
     }
   }
 )
