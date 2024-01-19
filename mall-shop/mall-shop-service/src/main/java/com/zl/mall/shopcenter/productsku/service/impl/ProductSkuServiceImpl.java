@@ -1,15 +1,5 @@
 package com.zl.mall.shopcenter.productsku.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
-
 import com.github.pagehelper.PageHelper;
 import com.zl.mall.base.historyinfo.HistoryInfoClient;
 import com.zl.mall.base.historyinfo.dto.HistoryInfoDto;
@@ -24,6 +14,15 @@ import com.zl.mall.common.utils.ModifyUtil;
 import com.zl.mall.shopcenter.productsku.entity.ProductSkuEntity;
 import com.zl.mall.shopcenter.productsku.mapper.ProductSkuMapper;
 import com.zl.mall.shopcenter.productsku.service.ProductSkuService;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -42,9 +41,14 @@ public class ProductSkuServiceImpl implements ProductSkuService {
 	private HistoryInfoClient historyInfoClient;
 
 	public List<ProductSkuEntity> queryList(QueryCondition queryCondition) {
-		PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
-		List<ProductSkuEntity> list = productSkuMapper.queryList(queryCondition.getCondition());
-		return list;
+		int size = queryCondition.getPageSize();
+		if (size == 0) {
+			PageHelper.clearPage();
+		}else {
+			PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
+		}
+		return productSkuMapper.queryList(queryCondition.getCondition());
+
 	}
 
 	public int add(ProductSkuEntity productSkuEntity) {
@@ -68,23 +72,27 @@ public class ProductSkuServiceImpl implements ProductSkuService {
 			Map<String, Object> map = new HashMap<>(16);
 			map.put("skuId", productSkuEntity.getSkuId());
 			List<ProductSkuEntity> queryList = productSkuMapper.queryList(map);
-			if(queryList.size() >0) {
+			if(!queryList.isEmpty()) {
 				ProductSkuEntity skuEntity = queryList.get(0);
 				HistoryInfoDto modifyHis = ModifyUtil.getModifyHis(productSkuEntity, skuEntity);
-				List<HistoryInfoEntity> list = modifyHis.getList();
-				if(list.size() ==0) {
-					return 0;
+				if (modifyHis != null) {
+					List<HistoryInfoEntity> list = modifyHis.getList();
+					if(list.isEmpty()) {
+						return 0;
+					}else {
+						historyInfoClient.batchAdd(modifyHis);
+						return productSkuMapper.update(productSkuEntity);
+					}
 				}else {
-					historyInfoClient.batchAdd(modifyHis);
-					return productSkuMapper.update(productSkuEntity);
+					return 0;
 				}
+
 			}else {
 				return 0;
 			}
 		}else {
 			return add(productSkuEntity);
 		}
-		
 	}
 
 	public int delete(String skuId) {
