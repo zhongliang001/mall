@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.shopcenter.chargerecord.mapper.ChargeRecordMapper">
+	<resultMap id="chargeRecord" type="com.zl.mall.shopcenter.chargerecord.entity.ChargeRecordEntity">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="charge_date" jdbcType="VARCHAR" property="chargeDate" />
+		<result column="charge_amt" jdbcType="DECIMAL" property="chargeAmt" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="chargeRecord">
+		select * from charge_record
+		<where>
+			<if test="id != null and id != ''">
+				 and id=#{id, jdbcType=VARCHAR}
+			</if>
+			<if test="chargeDate != null and chargeDate != ''">
+				 and charge_date=#{chargeDate, jdbcType=VARCHAR}
+			</if>
+			<if test="chargeAmt != null and chargeAmt != ''">
+				 and charge_amt=#{chargeAmt, jdbcType=DECIMAL}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.shopcenter.chargerecord.entity.ChargeRecordEntity">
+		insert into charge_record (
+		<trim suffixOverrides=",">
+			id,
+			<if test="chargeDate != null and chargeDate != ''">
+				charge_date,
+			</if>
+			<if test="chargeAmt != null and chargeAmt != ''">
+				charge_amt,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeDate != null and chargeDate != ''">
+				#{chargeDate, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeAmt != null and chargeAmt != ''">
+				#{chargeAmt, jdbcType=DECIMAL},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.shopcenter.chargerecord.entity.ChargeRecordEntity">
+		update charge_record set 
+		<trim suffixOverrides=",">
+			<if test="chargeDate != null and chargeDate != ''">
+				charge_date=#{chargeDate, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeAmt != null and chargeAmt != ''">
+				charge_amt=#{chargeAmt, jdbcType=DECIMAL},
+			</if>
+		</trim>
+		<where>
+			 and id=#{id, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from charge_record where id=#{id, jdbcType=VARCHAR}
+	</delete>
+</mapper>

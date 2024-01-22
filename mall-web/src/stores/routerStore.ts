@@ -56,6 +56,11 @@ routerMap.set(
   defineAsyncComponent(() => import('../pages/shopcenter/areastatistics/AreaStatistics.vue'))
 )
 
+routerMap.set(
+  'ChargeRecord',
+  defineAsyncComponent(() => import('../pages/shopcenter/chargerecord/ChargeRecord.vue'))
+)
+
 export const routerStore = defineStore('routerStore', () => {
   const routerList: Array<ZlRoute> = reactive<Array<ZlRoute>>([])
   const showRouter = ref('welcome')
