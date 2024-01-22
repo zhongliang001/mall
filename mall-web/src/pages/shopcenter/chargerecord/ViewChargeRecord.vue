@@ -1,39 +1,24 @@
 <template>
   <el-container>
-    <el-header>修改地域数据</el-header>
+    <el-header>充值记录详情</el-header>
     <el-main>
       <el-form ref="reqForm" :model="formData">
         <el-row>
           <el-col :span="11">
-            <el-form-item label="日期" prop="statisticsDate">
+            <el-form-item label="充值日期" prop="chargeDate">
               <el-date-picker
-                v-model="formData.statisticsDate"
+                v-model="formData.chargeDate"
                 format="YYYY-MM-DD"
                 value-format="YYYY-MM-DD"
                 :disabled="true"
               ></el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
-            <el-form-item label="地区" prop="area">
-              <zl-select
-                v-model="formData.area"
-                filterable
-                :options="options"
-                :disabled="true"
-              ></zl-select>
-            </el-form-item>
-          </el-col>
         </el-row>
         <el-row>
           <el-col :span="11">
-            <el-form-item label="访客数" prop="visitors">
-              <el-input type="number" v-model="formData.visitors" :readonly="true"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="11">
-            <el-form-item label="订单数量" prop="orders">
-              <el-input type="number" v-model="formData.orders" :readonly="true"></el-input>
+            <el-form-item label="充值金额" prop="chargeDate">
+              <zl-input-cur v-model="formData.chargeAmt" :readonly="true"></zl-input-cur>
             </el-form-item>
           </el-col>
         </el-row>
@@ -46,13 +31,15 @@
     </el-main>
   </el-container>
 </template>
+
 <script setup lang="ts">
 import { reactive, ref, watch } from 'vue'
+import type { ChargeRecord } from '@/pages/shopcenter/chargerecord/ChargeRecord'
+import ZlInputCur from '@/components/ZlInputCur.vue'
 import type { FormInstance } from 'element-plus'
-import { type AreaStatistics, options } from '@/pages/shopcenter/areastatistics/AreaStatistics'
 const props = defineProps(['page', 'modData'])
 const reqForm = ref<FormInstance>()
-const formData = reactive<AreaStatistics>({})
+const formData = reactive<ChargeRecord>({})
 const loading = ref(false)
 
 watch(
@@ -63,7 +50,6 @@ watch(
     }
   }
 )
-
 // emit 获取父组件传来的方法
 const emit = defineEmits(['clickBack'])
 /**
@@ -79,5 +65,3 @@ const toBack = (formEl: FormInstance | undefined) => {
   formEl.resetFields()
 }
 </script>
-
-<style scoped></style>

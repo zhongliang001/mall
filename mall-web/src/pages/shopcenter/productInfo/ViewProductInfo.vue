@@ -33,7 +33,7 @@
               <zl-select
                 v-model="formdata.vendorId"
                 :options="vendors"
-                :readonly="true"
+                :disabled="true"
               ></zl-select>
             </el-form-item>
           </el-col>
@@ -59,7 +59,7 @@
   </el-container>
 </template>
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import type { ProductInfo } from './productInfo'
 import { server } from 'lib/zlaxios'
 import { userStore } from '@/stores/userStore'

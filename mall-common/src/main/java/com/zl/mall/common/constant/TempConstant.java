@@ -35,4 +35,6 @@ public class TempConstant {
 
     public static final String AREA_STAT_TEMP = "AREA_STAT_TEMP";
 
+    public static final String CHARGE_TEMP = "CHARGE_TEMP";
+
 }

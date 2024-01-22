@@ -1,6 +1,6 @@
 <template>
   <el-button
-    v-show="
+    v-if="
       actions || action === '' || action === undefined || pageName === '' || pageName === undefined
     "
     :type="type"
