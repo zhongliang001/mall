@@ -3,7 +3,7 @@
     <el-container>
       <el-header>地区数据统计</el-header>
       <el-main>
-        <el-form ref="reqForm" v-model="formdata">
+        <el-form ref="reqForm" :model="formdata">
           <el-row>
             <el-col :span="11">
               <el-form-item label="地区" prop="area">
