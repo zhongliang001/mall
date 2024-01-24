@@ -16,7 +16,7 @@
         </el-row>
         <el-row>
           <el-col :span="11">
-            <el-form-item label="充值金额" prop="chargeDate">
+            <el-form-item label="充值金额" prop="chargeAmt">
               <zl-input-cur v-model="formData.chargeAmt"></zl-input-cur>
             </el-form-item>
           </el-col>
