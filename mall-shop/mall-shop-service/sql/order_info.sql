@@ -26,3 +26,8 @@ ADD COLUMN `sales` INT NULL COMMENT '销售数量' AFTER `vendor_order_id`;
 
 ALTER TABLE `shopCenter`.`order_info` 
 ADD COLUMN `vendor_price` DECIMAL(16,2) NULL COMMENT '采购价格' AFTER `vendor_order_id`;
+
+ALTER TABLE `shopCenter`.`order_info`
+ADD COLUMN `shop_id` varchar(32) NULL COMMENT '商铺id' AFTER `vendor_order_id`;
+
+update  `shopCenter`.`order_info` set `shop_id` = '20231125000004' where order_id is not null;

@@ -91,12 +91,13 @@ import { queryProductSelect } from '../productInfo/productInfo'
 import { server, zlaxios } from 'lib/zlaxios'
 import OrderDetail from './OrderDetail.vue'
 import closed from './OrderDetail.vue'
-
+import { userStore } from '@/stores/userStore'
+const us = userStore()
 const loading = ref(false)
 const props = defineProps(['page'])
 const reqForm = ref()
 
-const formdata = reactive<OrderInfo>({})
+const formdata = reactive<OrderInfo>({shopId:us.shopId()})
 
 const rules = reactive<FormRules>({
   buyerId: [{ required: true, message: '请输入购买者id', trigger: 'blur' }],

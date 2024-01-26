@@ -97,10 +97,12 @@ import { server } from 'lib/zlaxios'
 import closed from './OrderDetail.vue'
 import OrderDetail from './OrderDetail.vue'
 import { delOrderDetail, updateOrder } from '@/api/shop/order'
+import { userStore } from '@/stores/userStore'
+const us = userStore()
 const loading = ref(false)
 const props = defineProps(['page', 'modData'])
 const reqForm = ref()
-const formdata = reactive<OrderInfo>({})
+const formdata = reactive<OrderInfo>({shopId:us.shopId()})
 const rules = reactive<FormRules>({})
 const dialogTableVisible = ref(false)
 const zlPrdTable: any = ref(null)
