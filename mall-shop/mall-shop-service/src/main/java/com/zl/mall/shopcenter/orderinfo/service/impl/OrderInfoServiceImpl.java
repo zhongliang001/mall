@@ -45,8 +45,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public List<OrderInfoEntity> queryList(QueryCondition queryCondition) {
         PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
-        List<OrderInfoEntity> list = orderInfoMapper.queryList(queryCondition.getCondition());
-        return list;
+        return orderInfoMapper.queryList(queryCondition.getCondition());
     }
 
     @Override
@@ -77,13 +76,11 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public int addOrder(OrderDto orderDto) {
         OrderInfoEntity orderInfo = orderDto.getOrderInfo();
-        int num = 0;
-        num = this.add(orderInfo);
+        int num = this.add(orderInfo);
         String orderId = orderInfo.getOrderId();
         List<OrderDetailEntity> list = orderDto.getOrderDetails();
         if (list != null) {
-            for (int i = 0; i < list.size(); i++) {
-                OrderDetailEntity orderDetailEntity = list.get(i);
+            for (OrderDetailEntity orderDetailEntity : list) {
                 orderDetailEntity.setOrderId(orderId);
                 num += orderDetailService.add(orderDetailEntity);
             }
@@ -94,13 +91,11 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public int updateOrder(OrderDto orderDto) {
         OrderInfoEntity orderInfo = orderDto.getOrderInfo();
-        int num = 0;
-        num = orderInfoMapper.update(orderInfo);
+        int num = orderInfoMapper.update(orderInfo);
         String orderId = orderInfo.getOrderId();
         List<OrderDetailEntity> orderDetails = orderDto.getOrderDetails();
         if (orderDetails != null) {
-            for (int i = 0; i < orderDetails.size(); i++) {
-                OrderDetailEntity orderDetailEntity = orderDetails.get(i);
+            for (OrderDetailEntity orderDetailEntity : orderDetails) {
                 String orderDetailId = orderDetailEntity.getOrderDetailId();
                 if (StringUtils.isNotEmpty(orderDetailId)) {
                     num += orderDetailService.update(orderDetailEntity);
@@ -116,8 +111,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
     @Override
     public int deleteOrder(Map<String, String> map) {
-        int num = 0;
-        num = orderInfoMapper.delete(map);
+        int num = orderInfoMapper.delete(map);
         String orderId = map.get("orderId");
         if (StringUtils.isNotEmpty(orderId)) {
             num += orderDetailService.deleteByOrderId(orderId);
