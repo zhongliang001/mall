@@ -78,11 +78,13 @@ import { onMounted, reactive, ref, watch } from 'vue'
 import type { OrderInfo } from './orderInfo'
 import { queryProductSelect } from '../productInfo/productInfo'
 import { server } from 'lib/zlaxios'
+import { userStore } from '@/stores/userStore'
+const us = userStore()
 const props = defineProps(['page', 'modData'])
 const reqForm = ref()
 const formdata = reactive<OrderInfo>({})
 const rules = reactive<FormRules>({})
-const tabledata = reactive({ orderId: '' })
+const tabledata = reactive({ orderId: '',shopId:us.shopId() })
 const zlPrdTable: any = ref(null)
 watch(
   () => props.page,

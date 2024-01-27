@@ -1,13 +1,11 @@
 package com.zl.mall.shopcenter.orderdetail.mapper;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 import com.zl.mall.shopcenter.orderdetail.dto.OrderDetailDto;
 import com.zl.mall.shopcenter.orderdetail.entity.OrderDetailEntity;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+import java.util.Map;
 /**
  * 
  * @author coolz
@@ -38,15 +36,15 @@ public interface OrderDetailMapper{
 	
 	/**
 	* 删除订单详细信息
-	* @param orderDetailId 订单详细信息
+	* @param map 订单详细信息
 	* @return 删除订单详细信息数量
 	*/
-	public int delete(@Param("orderDetailId") String orderDetailId );
+	public int delete(Map<String, String> map);
 	
 	/**
 	* 依据订单编号删除订单详细信息
-	* @param orderId 订单详细信息
+	* @param map 订单详细信息
 	* @return 删除订单详细信息数量
 	*/
-	public int deleteByOrderId(@Param("orderId") String orderId );
+	public int deleteByOrderId(Map<String, String> map);
 }

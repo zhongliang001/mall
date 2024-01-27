@@ -66,6 +66,7 @@
 			</if>
 			and shop_id = #{shopId, jdbcType=VARCHAR}
 		</where>
+		order by order_id desc
 	</select>
 
 	<insert id="add"

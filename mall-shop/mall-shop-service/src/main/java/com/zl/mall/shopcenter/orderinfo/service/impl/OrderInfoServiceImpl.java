@@ -78,10 +78,12 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         OrderInfoEntity orderInfo = orderDto.getOrderInfo();
         int num = this.add(orderInfo);
         String orderId = orderInfo.getOrderId();
+        String shopId= orderInfo.getShopId();
         List<OrderDetailEntity> list = orderDto.getOrderDetails();
         if (list != null) {
             for (OrderDetailEntity orderDetailEntity : list) {
                 orderDetailEntity.setOrderId(orderId);
+                orderDetailEntity.setShopId(shopId);
                 num += orderDetailService.add(orderDetailEntity);
             }
         }
@@ -114,7 +116,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         int num = orderInfoMapper.delete(map);
         String orderId = map.get("orderId");
         if (StringUtils.isNotEmpty(orderId)) {
-            num += orderDetailService.deleteByOrderId(orderId);
+            num += orderDetailService.deleteByOrderId(map);
         }
         return num;
     }

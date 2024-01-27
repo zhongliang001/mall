@@ -36,7 +36,7 @@ const updateOrder = (
 const delOrderDetail = (orderDetailId: string, succFun: Function) => {
   zlaxios.request({
     url: server.shop + '/orderDetail/delete',
-    params: { orderDetailId: orderDetailId },
+    params: { orderDetailId: orderDetailId, shopId: us.shopId() },
     method: 'get',
     success: function () {
       if (succFun) {

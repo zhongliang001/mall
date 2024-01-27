@@ -106,7 +106,7 @@ const formdata = reactive<OrderInfo>({shopId:us.shopId()})
 const rules = reactive<FormRules>({})
 const dialogTableVisible = ref(false)
 const zlPrdTable: any = ref(null)
-const tabledata = reactive({ orderId: '' })
+const tabledata = reactive({ orderId: '',shopId:us.shopId() })
 watch(
   () => props.page,
   (newVal) => {
