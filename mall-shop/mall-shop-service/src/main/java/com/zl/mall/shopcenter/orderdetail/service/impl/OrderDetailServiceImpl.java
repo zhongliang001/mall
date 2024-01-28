@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -60,14 +61,13 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	}
 
 	@Override
-	public int delete(String orderDetailId) {
-		return orderDetailMapper.delete(orderDetailId);
+	public int delete(Map<String, String> map) {
+		return orderDetailMapper.delete(map);
 	}
 
 	@Override
-	public int deleteByOrderId(String orderId) {
-		// TODO Auto-generated method stub
-		return orderDetailMapper.deleteByOrderId(orderId);
+	public int deleteByOrderId(Map<String, String> map) {
+		return orderDetailMapper.deleteByOrderId(map);
 	}
 
 }

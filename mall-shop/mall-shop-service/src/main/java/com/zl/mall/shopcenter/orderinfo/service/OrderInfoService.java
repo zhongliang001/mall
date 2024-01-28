@@ -1,12 +1,12 @@
 package com.zl.mall.shopcenter.orderinfo.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.shopcenter.orderinfo.dto.OrderDto;
 import com.zl.mall.shopcenter.orderinfo.entity.OrderInfoEntity;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 /**
  * 
  * @author coolz
@@ -19,14 +19,14 @@ public interface OrderInfoService{
 	 * @param queryCondition 查询条件
 	 * @return 返回订单信息列表
 		 */
-	public List<OrderInfoEntity> queryList(QueryCondition queryCondition);
+	List<OrderInfoEntity> queryList(QueryCondition queryCondition);
 	
 	/**
 	 * 新增订单信息
 	 * @param orderInfoEntity 订单信息信息 
 	 * @return 新增订单信息数量
 	 */
-	public int add(OrderInfoEntity orderInfoEntity);
+	int add(OrderInfoEntity orderInfoEntity);
 	
 	
 	/**
@@ -34,33 +34,33 @@ public interface OrderInfoService{
 	 * @param orderInfoEntity 订单信息信息 
 	 * @return 修改订单信息数量
 	 */
-	public int update(OrderInfoEntity orderInfoEntity);
+	int update(OrderInfoEntity orderInfoEntity);
 	
 	/**
 	 * 删除订单信息
-	 * @param orderId 订单信息
+	 * @param map 订单信息
 	 * @return 删除订单信息数量
 	 */
-	public int delete(String orderId);
+	int delete(Map<String, String> map);
 
 	/**
 	 * 新增订单
 	 * @param orderDto 订单详情
 	 * @return 新增记录数
 	 */
-	public int addOrder(OrderDto orderDto);
+	int addOrder(OrderDto orderDto);
 
 	/**
 	 * 修改订单
 	 * @param orderDto 订单详情
 	 * @return 修改记录数
 	 */
-	public int updateOrder(OrderDto orderDto);
+	int updateOrder(OrderDto orderDto);
 
 	/**
 	 * 删除订单信息和订单详情
-	 * @param orderId 订单信息
+	 * @param map 订单信息
 	 * @return 删除订单信息数量
 	 */
-	public int deleteOrder(String orderId);
+	int deleteOrder(Map<String, String> map);
 }

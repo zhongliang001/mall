@@ -6,6 +6,7 @@ type OrderInfo = {
   vendorOrderId?: string
   purchaseTime?: string
   state?: string
+  shopId?         :string
 }
 
 type OrderDetail = {

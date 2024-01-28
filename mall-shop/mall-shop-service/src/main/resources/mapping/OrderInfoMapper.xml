@@ -11,7 +11,9 @@
 		<result column="plat_order_id" jdbcType="VARCHAR"
 			property="platOrderId" />
 		<result column="vendor_order_id" jdbcType="VARCHAR"
-			property="vendorOrderId" />		
+			property="vendorOrderId" />
+		<result column="shop_id" jdbcType="VARCHAR"
+				property="shopId" />
 		<result column="area" jdbcType="VARCHAR" property="area" />
 		<result column="state" jdbcType="CHAR" property="state" />
 		<result column="create_date" jdbcType="VARCHAR"
@@ -61,8 +63,10 @@
 			</if>
 			<if test="updateUserId != null and updateUserId != ''">
 				and update_user_id=#{updateUserId, jdbcType=VARCHAR}
-			</if>			
+			</if>
+			and shop_id = #{shopId, jdbcType=VARCHAR}
 		</where>
+		order by order_id desc
 	</select>
 
 	<insert id="add"
@@ -81,6 +85,9 @@
 			</if>
 			<if test="vendorOrderId != null and vendorOrderId != ''">
 				vendor_order_id,
+			</if>
+			<if test="shopId != null and shopId != ''">
+				shop_id,
 			</if>
 			<if test="area != null and area != ''">
 				area,
@@ -118,6 +125,9 @@
 			</if>
 			<if test="vendorOrderId != null and vendorOrderId != ''">
 				#{vendorOrderId, jdbcType=VARCHAR},
+			</if>
+			<if test="shopId != null and shopId != ''">
+				#{shopId, jdbcType=VARCHAR},
 			</if>
 			<if test="area != null and area != ''">
 				#{area, jdbcType=VARCHAR},
@@ -176,14 +186,13 @@
 				update_user_id=#{updateUserId, jdbcType=VARCHAR},
 			</if>			
 		</trim>
-		<where> and order_id=#{orderId, jdbcType=VARCHAR}
+		<where> and order_id=#{orderId, jdbcType=VARCHAR} and
+			shop_id=#{shopId, jdbcType=VARCHAR}
 		</where>
 	</update>
 
-	<delete id="delete" parameterType="java.lang.String">
+	<delete id="delete"  parameterType="java.util.Map">
 		delete from order_info
-		<where>
-			and order_id=#{orderId, jdbcType=VARCHAR}
-		</where>
+		where order_id=#{orderId, jdbcType=VARCHAR} and shop_id=#{shopId, jdbcType=VARCHAR}
 	</delete>
 </mapper>

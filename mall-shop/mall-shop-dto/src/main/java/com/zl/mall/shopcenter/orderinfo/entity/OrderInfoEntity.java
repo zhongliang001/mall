@@ -42,8 +42,13 @@ public class OrderInfoEntity implements Serializable{
 	 * 采购订单号
 	 *
 	 */
-	private String vendorOrderId;	
-	
+	private String vendorOrderId;
+
+	/**
+	 *
+	 * 商铺id
+	 */
+	private String shopId;
 
 	/**
 	 * 
@@ -153,6 +158,14 @@ public class OrderInfoEntity implements Serializable{
 	}
 	public String getUpdateUserId(){
 		return this.updateUserId;
+	}
+
+	public String getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
 	}
 	
 }

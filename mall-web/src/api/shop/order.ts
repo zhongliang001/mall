@@ -1,7 +1,9 @@
 import { ElMessage, type FormInstance } from 'element-plus'
 import { server, zlaxios } from 'lib/zlaxios'
 import type { Ref } from 'vue'
+import { userStore } from '@/stores/userStore'
 
+const us = userStore()
 const updateOrder = (
   data: any,
   loading: Ref<boolean>,
@@ -34,7 +36,7 @@ const updateOrder = (
 const delOrderDetail = (orderDetailId: string, succFun: Function) => {
   zlaxios.request({
     url: server.shop + '/orderDetail/delete',
-    params: { orderDetailId: orderDetailId },
+    params: { orderDetailId: orderDetailId, shopId: us.shopId() },
     method: 'get',
     success: function () {
       if (succFun) {
@@ -59,7 +61,7 @@ const delOrderDetail = (orderDetailId: string, succFun: Function) => {
 const deleteOrder = (orderId: string, succFun: Function) => {
   zlaxios.request({
     url: server.shop + '/orderInfo/deleteOrder',
-    params: { orderId: orderId },
+    params: { orderId: orderId, shopId: us.shopId() },
     method: 'get',
     success: function () {
       if (succFun) {

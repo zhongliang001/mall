@@ -11,6 +11,7 @@
 		<result column="vendor_price" jdbcType="DECIMAL" property="vendorPrice" />
 		<result column="purchase_postage" jdbcType="DECIMAL" property="purchasePostage" />
 		<result column="sales" jdbcType="INTEGER" property="sales" />
+		<result column="shop_id" jdbcType="VARCHAR" property="shopId" />
 	</resultMap>
 	<resultMap id="orderDetailDto" type="com.zl.mall.shopcenter.orderdetail.dto.OrderDetailDto">
 		<id column="order_detail_id" jdbcType="VARCHAR" property="orderDetailId" />
@@ -24,6 +25,7 @@
 		<result column="sales" jdbcType="INTEGER" property="sales" />	
 		<result column="prd_name" jdbcType="VARCHAR" property="prdName" />
 		<result column="sku_name" jdbcType="VARCHAR" property="skuName" />
+		<result column="shop_id" jdbcType="VARCHAR" property="shopId" />
 	</resultMap>
 
 	<select id="queryList" parameterType="java.util.Map" resultMap="orderDetailDto">
@@ -58,6 +60,7 @@
 			<if test="sales != null and sales != ''">
 				 and sales=#{sales, jdbcType=INTEGER}
 			</if>
+			and shop_id=#{shopId,  jdbcType=VARCHAR}
 		</where>
 	</select>
 
@@ -89,6 +92,9 @@
 			<if test="sales != null and sales != ''">
 				sales,
 			</if>
+			<if test="shopId != null and shopId != ''">
+				shop_id,
+			</if>
 		</trim>
 		) values (
 		<trim suffixOverrides=",">
@@ -118,6 +124,9 @@
 			</if>
 			<if test="sales != null and sales != ''">
 				#{sales, jdbcType=INTEGER},
+			</if>
+			<if test="shopId != null and shopId != ''">
+				#{shopId,jdbcType=VARCHAR}
 			</if>
 		</trim>
 )
@@ -151,21 +160,17 @@
 			</if>
 		</trim>
 		<where>
-			 and order_detail_id=#{orderDetailId, jdbcType=VARCHAR}
+			 and order_detail_id=#{orderDetailId, jdbcType=VARCHAR} and shop_id= #{shopId, jdbcType=VARCHAR}
 		</where>
 	</update>
 
-	<delete id="delete" parameterType="java.lang.String">
+	<delete id="delete" parameterType="java.util.Map">
 		delete from order_detail 
-			<where>
-			 and order_detail_id=#{orderDetailId, jdbcType=VARCHAR}
-		</where>
+			 where  order_detail_id=#{orderDetailId, jdbcType=VARCHAR}  and shop_id= #{shopId, jdbcType=VARCHAR}
+
 	</delete>
 	
 	<delete id="deleteByOrderId" parameterType="java.lang.String">
-		delete from order_detail 
-			<where>
-			 and order_id=#{orderId, jdbcType=VARCHAR}
-		</where>
+		delete from order_detail where order_id=#{orderId, jdbcType=VARCHAR}  and shop_id= #{shopId, jdbcType=VARCHAR}
 	</delete>
 </mapper>

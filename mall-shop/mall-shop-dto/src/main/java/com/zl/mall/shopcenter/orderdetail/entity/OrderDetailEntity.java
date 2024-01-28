@@ -71,6 +71,11 @@ public class OrderDetailEntity implements Serializable{
 	 */
 	private Integer sales;
 
+	/**
+	 * 店铺id
+	 */
+	private String shopId;
+
 	public  void setOrderDetailId(String orderDetailId){
 		this.orderDetailId = orderDetailId;
 	}
@@ -124,5 +129,13 @@ public class OrderDetailEntity implements Serializable{
 	}
 	public Integer getSales(){
 		return this.sales;
+	}
+
+	public String getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
 	}
 }

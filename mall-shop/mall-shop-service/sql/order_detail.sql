@@ -9,3 +9,8 @@ create table order_detail (
 	purchase_postage DECIMAL(16,2) NULL COMMENT '采购邮费',
 	sales INT NULL COMMENT '销售数量' 	
 )ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COMMENT='订单详情';
+
+ALTER TABLE `shopCenter`.`order_detail`
+ADD COLUMN `shop_id` varchar(32) NULL COMMENT '商铺id' AFTER `sales`;
+
+update  `shopCenter`.`order_detail` set `shop_id` = '20231125000004' where order_id is not null;
