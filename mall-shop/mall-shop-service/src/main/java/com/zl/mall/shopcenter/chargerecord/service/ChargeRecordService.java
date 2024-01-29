@@ -5,6 +5,8 @@ import com.zl.mall.shopcenter.chargerecord.entity.ChargeRecordEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+
 /**
  * 
  * @author coolz
@@ -36,8 +38,8 @@ public interface ChargeRecordService{
 	
 	/**
 	 * 删除充值记录
-	 * @param id 充值记录
+	 * @param map 充值记录
 	 * @return 删除充值记录数量
 	 */
-	int delete(String id);
+	int delete(Map<String, String> map);
 }

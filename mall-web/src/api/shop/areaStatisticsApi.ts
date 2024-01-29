@@ -2,6 +2,9 @@ import { server, zlaxios } from '../../../lib/zlaxios'
 import { ElMessage, type FormInstance } from 'element-plus'
 import type { AreaStatistics } from '@/pages/shopcenter/areastatistics/AreaStatistics'
 import type { Ref } from 'vue'
+import { userStore } from '@/stores/userStore'
+
+const us = userStore()
 
 export const addAreaStatistics = (
   data: AreaStatistics,
@@ -68,7 +71,7 @@ export const modAreaStatistics = (
 export const deleteAreaStatistics = (id: string, succFun: Function) => {
   zlaxios.request({
     url: server.shop + '/areaStatistics/delete',
-    params: { id: id },
+    params: { id: id, shopId: us.shopId() },
     method: 'get',
     success: function () {
       if (succFun) {

@@ -9,6 +9,9 @@ const chargeRecord = {
   },
   chargeAmt: {
     type: Number
+  },
+  shopId: {
+    type: String
   }
 }
 

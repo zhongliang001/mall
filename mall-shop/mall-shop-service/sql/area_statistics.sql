@@ -6,3 +6,9 @@ create table shopCenter.area_statistics(
     visitors int comment '访客数',
     orders int comment '订单数'
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COMMENT='地域统计数';
+
+
+ALTER TABLE `shopCenter`.`area_statistics`
+    ADD COLUMN `shop_id` varchar(32) NULL COMMENT '商铺id' AFTER `orders`;
+
+update  `shopCenter`.`area_statistics` set `shop_id` = '20231125000004' where orders is not null;

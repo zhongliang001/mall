@@ -18,6 +18,9 @@ const areaStatistics = {
   },
   orders: {
     type: Number
+  },
+  shopId: {
+    type: String
   }
 }
 export type AreaStatistics = ExtractPropTypes<typeof areaStatistics>
