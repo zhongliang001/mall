@@ -57,8 +57,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 
 	public List<ProductInfoEntity> queryList(QueryCondition queryCondition) {
 		PageHelper.startPage(queryCondition.getPageNum(), queryCondition.getPageSize());
-		List<ProductInfoEntity> list = productInfoMapper.queryList(queryCondition.getCondition());
-		return list;
+		return productInfoMapper.queryList(queryCondition.getCondition());
 	}
 
 	public int add(ProductInfoEntity productInfoEntity) {
@@ -109,7 +108,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 	@Override
 	@Transactional(rollbackFor = RuntimeException.class)
 	public int addProduct(ProductInfoDto productInfoDto) {
-		int resultNum = 0;
+		int resultNum;
 		TemplateDto templateDto = new TemplateDto();
 		templateDto.setName(TempConstant.PRODUCT_TEMP);
 		ResultDto<String> result = templateClient.getSeqno(templateDto);
@@ -128,17 +127,15 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 
 		List<ProductSkuEntity> list = productInfoDto.getList();
 		if (!list.isEmpty()) {
-			for (int i = 0; i < list.size(); i++) {
-				ProductSkuEntity productSkuEntity = list.get(i);
-				productSkuEntity.setPrdId(seqNo);
-				productSkuService.add(productSkuEntity);
-			}
+            for (ProductSkuEntity productSkuEntity : list) {
+                productSkuEntity.setPrdId(seqNo);
+                productSkuService.add(productSkuEntity);
+            }
 		}
 
 		return resultNum;
 	}
 
-	@Transactional(rollbackFor = RuntimeException.class)
 	@Override
 	public int updateProduct(ProductInfoDto productInfoDto) {
 		ProductInfoEntity productInfo = productInfoDto.getProductInfo();

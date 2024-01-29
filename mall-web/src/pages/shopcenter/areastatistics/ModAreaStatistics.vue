@@ -77,7 +77,7 @@ watch(
  */
 const add = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  await formEl.validate((valid, fields) => {
+  await formEl.validate((valid) => {
     if (valid) {
       modAreaStatistics(formData, loading, formEl, toBack)
     }
