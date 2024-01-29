@@ -10,7 +10,10 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 /**
  * 
  * @author coolz
@@ -42,8 +45,11 @@ public class ChargeRecordController {
 		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_UPDATE_CODE);
 	}
 	@GetMapping("/delete")
-	public ResultDto<Integer> delete(@RequestParam(value = "id") String id){
-		int num = chargeRecordService.delete(id);
+	public ResultDto<Integer> delete(@RequestParam(value = "id") String id, @RequestParam(value="shopId") String shopId){
+		Map<String, String> map = new HashMap<>(16);
+		map.put("id", id);
+		map.put("shopId", shopId);
+		int num = chargeRecordService.delete(map);
 		return ResultUtil.generate(num, TradeCodeDict.SUCCESS_DELETE_CODE);
 	}
 }

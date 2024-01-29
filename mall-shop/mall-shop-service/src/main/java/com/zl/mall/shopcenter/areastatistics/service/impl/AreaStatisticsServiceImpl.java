@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author coolz
@@ -47,7 +48,7 @@ public class AreaStatisticsServiceImpl implements AreaStatisticsService {
         return areaStatisticsMapper.update(areaStatisticsEntity);
     }
 
-    public int delete(String id) {
-        return areaStatisticsMapper.delete(id);
+    public int delete(Map<String, String> map) {
+        return areaStatisticsMapper.delete(map);
     }
 }

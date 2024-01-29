@@ -50,9 +50,11 @@ import {
   options
 } from '@/pages/shopcenter/areastatistics/AreaStatistics'
 import { addAreaStatistics } from '@/api/shop/areaStatisticsApi'
+import { userStore } from '@/stores/userStore'
+const us = userStore()
 const props = defineProps(['page'])
 const reqForm = ref<FormInstance>()
-const formData = reactive<AreaStatistics>({})
+const formData = reactive<AreaStatistics>({shopId: us.shopId()})
 const loading = ref(false)
 
 watch(

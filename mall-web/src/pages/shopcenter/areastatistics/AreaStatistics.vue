@@ -78,8 +78,10 @@ import { mod } from '@/components/common'
 import ViewAreaStatistics from '@/pages/shopcenter/areastatistics/ViewAreaStatistics.vue'
 import { ElMessageBox } from 'element-plus'
 import { deleteAreaStatistics } from '@/api/shop/areaStatisticsApi'
+import { userStore } from '@/stores/userStore'
+const us = userStore()
 const reqForm = ref(null)
-const formdata = reactive<AreaStatistics>({})
+const formdata = reactive<AreaStatistics>({shopId: us.shopId()})
 const zltable: any = ref(null)
 const aStore = areaStore()
 const page = ref('query')

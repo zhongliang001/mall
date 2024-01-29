@@ -32,6 +32,11 @@ public class ChargeRecordEntity implements Serializable{
 	 */
 	private BigDecimal chargeAmt;
 
+	/**
+	 *  店铺id
+	 */
+	private String shopId;
+
 	public  void setId(String id){
 		this.id = id;
 	}
@@ -50,4 +55,13 @@ public class ChargeRecordEntity implements Serializable{
 	public BigDecimal getChargeAmt(){
 		return this.chargeAmt;
 	}
+
+	public String getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
+	}
+
 }

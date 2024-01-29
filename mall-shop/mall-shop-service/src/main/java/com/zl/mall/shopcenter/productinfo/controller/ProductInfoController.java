@@ -1,15 +1,5 @@
 package com.zl.mall.shopcenter.productinfo.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.zl.mall.common.dto.QueryCondition;
 import com.zl.mall.common.dto.ResultDto;
 import com.zl.mall.common.dto.SelectDto;
@@ -18,6 +8,10 @@ import com.zl.mall.common.utils.ResultUtil;
 import com.zl.mall.shopcenter.productinfo.dto.ProductInfoDto;
 import com.zl.mall.shopcenter.productinfo.entity.ProductInfoEntity;
 import com.zl.mall.shopcenter.productinfo.service.ProductInfoService;
+import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 /**
  * 
  * @author coolz
@@ -26,8 +20,12 @@ import com.zl.mall.shopcenter.productinfo.service.ProductInfoService;
 @RestController
 @RequestMapping("/productInfo")
 public class ProductInfoController {
-	@Autowired
-	private ProductInfoService productInfoService;
+	private final ProductInfoService productInfoService;
+
+	public ProductInfoController(ProductInfoService productInfoService){
+		Assert.notNull(productInfoService, "ProductInfoService can not be null");
+		this.productInfoService = productInfoService;
+	}
 	@PostMapping("/")
 	public ResultDto<List<ProductInfoEntity>> queryList(@RequestBody QueryCondition queryCondition){
 		List<ProductInfoEntity> list = productInfoService.queryList(queryCondition);

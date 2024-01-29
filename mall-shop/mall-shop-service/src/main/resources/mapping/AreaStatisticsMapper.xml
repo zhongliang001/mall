@@ -7,6 +7,7 @@
 		<result column="area" jdbcType="VARCHAR" property="area" />
 		<result column="visitors" jdbcType="INTEGER" property="visitors" />
 		<result column="orders" jdbcType="INTEGER" property="orders" />
+		<result column="shop_id" jdbcType="VARCHAR" property="shopId"/>
 	</resultMap>
 
 	<select id="queryList" parameterType="java.util.Map" resultMap="areaStatistics">
@@ -28,6 +29,7 @@
 			<if test="orders != null and orders != ''">
 				 and orders=#{orders, jdbcType=INTEGER}
 			</if>
+				and shop_id = #{shopId, jdbcType=VARCHAR}
 		</where>
 	</select>
 
@@ -47,6 +49,9 @@
 			<if test="orders != null and orders != ''">
 				orders,
 			</if>
+			<if test="shopId != null and shopId != ''">
+				shop_id,
+			</if>
 		</trim>
 		) values (
 		<trim suffixOverrides=",">
@@ -64,6 +69,9 @@
 			</if>
 			<if test="orders != null and orders != ''">
 				#{orders, jdbcType=INTEGER},
+			</if>
+			<if test="shopId != null and shopId != ''">
+				#{shopId, jdbcType=VARCHAR},
 			</if>
 		</trim>
 )
@@ -85,11 +93,11 @@
 			</if>
 		</trim>
 		<where>
-			 and id=#{id, jdbcType=VARCHAR}
+			 and id=#{id, jdbcType=VARCHAR} and shop_id =#{shopId, jdbcType=VARCHAR}
 		</where>
 	</update>
 
-	<delete id="delete" parameterType="java.lang.String">
-		delete from area_statistics where  id=#{id, jdbcType=VARCHAR}
+	<delete id="delete" parameterType="java.util.Map">
+		delete from area_statistics where  id=#{id, jdbcType=VARCHAR} and shop_id =#{shopId, jdbcType=VARCHAR}
 	</delete>
 </mapper>

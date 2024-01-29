@@ -5,6 +5,7 @@
 		<id column="id" jdbcType="VARCHAR" property="id" />
 		<result column="charge_date" jdbcType="VARCHAR" property="chargeDate" />
 		<result column="charge_amt" jdbcType="DECIMAL" property="chargeAmt" />
+		<result column="shop_id" jdbcType="VARCHAR" property="shopId" />
 	</resultMap>
 
 	<select id="queryList" parameterType="java.util.Map" resultMap="chargeRecord">
@@ -19,6 +20,7 @@
 			<if test="chargeAmt != null and chargeAmt != ''">
 				 and charge_amt=#{chargeAmt, jdbcType=DECIMAL}
 			</if>
+			and shop_id = #{shopId, jdbcType=VARCHAR}
 		</where>
 	</select>
 
@@ -32,6 +34,9 @@
 			<if test="chargeAmt != null and chargeAmt != ''">
 				charge_amt,
 			</if>
+			<if test="shopId != null and shopId != ''">
+				shop_id,
+			</if>
 		</trim>
 		) values (
 		<trim suffixOverrides=",">
@@ -43,6 +48,9 @@
 			</if>
 			<if test="chargeAmt != null and chargeAmt != ''">
 				#{chargeAmt, jdbcType=DECIMAL},
+			</if>
+			<if test="shopId != null and shopId != ''">
+				#{shopId, jdbcType=VARCHAR},
 			</if>
 		</trim>
 )
@@ -58,11 +66,11 @@
 			</if>
 		</trim>
 		<where>
-			 and id=#{id, jdbcType=VARCHAR}
+			 and id=#{id, jdbcType=VARCHAR} and shop_id =#{shopId, jdbcType=VARCHAR}
 		</where>
 	</update>
 
-	<delete id="delete" parameterType="java.lang.String">
-		delete from charge_record where id=#{id, jdbcType=VARCHAR}
+	<delete id="delete" parameterType="java.util.Map">
+		delete from charge_record where id=#{id, jdbcType=VARCHAR} and shop_id =#{shopId, jdbcType=VARCHAR}
 	</delete>
 </mapper>

@@ -38,9 +38,13 @@ import type { ChargeRecord } from '@/pages/shopcenter/chargerecord/ChargeRecord'
 import ZlInputCur from '@/components/ZlInputCur.vue'
 import type { FormInstance } from 'element-plus'
 import { addChargeRecord } from '@/api/shop/chargeRecordApi'
+import { userStore } from '@/stores/userStore'
+
+const us = userStore()
+
 const props = defineProps(['page'])
 const reqForm = ref<FormInstance>()
-const formData = reactive<ChargeRecord>({})
+const formData = reactive<ChargeRecord>({shopId: us.shopId()})
 const loading = ref(false)
 
 watch(

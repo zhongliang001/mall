@@ -76,9 +76,11 @@ import ModChargeRecord from '@/pages/shopcenter/chargerecord/ModChargeRecord.vue
 import ViewChargeRecord from '@/pages/shopcenter/chargerecord/ViewChargeRecord.vue'
 import { ElMessageBox } from 'element-plus'
 import { deleteChargeRecord } from '@/api/shop/chargeRecordApi'
+import { userStore } from '@/stores/userStore'
+const us = userStore()
 const page = ref('query')
 const reqForm = ref(null)
-const formData = reactive<ChargeRecord>({})
+const formData = reactive<ChargeRecord>({shopId: us.shopId()})
 const zltable: any = ref(null)
 const formatCur = (data: ChargeRecord) => {
   if (!data.chargeAmt) {

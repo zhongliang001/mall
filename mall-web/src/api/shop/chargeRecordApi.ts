@@ -2,7 +2,8 @@ import type { Ref } from 'vue'
 import { ElMessage, type FormInstance } from 'element-plus'
 import { server, zlaxios } from '../../../lib/zlaxios'
 import type { ChargeRecord } from '@/pages/shopcenter/chargerecord/ChargeRecord'
-
+import { userStore } from '@/stores/userStore'
+const us = userStore()
 const addChargeRecord = (
   data: ChargeRecord,
   loading: Ref,
@@ -68,7 +69,7 @@ const updateChargeRecord = (
 const deleteChargeRecord = (id: string, succFun: Function) => {
   zlaxios.request({
     url: server.shop + '/chargeRecord/delete',
-    params: { id: id },
+    params: { id: id, shopId: us.shopId() },
     method: 'get',
     success: function () {
       if (succFun) {

@@ -34,6 +34,8 @@ public class AreaStatisticsEntity implements Serializable {
      */
     private Integer orders;
 
+    private String shopId;
+
     public void setId(String id) {
         this.id = id;
     }
@@ -72,5 +74,14 @@ public class AreaStatisticsEntity implements Serializable {
 
     public Integer getOrders() {
         return this.orders;
+    }
+
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
     }
 }

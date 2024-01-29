@@ -12,8 +12,9 @@ import com.zl.mall.shopcenter.chargerecord.service.ChargeRecordService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import javax.inject.Inject;
 import java.util.List;
+import java.util.Map;
+
 /**
  * 
  * @author coolz
@@ -25,7 +26,6 @@ public class ChargeRecordServiceImpl implements ChargeRecordService {
 
 	private final TemplateClient templateClient;
 
-	@Inject
 	public ChargeRecordServiceImpl(ChargeRecordMapper chargeRecordMapper, TemplateClient templateClient){
 		Assert.notNull(chargeRecordMapper, "ChargeRecordMapper must not be null!");
 		Assert.notNull(templateClient, "TemplateClient must not be null!");
@@ -47,7 +47,7 @@ public class ChargeRecordServiceImpl implements ChargeRecordService {
 	public int update(ChargeRecordEntity chargeRecordEntity){
 		return chargeRecordMapper.update(chargeRecordEntity);
 	}
-	public int delete(String id){
-		return chargeRecordMapper.delete(id);
+	public int delete(Map<String, String> map){
+		return chargeRecordMapper.delete(map);
 	}
 }

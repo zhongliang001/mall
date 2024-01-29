@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { reactive } from 'vue'
+import { type ExtractPropTypes, reactive } from 'vue'
 
 type User = {
   userId: string

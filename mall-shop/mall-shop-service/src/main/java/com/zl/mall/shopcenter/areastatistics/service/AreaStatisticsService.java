@@ -1,11 +1,12 @@
 package com.zl.mall.shopcenter.areastatistics.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
 import com.zl.mall.common.dto.QueryCondition;
-
 import com.zl.mall.shopcenter.areastatistics.entity.AreaStatisticsEntity;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
 /**
  * 
  * @author coolz
@@ -37,8 +38,8 @@ public interface AreaStatisticsService{
 	
 	/**
 	 * 删除订单详细信息
-	 * @param id 订单详细信息
+	 * @param map 订单详细信息
 	 * @return 删除订单详细信息数量
 	 */
-	public int delete(String id);
+	public int delete(Map<String, String> map);
 }
