@@ -1,0 +1,21 @@
+create table ztc_statistics(
+    id varchar(32) not null primary key comment '主键id',
+    prd_id varchar(32) comment '产品id',
+    key_word varchar(60) comment '关键词',
+    stat_date varchar(10) comment '访问日期',
+    potential_idx int comment '潜力指数',
+    impressions int comment '展现量',
+    hits int comment '点击数',
+    cost decimal(5,2) comment '点击花费',
+    collections int comment '收藏数',
+    add_purchases int comment '加购数',
+    shop_collections int comment '店铺收藏数',
+    payments int comment '支付笔数',
+    pay_amt decimal(5,2) comment '支付金额',
+    key_state char(1) comment '关键词状态',
+    shop_id varchar(32) comment '商铺id',
+    create_date varchar(10) comment '创建日期',
+    created_user_id varchar(32) comment '创建人id',
+    update_date varchar(10) comment '修改时间',
+    update_user_id varchar(32) comment '修改人id'
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COMMENT='直通车关键词统计';

@@ -26,6 +26,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,8 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 	private final HistoryInfoClient historyInfoClient;
 
 	private final ProductSkuMapper productSkuMapper;
+
+	@Inject
 	public ProductInfoServiceImpl(ProductInfoMapper productInfoMapper, TemplateClient templateClient,
 								  ProductSkuService productSkuService, HistoryInfoClient historyInfoClient,
 								  ProductSkuMapper productSkuMapper) {
@@ -167,5 +170,16 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 	@Override
 	public List<SelectDto> queryForSelect(String shopId) {
 		return  productInfoMapper.queryForSelect(shopId);
+	}
+
+	@Override
+	public ProductInfoEntity queryProductInfoByName(String prdName) {
+		Map<String, Object> map = new HashMap<>(16);
+		map.put("prdName", prdName);
+		List<ProductInfoEntity> list = productInfoMapper.queryList(map);
+		if(list != null && !list.isEmpty()){
+			return list.get(0);
+		}
+		return null;
 	}
 }
