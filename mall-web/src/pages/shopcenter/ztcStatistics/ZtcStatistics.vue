@@ -85,7 +85,6 @@ const getPrdNameById=(id: string)=>{
 const toAdd=()=>{
   page.value='add'
 }
-const upload = ref<UploadInstance>()
 
 </script>
 

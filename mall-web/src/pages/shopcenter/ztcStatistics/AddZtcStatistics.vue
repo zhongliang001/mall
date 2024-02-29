@@ -13,7 +13,8 @@ let ff=''
 
 const ch = ()=>{
 //  console.log(infile.value?.files)
-  ff = infile.value?.files[0]
+  const fValue:any = infile.value
+  ff = fValue?.files[0]
 
 }
 const infile = ref(null)
