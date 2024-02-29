@@ -63,4 +63,11 @@ public interface ProductInfoService{
 	 * @return 商品选项
 	 */
 	List<SelectDto> queryForSelect(String shopId);
+
+	/**
+	 * 根据产品名查询产品信息
+	 * @param prdName 产品名
+	 * @return 产品信息
+	 */
+	ProductInfoEntity queryProductInfoByName(String prdName);
 }

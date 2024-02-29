@@ -5,12 +5,12 @@
       <el-main>
         <el-form ref="reqForm" :model="formdata">
           <el-row>
-            <el-col :span="11">
-              <el-form-item label="地区" prop="area">
-                <zl-select v-model="formdata.area" filterable :options="options"></zl-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
+          <el-col :span="11">
+            <el-form-item label="地区" prop="area">
+              <zl-select v-model="formdata.area" filterable :options="options"></zl-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
         </el-form>
         <el-row>
           <el-col :span="11" :offset="11">

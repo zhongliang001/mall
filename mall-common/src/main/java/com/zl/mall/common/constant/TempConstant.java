@@ -37,4 +37,6 @@ public class TempConstant {
 
     public static final String CHARGE_TEMP = "CHARGE_TEMP";
 
+    public static final String ZTC_TEMP = "ZTC_TEMP";
+
 }

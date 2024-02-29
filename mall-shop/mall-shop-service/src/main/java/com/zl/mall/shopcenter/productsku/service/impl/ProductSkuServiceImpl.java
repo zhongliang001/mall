@@ -33,13 +33,21 @@ import java.util.Map;
 @Service
 public class ProductSkuServiceImpl implements ProductSkuService {
 	@Autowired
-	private ProductSkuMapper productSkuMapper;
+	private final ProductSkuMapper productSkuMapper;
 
 	@Autowired
-	private TemplateClient templateClient;
+	private final TemplateClient templateClient;
 	
 	@Autowired
-	private HistoryInfoClient historyInfoClient;
+	private final HistoryInfoClient historyInfoClient;
+
+	public ProductSkuServiceImpl(ProductSkuMapper productSkuMapper,TemplateClient templateClient,HistoryInfoClient historyInfoClient){
+		this.productSkuMapper = productSkuMapper;
+		this.templateClient = templateClient;
+		this.historyInfoClient = historyInfoClient;
+ 	}
+
+
 
 	public List<ProductSkuEntity> queryList(QueryCondition queryCondition) {
 		int size = queryCondition.getPageSize();
