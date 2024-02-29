@@ -20,7 +20,7 @@
           </el-form>
           <el-row>
             <el-col :span="11" :offset="11">
-              <zl-query :zltable="zltable" :formRef="ruleFormRef"></zl-query>
+              <zl-query :zltable="zltable"></zl-query>
             </el-col>
           </el-row>
           <el-row>
@@ -84,7 +84,6 @@ import { userStore } from '@/stores/userStore'
 const us = userStore()
 const zltable: any = ref(null)
 const formdata = reactive<OrderInfo>({shopId:us.shopId()})
-const ruleFormRef = reactive({})
 const page = ref('query')
 const toAdd = () => {
   page.value = 'add'

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.mall.shopcenter.ztcstatistics.mapper.ZtcStatisticsMapper">
+	<resultMap id="ztcStatistics" type="com.zl.mall.shopcenter.ztcstatistics.entity.ZtcStatisticsEntity">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="prd_id" jdbcType="VARCHAR" property="prdId" />
+		<result column="key_word" jdbcType="VARCHAR" property="keyWord" />
+		<result column="stat_date" jdbcType="VARCHAR" property="statDate" />
+		<result column="potential_idx" jdbcType="INTEGER" property="potentialIdx" />
+		<result column="impressions" jdbcType="INTEGER" property="impressions" />
+		<result column="hits" jdbcType="INTEGER" property="hits" />
+		<result column="cost" jdbcType="DECIMAL" property="cost" />
+		<result column="collections" jdbcType="INTEGER" property="collections" />
+		<result column="add_purchases" jdbcType="INTEGER" property="addPurchases" />
+		<result column="shop_collections" jdbcType="INTEGER" property="shopCollections" />
+		<result column="payments" jdbcType="INTEGER" property="payments" />
+		<result column="pay_amt" jdbcType="DECIMAL" property="payAmt" />
+		<result column="key_state" jdbcType="CHAR" property="keyState" />
+		<result column="shop_id" jdbcType="VARCHAR" property="shopId" />
+		<result column="create_date" jdbcType="VARCHAR" property="createDate" />
+		<result column="created_user_id" jdbcType="VARCHAR" property="createdUserId" />
+		<result column="update_date" jdbcType="VARCHAR" property="updateDate" />
+		<result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
+	</resultMap>
+
+	<select id="queryList" parameterType="java.util.Map" resultMap="ztcStatistics">
+		select * from ztc_statistics
+		<where>
+			<if test="id != null and id != ''">
+				 and id=#{id, jdbcType=VARCHAR}
+			</if>
+			<if test="prdId != null and prdId != ''">
+				 and prd_id=#{prdId, jdbcType=VARCHAR}
+			</if>
+			<if test="keyWord != null and keyWord != ''">
+				 and key_word=#{keyWord, jdbcType=VARCHAR}
+			</if>
+			<if test="statDate != null and statDate != ''">
+				 and stat_date=#{statDate, jdbcType=VARCHAR}
+			</if>
+			<if test="potentialIdx != null">
+				 and potential_idx=#{potentialIdx, jdbcType=INTEGER}
+			</if>
+			<if test="impressions != null">
+				 and impressions=#{impressions, jdbcType=INTEGER}
+			</if>
+			<if test="hits != null ">
+				 and hits=#{hits, jdbcType=INTEGER}
+			</if>
+			<if test="cost != null and cost != ''">
+				 and cost=#{cost, jdbcType=DECIMAL}
+			</if>
+			<if test="collections != null">
+				 and collections=#{collections, jdbcType=INTEGER}
+			</if>
+			<if test="addPurchases != null">
+				 and add_purchases=#{addPurchases, jdbcType=INTEGER}
+			</if>
+			<if test="shopCollections != null">
+				 and shop_collections=#{shopCollections, jdbcType=INTEGER}
+			</if>
+			<if test="payments != null">
+				 and payments=#{payments, jdbcType=INTEGER}
+			</if>
+			<if test="payAmt != null and payAmt != ''">
+				 and pay_amt=#{payAmt, jdbcType=DECIMAL}
+			</if>
+			<if test="keyState != null and keyState != ''">
+				 and key_state=#{keyState, jdbcType=CHAR}
+			</if>
+			<if test="shopId != null and shopId != ''">
+				 and shop_id=#{shopId, jdbcType=VARCHAR}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				 and create_date=#{createDate, jdbcType=VARCHAR}
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				 and created_user_id=#{createdUserId, jdbcType=VARCHAR}
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				 and update_date=#{updateDate, jdbcType=VARCHAR}
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				 and update_user_id=#{updateUserId, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.zl.mall.shopcenter.ztcstatistics.entity.ZtcStatisticsEntity">
+		insert into ztc_statistics (
+		<trim suffixOverrides=",">
+			id,
+			<if test="prdId != null and prdId != ''">
+				prd_id,
+			</if>
+			<if test="keyWord != null and keyWord != ''">
+				key_word,
+			</if>
+			<if test="statDate != null and statDate != ''">
+				stat_date,
+			</if>
+			<if test="potentialIdx != null">
+				potential_idx,
+			</if>
+			<if test="impressions != null">
+				impressions,
+			</if>
+			<if test="hits != null ">
+				hits,
+			</if>
+			<if test="cost != null and cost != ''">
+				cost,
+			</if>
+			<if test="collections != null">
+				collections,
+			</if>
+			<if test="addPurchases != null">
+				add_purchases,
+			</if>
+			<if test="shopCollections != null">
+				shop_collections,
+			</if>
+			<if test="payments != null">
+				payments,
+			</if>
+			<if test="payAmt != null and payAmt != ''">
+				pay_amt,
+			</if>
+			<if test="keyState != null and keyState != ''">
+				key_state,
+			</if>
+			<if test="shopId != null and shopId != ''">
+				shop_id,
+			</if>
+			<if test="createDate != null and createDate != ''">
+				create_date,
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				created_user_id,
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				update_date,
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				update_user_id,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id, jdbcType=VARCHAR},
+			</if>
+			<if test="prdId != null and prdId != ''">
+				#{prdId, jdbcType=VARCHAR},
+			</if>
+			<if test="keyWord != null and keyWord != ''">
+				#{keyWord, jdbcType=VARCHAR},
+			</if>
+			<if test="statDate != null and statDate != ''">
+				#{statDate, jdbcType=VARCHAR},
+			</if>
+			<if test="potentialIdx != null">
+				#{potentialIdx, jdbcType=INTEGER},
+			</if>
+			<if test="impressions != null">
+				#{impressions, jdbcType=INTEGER},
+			</if>
+			<if test="hits != null ">
+				#{hits, jdbcType=INTEGER},
+			</if>
+			<if test="cost != null and cost != ''">
+				#{cost, jdbcType=DECIMAL},
+			</if>
+			<if test="collections != null">
+				#{collections, jdbcType=INTEGER},
+			</if>
+			<if test="addPurchases != null">
+				#{addPurchases, jdbcType=INTEGER},
+			</if>
+			<if test="shopCollections != null">
+				#{shopCollections, jdbcType=INTEGER},
+			</if>
+			<if test="payments != null">
+				#{payments, jdbcType=INTEGER},
+			</if>
+			<if test="payAmt != null and payAmt != ''">
+				#{payAmt, jdbcType=DECIMAL},
+			</if>
+			<if test="keyState != null and keyState != ''">
+				#{keyState, jdbcType=CHAR},
+			</if>
+			<if test="shopId != null and shopId != ''">
+				#{shopId, jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null and createDate != ''">
+				#{createDate, jdbcType=VARCHAR},
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				#{createdUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				#{updateDate, jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				#{updateUserId, jdbcType=VARCHAR},
+			</if>
+		</trim>
+)
+	</insert>
+	<update id="update" parameterType="com.zl.mall.shopcenter.ztcstatistics.entity.ZtcStatisticsEntity">
+		update ztc_statistics set 
+		<trim suffixOverrides=",">
+			<if test="prdId != null and prdId != ''">
+				prd_id=#{prdId, jdbcType=VARCHAR},
+			</if>
+			<if test="keyWord != null and keyWord != ''">
+				key_word=#{keyWord, jdbcType=VARCHAR},
+			</if>
+			<if test="statDate != null and statDate != ''">
+				stat_date=#{statDate, jdbcType=VARCHAR},
+			</if>
+			<if test="potentialIdx != null">
+				potential_idx=#{potentialIdx, jdbcType=INTEGER},
+			</if>
+			<if test="impressions != null">
+				impressions=#{impressions, jdbcType=INTEGER},
+			</if>
+			<if test="hits != null">
+				hits=#{hits, jdbcType=INTEGER},
+			</if>
+			<if test="cost != null and cost != ''">
+				cost=#{cost, jdbcType=DECIMAL},
+			</if>
+			<if test="collections != null">
+				collections=#{collections, jdbcType=INTEGER},
+			</if>
+			<if test="addPurchases != null">
+				add_purchases=#{addPurchases, jdbcType=INTEGER},
+			</if>
+			<if test="shopCollections != null">
+				shop_collections=#{shopCollections, jdbcType=INTEGER},
+			</if>
+			<if test="payments != null">
+				payments=#{payments, jdbcType=INTEGER},
+			</if>
+			<if test="payAmt != null and payAmt != ''">
+				pay_amt=#{payAmt, jdbcType=DECIMAL},
+			</if>
+			<if test="keyState != null and keyState != ''">
+				key_state=#{keyState, jdbcType=CHAR},
+			</if>
+			<if test="shopId != null and shopId != ''">
+				shop_id=#{shopId, jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null and createDate != ''">
+				create_date=#{createDate, jdbcType=VARCHAR},
+			</if>
+			<if test="createdUserId != null and createdUserId != ''">
+				created_user_id=#{createdUserId, jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				update_date=#{updateDate, jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null and updateUserId != ''">
+				update_user_id=#{updateUserId, jdbcType=VARCHAR},
+			</if>
+		</trim>
+		<where>
+			 and id=#{id, jdbcType=VARCHAR}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from ztc_statistics 
+			where
+			  id=#{id, jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ztc_statistics (
+		id,
+			prd_id,
+			key_word,
+			stat_date,
+			potential_idx,
+			impressions,
+			hits,
+			cost,
+			collections,
+			add_purchases,
+			shop_collections,
+			payments,
+			pay_amt,
+			key_state,
+			shop_id,
+			create_date,
+			created_user_id,
+			update_date,
+			update_user_id
+		) values
+<foreach collection="list" item="item" index="index"
+				 separator=",">            (
+			#{item.id, jdbcType=VARCHAR},
+			#{item.prdId, jdbcType=VARCHAR},
+			#{item.keyWord, jdbcType=VARCHAR},
+			#{item.statDate, jdbcType=VARCHAR},
+			#{item.potentialIdx, jdbcType=INTEGER},
+			#{item.impressions, jdbcType=INTEGER},
+			#{item.hits, jdbcType=INTEGER},
+			#{item.cost, jdbcType=DECIMAL},
+			#{item.collections, jdbcType=INTEGER},
+			#{item.addPurchases, jdbcType=INTEGER},
+			#{item.shopCollections, jdbcType=INTEGER},
+			#{item.payments, jdbcType=INTEGER},
+			#{item.payAmt, jdbcType=DECIMAL},
+			#{item.keyState, jdbcType=CHAR},
+			#{item.shopId, jdbcType=VARCHAR},
+			#{item.createDate, jdbcType=VARCHAR},
+			#{item.createdUserId, jdbcType=VARCHAR},
+			#{item.updateDate, jdbcType=VARCHAR},
+			#{item.updateUserId, jdbcType=VARCHAR}
+			 )
+		</foreach>
+
+	</insert>
+</mapper>
