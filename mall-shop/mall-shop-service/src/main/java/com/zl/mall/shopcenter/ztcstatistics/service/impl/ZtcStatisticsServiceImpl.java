@@ -80,7 +80,7 @@ public class ZtcStatisticsServiceImpl implements ZtcStatisticsService {
 	@Override
 	public int fileUpload(MultipartFile file, String shopId) {
 		long currented = System.currentTimeMillis();
-		String path="/opt/upload/ztc" + currented + ".xlsx";
+		String path="F:/opt/upload/ztc" + currented + ".xlsx";
 		File destination = new File(path);
 		int num = 0;
 		try {
@@ -100,7 +100,7 @@ public class ZtcStatisticsServiceImpl implements ZtcStatisticsService {
 				userId = requestUser.getUserId();
 			}
 			String currentDate = DateUtils.getCurrentDate();
-			for(int i =1; i < lastRowNum; i++){
+			for(int i =1; i <= lastRowNum; i++){
 				XSSFRow row = sheet.getRow(i);
 				short firstCellNum = row.getFirstCellNum();
 				short lastCellNum = row.getLastCellNum();
