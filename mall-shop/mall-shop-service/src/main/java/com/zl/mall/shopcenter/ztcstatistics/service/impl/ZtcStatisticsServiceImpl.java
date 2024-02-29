@@ -80,7 +80,7 @@ public class ZtcStatisticsServiceImpl implements ZtcStatisticsService {
 	@Override
 	public int fileUpload(MultipartFile file, String shopId) {
 		long currented = System.currentTimeMillis();
-		String path="F:\\idea\\upload\\ztc" + currented + ".txt";
+		String path="/opt/upload/ztc" + currented + ".xlsx";
 		File destination = new File(path);
 		int num = 0;
 		try {
