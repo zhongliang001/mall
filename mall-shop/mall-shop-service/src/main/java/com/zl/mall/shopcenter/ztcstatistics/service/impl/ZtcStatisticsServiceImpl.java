@@ -145,7 +145,7 @@ public class ZtcStatisticsServiceImpl implements ZtcStatisticsService {
 					entity.setPotentialIdx((int)numericCellValue);
 				}
 				// 展现数
-				XSSFCell impressionsCell = row.getCell(firstCellNum +5);
+				XSSFCell impressionsCell = row.getCell(firstCellNum +4);
 				if (impressionsCell != null) {
 					double value = impressionsCell.getNumericCellValue();
 					entity.setImpressions((int) value);
